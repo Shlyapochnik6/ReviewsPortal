@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ReviewsPortal.Application\ReviewsPortal.Application.csproj" />
+    <ProjectReference Include="..\ReviewsPortal.Persistence\ReviewsPortal.Persistence.csproj" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
