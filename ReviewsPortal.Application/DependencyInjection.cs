@@ -8,11 +8,10 @@ namespace ReviewsPortal.Application;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddMediatR(Assembly.GetExecutingAssembly());
-        var connection = new DbConnectionSelection(configuration);
+        var connection = new DbConnectionSelection();
         services.AddSingleton(connection);
         return services;
     }

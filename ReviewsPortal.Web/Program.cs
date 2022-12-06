@@ -19,7 +19,7 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new AssemblyMappingProfile(typeof(IReviewsPortalDbContext).Assembly));
 });
 
-builder.Services.AddApplication(configuration);
+builder.Services.AddApplication();
 builder.Services.AddPersistence();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>

@@ -7,9 +7,6 @@ namespace ReviewsPortal.Persistence.Contexts;
 
 public class ReviewsPortalDbContext : IdentityDbContext<User>, IReviewsPortalDbContext
 {
-    public ReviewsPortalDbContext(DbContextOptions<ReviewsPortalDbContext> options) 
-        : base(options)
-    {
-        Database.EnsureCreated();
-    }
+    public ReviewsPortalDbContext(DbContextOptions<ReviewsPortalDbContext> options)
+        : base(options) { }
 }

@@ -4,17 +4,12 @@ namespace ReviewsPortal.Application.Common.DbConnectionManagers;
 
 public class DbConnectionSelection
 {
-    private readonly IConfiguration _configuration;
-
-    public DbConnectionSelection(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
     public string? GetConnectionConfiguration()
     {
         var e = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        var result = e == "Production" ? _configuration["ProductionDbConnection"] : _configuration["DbConnection"];
+        var result = e == "Production" ? 
+            "Host=dpg-ce751q14rebdt3d6cbf0-a;Port=5432;Database=reviews_db;Username=reviews_db_user;Password=n67kVQ1jBwP1c208G3DbmxgFg2QIWLE7" :
+            "Host=localhost;Port=5432;Database=ReviewsPortal;Username=postgres;Password=sa";
         return result;
     }
 }

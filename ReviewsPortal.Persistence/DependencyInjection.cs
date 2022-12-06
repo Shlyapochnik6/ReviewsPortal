@@ -14,7 +14,8 @@ public static class DependencyInjection
     {
         var serviceProvider = services.BuildServiceProvider();
         var connectionString = serviceProvider.GetRequiredService<DbConnectionSelection>().GetConnectionConfiguration();
-        services.AddDbContext<ReviewsPortalDbContext>(options => options.UseNpgsql(connectionString));
+        services.AddDbContext<ReviewsPortalDbContext>(options => options.UseNpgsql(connectionString,
+            x => x.MigrationsAssembly(typeof(ReviewsPortalDbContext).Assembly.FullName)));
         services.AddScoped<IReviewsPortalDbContext, ReviewsPortalDbContext>();
         return services;
     }
