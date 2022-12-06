@@ -6,6 +6,7 @@ using ReviewsPortal.Application.Interfaces;
 using ReviewsPortal.Domain;
 using ReviewsPortal.Persistence;
 using ReviewsPortal.Persistence.Contexts;
+using ReviewsPortal.Web.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -58,6 +59,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllerRoute(
     name: "default",
