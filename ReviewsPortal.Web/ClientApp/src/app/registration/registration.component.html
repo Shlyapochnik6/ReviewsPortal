@@ -4,13 +4,16 @@
       <div class="error-mes">
         {{error}}
       </div>
-      <div class="error-mes" *ngIf="registrationForm.controls.email.errors?.email">
+      <div class="error-mes" *ngIf="registrationForm.controls.email.errors?.email && (registrationForm.get('email')?.dirty ||
+      registrationForm.get('email')?.touched)">
         Incorrect Email
       </div>
-      <div class="error-mes" *ngIf="registrationForm.controls.password.errors?.minlength">
+      <div class="error-mes" *ngIf="registrationForm.controls.password.errors?.minlength && (registrationForm.get('password')?.dirty ||
+      registrationForm.get('password')?.touched)">
         Incorrect password
       </div>
-      <div class="error-mes" *ngIf="registrationForm.controls.password.errors?.required">
+      <div class="error-mes" *ngIf="registrationForm.controls.password.errors?.required && (registrationForm.get('password')?.dirty ||
+      registrationForm.get('password')?.touched)">
         Enter password
       </div>
       <div class="error-mes" *ngIf="registrationForm.controls['confirm'].errors?.required">

@@ -27,8 +27,4 @@
     <ProjectReference Include="..\ReviewsPortal.Domain\ReviewsPortal.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CommandsQueries\User\Queries" />
-  </ItemGroup>
-
 </Project>

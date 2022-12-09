@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ReviewsPortal.Application.CommandsQueries.User.Commands.Registration;
+using ReviewsPortal.Application.CommandsQueries.User.Queries.Login;
 using ReviewsPortal.Domain;
 using ReviewsPortal.Web.Models;
 
@@ -31,6 +32,15 @@ public class UserController : Controller
     {
         var command = _mapper.Map<UserRegistrationCommand>(dto);
         await _mediator.Send(command);
+        return Ok();
+    }
+
+    [AllowAnonymous]
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] UserLoginDto dto)
+    {
+        var query = _mapper.Map<UserLoginQuery>(dto);
+        await _mediator.Send(query);
         return Ok();
     }
 }
