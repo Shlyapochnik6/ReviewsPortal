@@ -8,6 +8,7 @@ import {AppComponent} from './app.component';
 import {NavMenuComponent} from './nav-menu/nav-menu.component';
 import {HomeComponent} from './home/home.component';
 import {RegistrationComponent} from "./registration/registration.component";
+import {LoginComponent} from "./login/login.component";
 import {CounterComponent} from './counter/counter.component';
 import {FetchDataComponent} from './fetch-data/fetch-data.component';
 
@@ -17,6 +18,7 @@ import {FetchDataComponent} from './fetch-data/fetch-data.component';
     NavMenuComponent,
     HomeComponent,
     RegistrationComponent,
+    LoginComponent,
     CounterComponent,
     FetchDataComponent
   ],
@@ -25,10 +27,11 @@ import {FetchDataComponent} from './fetch-data/fetch-data.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      {path: '', component: RegistrationComponent, pathMatch: 'full'},
+      {path: '', component: LoginComponent, pathMatch: 'full'},
       {path: 'counter', component: CounterComponent},
       {path: 'fetch-data', component: FetchDataComponent},
-      {path: 'registration', component: RegistrationComponent}
+      {path: 'registration', component: RegistrationComponent},
+      {path: 'login', component: LoginComponent}
     ]),
     ReactiveFormsModule
   ],

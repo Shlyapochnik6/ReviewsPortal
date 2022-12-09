@@ -1,0 +1,35 @@
+﻿<div class="container mt-5 px-2">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="flex-container">
+      <div class="error-mes" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.errors && (loginForm.get('email')?.dirty ||
+      loginForm.get('email')?.touched)">
+        Incorrect Email
+      </div>
+      <div class="error-mes" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.errors && (loginForm.get('password')?.dirty ||
+      loginForm.get('password')?.touched)">
+        Incorrect password
+      </div>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-email">Email</span>
+      </div>
+      <input formControlName="email" type="text" id="email" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-email" required>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-password">Password</span>
+      </div>
+      <input formControlName="password" type="password" id="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-password" required>
+    </div>
+    <div class="form-check remember-item">
+      <input formControlName="rememberMe" class="form-check-input" type="checkbox" value="false" id="flexRemember" checked>
+      <label class="form-check-label" for="flexRemember">
+        Remember me
+      </label>
+    </div>
+    <div>
+      <button [disabled]="loginForm.invalid" type="submit" class="btn btn-outline-primary">Sign in</button>
+    </div>
+  </form>
+</div>
