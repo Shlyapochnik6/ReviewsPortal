@@ -1,5 +1,7 @@
 ﻿import {Component} from "@angular/core";
 import {AbstractControl, FormGroup, FormControl, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -8,6 +10,11 @@ import {AbstractControl, FormGroup, FormControl, ValidationErrors, ValidatorFn, 
 })
 
 export class RegistrationComponent{
+  error?: string;
+
+  constructor(private http: HttpClient, private router: Router) {
+  }
+
   checkPassword: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
     const confirm = group.get('confirm')?.value;
     const password = group.get('password')?.value;
@@ -35,6 +42,14 @@ export class RegistrationComponent{
     {validators: this.checkPassword})
 
   onSubmit() {
-    console.log(this.registrationForm?.controls.rememberMe);
+    console.log(this.registrationForm.value)
+    this.http.post('api/user/registration', this.registrationForm.value).subscribe({
+      next: _ => this.router.navigate(['/']),
+      error: error => {
+        if (error.status === 409) {
+          this.error = "A user with the same username or email address already exists";
+        }
+      }
+    });
   }
 }
