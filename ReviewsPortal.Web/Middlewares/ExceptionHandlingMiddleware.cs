@@ -27,7 +27,12 @@ public class ExceptionHandlingMiddleware
             await HandleExceptionAsync(httpContext, e.Message,
                 HttpStatusCode.Conflict);
         }
-        catch (Exception e)
+        catch (IncorrectPasswordException e)
+        {
+            await HandleExceptionAsync(httpContext, e.Message,
+                HttpStatusCode.Unauthorized);
+        }
+        catch (UnfoundException e)
         {
             await HandleExceptionAsync(httpContext, e.Message,
                 HttpStatusCode.NotFound);
