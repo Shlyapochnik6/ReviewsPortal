@@ -20,10 +20,10 @@ public class UserRegistrationDto : IMapWith<UserRegistrationCommand>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<UserRegistrationDto, UserRegistrationCommand>()
-            .ForMember(u => u.Name,
-                opt => opt.MapFrom(u => u.UserName))
             .ForMember(u => u.Email,
                 opt => opt.MapFrom(u => u.Email))
+            .ForMember(u => u.Name,
+                opt => opt.MapFrom(u => u.UserName))
             .ForMember(u => u.Password,
                 opt => opt.MapFrom(u => u.Password))
             .ForMember(u => u.Remember,

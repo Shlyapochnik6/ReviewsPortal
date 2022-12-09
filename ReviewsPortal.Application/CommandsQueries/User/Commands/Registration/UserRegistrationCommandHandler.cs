@@ -35,7 +35,7 @@ public class UserRegistrationCommandHandler : IRequestHandler<UserRegistrationCo
         CancellationToken cancellationToken)
     {
         var existingUser = await _dbContext.Users.AnyAsync(u =>
-            u.Email == request.Email, cancellationToken);
+            u.Email == request.Email || u.UserName == request.Name, cancellationToken);
         return existingUser;
     }
 
