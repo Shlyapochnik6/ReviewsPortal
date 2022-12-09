@@ -28,8 +28,7 @@ export class RegistrationComponent{
       Validators.email
     ]),
     'userName': new FormControl('', [
-      Validators.required,
-      Validators.pattern("^[a-zA-Z0-9_]*$")
+      Validators.required
     ]),
     'password': new FormControl('', [
       Validators.required,
@@ -42,12 +41,11 @@ export class RegistrationComponent{
     {validators: this.checkPassword})
 
   onSubmit() {
-    console.log(this.registrationForm.value)
     this.http.post('api/user/registration', this.registrationForm.value).subscribe({
       next: _ => this.router.navigate(['/']),
       error: error => {
         if (error.status === 409) {
-          this.error = "A user with the same username or email address already exists";
+          this.error = "This name or email has already been created";
         }
       }
     });

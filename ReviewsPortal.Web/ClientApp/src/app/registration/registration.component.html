@@ -1,6 +1,9 @@
 ﻿<div class="container mt-5 px-2">
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <div class="flex-container">
+      <div class="error-mes">
+        {{error}}
+      </div>
       <div class="error-mes" *ngIf="registrationForm.controls.email.errors?.email">
         Incorrect Email
       </div>
