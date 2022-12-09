@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
+using ReviewsPortal.Application.Common.Exceptions;
 
 namespace ReviewsPortal.Web.Middlewares;
 
@@ -20,6 +21,11 @@ public class ExceptionHandlingMiddleware
         try
         {
             await _next(httpContext);
+        }
+        catch (ExistingUserException e)
+        {
+            await HandleExceptionAsync(httpContext, e.Message,
+                HttpStatusCode.Conflict);
         }
         catch (Exception e)
         {

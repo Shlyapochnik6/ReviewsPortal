@@ -28,7 +28,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.Password.RequireLowercase = false;
     options.Password.RequireUppercase = false;
     options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 6;
+    options.Password.RequiredLength = 5;
     options.User.RequireUniqueEmail = true;
     options.SignIn.RequireConfirmedEmail = false;
 }).AddEntityFrameworkStores<ReviewsPortalDbContext>();
