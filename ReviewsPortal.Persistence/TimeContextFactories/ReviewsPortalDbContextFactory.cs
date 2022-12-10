@@ -11,9 +11,17 @@ public class ReviewsPortalDbContextFactory : IDesignTimeDbContextFactory<Reviews
 {
     public ReviewsPortalDbContext CreateDbContext(string[] args)
     {
-        var connectionString = new DbConnectionSelection().GetConnectionConfiguration();
+        var connection = GetConnectionString();
         var builder = new DbContextOptionsBuilder<ReviewsPortalDbContext>();
-        builder.UseNpgsql(connectionString);
+        builder.UseNpgsql(connection);
         return new ReviewsPortalDbContext(builder.Options);
+    }
+
+    private static string GetConnectionString()
+    {
+        var connectionString = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production"
+            ? "Host=dpg-ce751q14rebdt3d6cbf0-a;Port=5432;Database=reviews_db;Username=reviews_db_user;Password=n67kVQ1jBwP1c208G3DbmxgFg2QIWLE7"
+            : "Host=localhost;Port=5432;Database=ReviewsPortal;Username=postgres;Password=sa";
+        return connectionString ?? throw new NullReferenceException("The connection string to database is empty");
     }
 }
