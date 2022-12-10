@@ -51,6 +51,7 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
 if (!app.Environment.IsDevelopment())
 {
     app.UseHsts();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();
