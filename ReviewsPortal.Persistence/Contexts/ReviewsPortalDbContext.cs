@@ -8,7 +8,10 @@ namespace ReviewsPortal.Persistence.Contexts;
 public class ReviewsPortalDbContext : IdentityDbContext<User>, IReviewsPortalDbContext
 {
     public DbSet<User> Users { get; set; }
-    
+
     public ReviewsPortalDbContext(DbContextOptions<ReviewsPortalDbContext> options)
-        : base(options) { }
+        : base(options)
+    {
+        Database.Migrate();
+    }
 }
