@@ -6,7 +6,11 @@ const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_H
 const PROXY_CONFIG = [
   {
     context: [
+      "/signin-google",
+      "/signin-facebook",
+      "/google-callback",
       "/api/user",
+      "/api/home"
    ],
     target: target,
     secure: false,

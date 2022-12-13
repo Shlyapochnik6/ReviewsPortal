@@ -12,11 +12,12 @@
       registrationForm.get('password')?.touched)">
         Incorrect password
       </div>
-      <div class="error-mes" *ngIf="registrationForm.controls.password.errors?.required && (registrationForm.get('password')?.dirty ||
+      <div class="error-mes" *ngIf="registrationForm.controls.password.errors?.required && (
       registrationForm.get('password')?.touched)">
         Enter password
       </div>
-      <div class="error-mes" *ngIf="registrationForm.controls['confirm'].errors?.required">
+      <div class="error-mes" *ngIf="registrationForm.controls['confirm'].errors?.required && (registrationForm.get('confirm')?.dirty ||
+      registrationForm.get('password')?.touched)">
         Confirm password
       </div>
       <div class="error-mes" *ngIf="registrationForm.hasError('notSame')">
@@ -56,5 +57,6 @@
     <div>
       <button [disabled]="registrationForm.invalid" type="submit" class="btn btn-outline-primary">Sign up</button>
     </div>
+    <app-external-login></app-external-login>
   </form>
 </div>

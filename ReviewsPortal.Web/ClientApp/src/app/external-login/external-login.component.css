@@ -1,0 +1,11 @@
+﻿.flex-container {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  width: 100%;
+}
+
+.flex-item {
+  display: flex;
+  margin-left: 10px;
+}

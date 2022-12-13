@@ -9,9 +9,18 @@ using ReviewsPortal.Persistence.Contexts;
 using ReviewsPortal.Web.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
-var configuration = builder.Configuration;
+var policy = new CookiePolicyOptions()
+{
+    Secure = CookieSecurePolicy.Always
+};
 
-builder.Services.AddControllersWithViews();
+builder.Configuration.AddEnvironmentVariables()
+    .AddUserSecrets(Assembly.GetExecutingAssembly(), true);
+builder.Configuration
+    .AddJsonFile("/etc/secrets/secrets.json", true);
+
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson();
 
 builder.Services.AddAutoMapper(config =>
 {
@@ -19,7 +28,7 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new AssemblyMappingProfile(typeof(IReviewsPortalDbContext).Assembly));
 });
 
-builder.Services.AddApplication();
+builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddPersistence();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -30,6 +39,9 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredLength = 5;
     options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters =
+        "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" +
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ";
     options.SignIn.RequireConfirmedEmail = true;
 }).AddEntityFrameworkStores<ReviewsPortalDbContext>();
 
@@ -51,13 +63,13 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
 if (!app.Environment.IsDevelopment())
 {
     app.UseHsts();
-    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseCookiePolicy(policy);
 app.UseAuthentication();
 app.UseAuthorization();
 
