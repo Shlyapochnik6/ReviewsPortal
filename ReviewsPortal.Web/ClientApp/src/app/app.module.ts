@@ -13,6 +13,7 @@ import {CounterComponent} from './counter/counter.component';
 import {FetchDataComponent} from './fetch-data/fetch-data.component';
 import {LoginCallbackComponent} from "./login-callback/login-callback.component";
 import {ExternalLoginComponent} from "./external-login/external-login.component";
+import {ThemeToggleComponent} from './theme-toggle/theme-toggle.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {ExternalLoginComponent} from "./external-login/external-login.component"
     LoginCallbackComponent,
     ExternalLoginComponent,
     CounterComponent,
-    FetchDataComponent
+    FetchDataComponent,
+    ThemeToggleComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
