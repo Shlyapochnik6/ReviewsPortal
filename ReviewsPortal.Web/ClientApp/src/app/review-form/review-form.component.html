@@ -1,0 +1,33 @@
+<div class="flex-container">
+  <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <h2 style="margin-bottom: 15px">Create Review</h2>
+      <h6>Title</h6>
+      <input formControlName="title" type="text" class="form-control" id="exampleInputTitle" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <h6>Art name</h6>
+      <input formControlName="artName" type="text" class="form-control" id="exampleInputArt">
+    </div>
+    <div>
+      <h6>Description</h6>
+    </div>
+    <div>
+      <h6>Category</h6>
+    </div>
+    <div class="mb-3">
+      <h6>Grade</h6>
+      <ngb-rating formControlName="grade" (rateChange)="onGradeChange($event)"
+                  style="font-size: 30px" [max]="10" [(rate)]="grade" [readonly]="false"></ngb-rating>
+    </div>
+    <div>
+      <h6>Tags</h6>
+      <tag-input formControlName="tags" [maxItems]='40'></tag-input>
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

@@ -9,6 +9,8 @@ const PROXY_CONFIG = [
       "/signin-google",
       "/signin-facebook",
       "/google-callback",
+      "/api/reviews",
+      "/api/categories",
       "/api/user",
       "/api/home"
    ],
