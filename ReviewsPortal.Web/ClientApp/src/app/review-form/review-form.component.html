@@ -14,6 +14,11 @@
     </div>
     <div>
       <h6>Category</h6>
+      <div class="form-group">
+        <select required formControlName="category" class="form-control">
+          <option *ngFor="let category of categories" value="{{category}}">{{category}}</option>
+        </select>
+      </div>
     </div>
     <div class="mb-3">
       <h6>Grade</h6>
@@ -22,7 +27,11 @@
     </div>
     <div>
       <h6>Tags</h6>
-      <tag-input formControlName="tags" [maxItems]='40'></tag-input>
+      <tag-input [ngModel]="tags" [maxItems]='40' (onAdd)="onAddTag($event)"
+                 (onRemove)="onRemoveTag($event)" [onlyFromAutocomplete]="false" [ngModelOptions]="{standalone: true}">
+        <tag-input-dropdown [autocompleteObservable]="requestAutocompleteTags" displayBy="name" identifyBy="name">
+        </tag-input-dropdown>
+      </tag-input>
     </div>
     <div class="mb-3 form-check">
       <input type="checkbox" class="form-check-input" id="exampleCheck1">

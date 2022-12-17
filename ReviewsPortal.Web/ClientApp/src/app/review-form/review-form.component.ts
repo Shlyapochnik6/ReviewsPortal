@@ -5,6 +5,7 @@ import { CategoryService } from "../../common/services/category/category.service
 import { TagService } from "../../common/services/tag/tag.service";
 import { ReviewFormModel } from "../../common/models/review-form-model";
 import { TagModel } from "ngx-chips/core/tag-model";
+import { map, Observable } from "rxjs";
 
 @Component({
   selector: 'app-review-form',
@@ -23,8 +24,8 @@ export class ReviewFormComponent {
   @Input() onSubmitForm!: Function;
 
   constructor(private http: HttpClient, private router: Router,
-              private category: CategoryService,
-              private tag: TagService) {
+              private categoryService: CategoryService,
+              private tagService: TagService) {
     this.getAllCategories();
   }
 
@@ -37,18 +38,24 @@ export class ReviewFormComponent {
 
   onRemoveTag(tag: any){
     let tagIndex = this.tags.indexOf(tag);
-    this.tags.slice(tagIndex);
+    if (tagIndex != -1){
+      this.tags.slice(tagIndex);
+    }
     this.reviewForm.patchValue({
       tags: this.tags
     });
   }
 
-  requestAutocompleteTags() {
-
+  requestAutocompleteTags = (text: any): Observable<any> => {
+    return this.tagService.getAllTags().pipe(
+      map((data: any) => {
+        return data;
+      })
+    )
   }
 
   getAllCategories() {
-    this.category.getAllCategories().subscribe({
+    this.categoryService.getAllCategories().subscribe({
       next: value => this.categories == value.map(function(category: any) {
         return category.name;
       })
