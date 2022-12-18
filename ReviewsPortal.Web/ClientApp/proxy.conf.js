@@ -11,6 +11,7 @@ const PROXY_CONFIG = [
       "/google-callback",
       "/api/reviews",
       "/api/categories",
+      "/api/tags",
       "/api/user",
       "/api/home"
    ],

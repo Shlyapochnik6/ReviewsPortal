@@ -3,8 +3,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgForOf, NgIf} from "@angular/common";
 import {ReviewFormComponent} from "./review-form.component";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import { TagInputModule } from 'ngx-chips';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {TagInputModule} from 'ngx-chips';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgxDropzoneModule} from "ngx-dropzone";
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     NgbModule,
     NgForOf,
-    NgIf
+    NgIf,
+    NgxDropzoneModule
   ],
   exports: [ReviewFormComponent],
   declarations: [

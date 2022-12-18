@@ -4,7 +4,7 @@ export interface ReviewFormModel extends FormGroup {
   controls: {
     title: FormControl,
     artName: FormControl,
-    category: FormControl,
+    categoryName: FormControl,
     tags: FormControl,
     description: FormControl,
     grade: FormControl

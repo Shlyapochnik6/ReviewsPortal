@@ -46,6 +46,21 @@ export class ReviewFormComponent {
     });
   }
 
+  onSelectImage(pic: any){
+    if (pic.addedFiles[0] === undefined){
+      return;
+    }
+    this.file = <File>pic.addedFiles[0];
+    this.reviewForm.patchValue({
+      imageUrl: <any>this.file
+    })
+    console.log(this.file)
+  }
+
+  onRemoveImage(pic: any){
+    this.file = undefined;
+  }
+
   requestAutocompleteTags = (text: any): Observable<any> => {
     return this.tagService.getAllTags().pipe(
       map((data: any) => {
@@ -56,8 +71,8 @@ export class ReviewFormComponent {
 
   getAllCategories() {
     this.categoryService.getAllCategories().subscribe({
-      next: value => this.categories == value.map(function(category: any) {
-        return category.name;
+      next: value => this.categories == value.map(function(c: any) {
+        return c.name;
       })
     });
   }

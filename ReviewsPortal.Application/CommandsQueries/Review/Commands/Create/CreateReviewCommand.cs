@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using ReviewsPortal.Application.Common.Mappings;
 
 namespace ReviewsPortal.Application.CommandsQueries.Review.Commands.Create;
@@ -13,6 +14,8 @@ public class CreateReviewCommand : IRequest<Guid>, IMapWith<Domain.Review>
     public string ArtName { get; set; }
 
     public string Description { get; set; }
+
+    public IFormFile ImageUrl { get; set; }
 
     public string Category { get; set; }
 
@@ -29,6 +32,8 @@ public class CreateReviewCommand : IRequest<Guid>, IMapWith<Domain.Review>
                 opt => opt.MapFrom(u => u.Category))
             .ForMember(u => u.Description,
                 opt => opt.MapFrom(u => u.Description))
+            .ForMember(u => u.ImageUrl,
+                opt => opt.MapFrom(u => u.ImageUrl))
             .ForMember(u => u.Grade,
                 opt => opt.MapFrom(u => u.Grade))
             .ForMember(u => u.Tags,

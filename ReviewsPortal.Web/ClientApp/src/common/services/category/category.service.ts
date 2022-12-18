@@ -11,6 +11,7 @@ export class CategoryService {
   }
 
   getAllCategories() {
+    console.log("getAllCategoriesService")
     return this.http.get<any>('api/categories');
   }
 }

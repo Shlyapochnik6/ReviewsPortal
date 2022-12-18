@@ -16,7 +16,8 @@ import {LoginCallbackComponent} from "./login-callback/login-callback.component"
 import {ExternalLoginComponent} from "./external-login/external-login.component";
 import {ThemeToggleComponent} from './theme-toggle/theme-toggle.component';
 import {CreateReviewComponent} from "./create-review/create-review.component";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgxDropzoneModule} from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
+    NgxDropzoneModule,
     FormsModule,
     RouterModule.forRoot([
       {path: '', component: CreateReviewComponent, pathMatch: 'full'},

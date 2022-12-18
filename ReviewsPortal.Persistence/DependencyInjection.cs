@@ -13,7 +13,8 @@ public static class DependencyInjection
     public static IServiceCollection AddPersistence(this IServiceCollection services)
     {
         var serviceProvider = services.BuildServiceProvider();
-        var connectionString = serviceProvider.GetRequiredService<DbConnectionSelection>().GetConnectionConfiguration();
+        var connectionSelection = serviceProvider.GetRequiredService<IDbConnectionSelection>();
+        var connectionString = connectionSelection.GetConnectionConfiguration();
         services.AddDbContext<ReviewsPortalDbContext>(options => options.UseNpgsql(connectionString,
             x => x.MigrationsAssembly(typeof(ReviewsPortalDbContext).Assembly.FullName)));
         services.AddScoped<IReviewsPortalDbContext, ReviewsPortalDbContext>();

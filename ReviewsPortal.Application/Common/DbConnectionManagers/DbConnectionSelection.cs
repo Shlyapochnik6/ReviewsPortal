@@ -2,7 +2,7 @@
 
 namespace ReviewsPortal.Application.Common.DbConnectionManagers;
 
-public class DbConnectionSelection
+public class DbConnectionSelection : IDbConnectionSelection
 {
     public string? GetConnectionConfiguration()
     {

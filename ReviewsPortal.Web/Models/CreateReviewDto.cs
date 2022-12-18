@@ -12,7 +12,9 @@ public class CreateReviewDto : IMapWith<CreateReviewCommand>
 
     public string Description { get; set; }
 
-    public string Category { get; set; }
+    public IFormFile ImageUrl { get; set; }
+
+    public string CategoryName { get; set; }
 
     public int Grade { get; set; }
 
@@ -21,17 +23,20 @@ public class CreateReviewDto : IMapWith<CreateReviewCommand>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<CreateReviewDto, CreateReviewCommand>()
-            .ForMember(r => r.Category,
-                c => c.MapFrom(r => r.Category))
             .ForMember(r => r.Title,
                 c => c.MapFrom(r => r.Title))
-            .ForMember(r => r.Tags,
-                c => c.MapFrom(r => r.Tags.Split(new[] { ',' })))
-            .ForMember(r => r.Grade,
-                c => c.MapFrom(r => r.Grade))
+            .ForMember(r => r.ArtName,
+                c => c.MapFrom(r => r.ArtName))
             .ForMember(r => r.Description,
                 c => c.MapFrom(r => r.Description))
-            .ForMember(r => r.ArtName,
-                c => c.MapFrom(r => r.ArtName));
+            .ForMember(r => r.Category,
+                c => c.MapFrom(r => r.CategoryName))
+            .ForMember(r => r.Grade,
+                c => c.MapFrom(r => r.Grade))
+            .ForMember(r => r.Tags,
+                c => c.MapFrom(r => r.Tags.Split(new[] { ',' })))
+            .ForMember(r => r.ImageUrl,
+                opt => opt.MapFrom(r => r.ImageUrl));
+
     }
 }

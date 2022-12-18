@@ -9,16 +9,24 @@
       <h6>Art name</h6>
       <input formControlName="artName" type="text" class="form-control" id="exampleInputArt">
     </div>
-    <div>
+    <div class="mb-3">
       <h6>Description</h6>
+      <input formControlName="description" type="text" class="form-control" id="exampleInputDesc">
+    </div>
+    <div class="mb-3">
+      <h6>Image Url</h6>
+      <ngx-dropzone accept="image/png, image/jpeg" class="justify-content-center" (change)="onSelectImage($event)">
+        <ngx-dropzone-preview [removable]="true" (removed)="onRemoveImage(file)">
+          <ngx-dropzone-label *ngIf="file != undefined" class="w-100">
+            {{ file!.name! }} {{ file!.type! }}
+          </ngx-dropzone-label>
+          <ngx-dropzone-label *ngIf="file == undefined" class="w-100">Add image</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+      </ngx-dropzone>
     </div>
     <div>
       <h6>Category</h6>
-      <div class="form-group">
-        <select required formControlName="category" class="form-control">
-          <option *ngFor="let category of categories" value="{{category}}">{{category}}</option>
-        </select>
-      </div>
+      <input formControlName="categoryName" type="text" class="form-control" id="exampleInputCategory">
     </div>
     <div class="mb-3">
       <h6>Grade</h6>

@@ -5,6 +5,7 @@ using ReviewsPortal.Application.CommandsQueries.Category.Queries.Get;
 using ReviewsPortal.Application.CommandsQueries.Tag.Commands.Create;
 using ReviewsPortal.Application.CommandsQueries.Tag.Queries.GetList;
 using ReviewsPortal.Application.CommandsQueries.User.Queries.Get;
+using ReviewsPortal.Application.Common.Clouds.Mega;
 using ReviewsPortal.Application.Interfaces;
 
 namespace ReviewsPortal.Application.CommandsQueries.Review.Commands.Create;
@@ -14,13 +15,15 @@ public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand, G
     private readonly IReviewsPortalDbContext _dbContext;
     private readonly IMapper _mapper;
     private readonly IMediator _mediator;
+    private readonly IMegaCloud _megaCloud;
 
     public CreateReviewCommandHandler(IReviewsPortalDbContext dbContext,
-        IMapper mapper, IMediator mediator)
+        IMapper mapper, IMediator mediator, IMegaCloud megaCloud)
     {
         _dbContext = dbContext;
         _mediator = mediator;
         _mapper = mapper;
+        _megaCloud = megaCloud;
     }
     
     public async Task<Guid> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
@@ -66,6 +69,7 @@ public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand, G
         review.Category = await GetCategory(request.Category);
         review.CreationDate = DateTime.UtcNow;
         review.Tags = await GetTags(request.Tags);
+        review.ImageUrl = await _megaCloud.UploadFile(request.ImageUrl);
         await _dbContext.Reviews.AddAsync(review, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
         return review.Id;
