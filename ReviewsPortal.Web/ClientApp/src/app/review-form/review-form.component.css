@@ -4,3 +4,9 @@
   width: 100%;
 }
 
+.error-mes {
+  padding-left: 5px;
+  color:red;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 14px;
+}

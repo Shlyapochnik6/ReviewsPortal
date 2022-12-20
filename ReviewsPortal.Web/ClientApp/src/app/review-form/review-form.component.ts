@@ -29,6 +29,18 @@ export class ReviewFormComponent {
     this.getAllCategories();
   }
 
+  getAllCategories() {
+    this.categoryService.getAllCategories().subscribe({
+      next: value => this.categories = value.map(function (a: any) {
+        return a.categoryName;
+      }),
+      error: err => {
+        console.log(err)
+      }
+    });
+    console.log(this.categories)
+  }
+
   onAddTag(tag: TagModel) {
     this.tags.push((<any>tag).value);
     this.reviewForm.patchValue({
@@ -67,14 +79,6 @@ export class ReviewFormComponent {
         return data;
       })
     )
-  }
-
-  getAllCategories() {
-    this.categoryService.getAllCategories().subscribe({
-      next: value => this.categories == value.map(function(c: any) {
-        return c.name;
-      })
-    });
   }
 
   onGradeChange(e: number) {

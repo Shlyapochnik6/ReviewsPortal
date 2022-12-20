@@ -8,6 +8,7 @@ const PROXY_CONFIG = [
     context: [
       "/signin-google",
       "/signin-facebook",
+      "/signin-mailru",
       "/google-callback",
       "/api/reviews",
       "/api/categories",

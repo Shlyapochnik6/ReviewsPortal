@@ -41,8 +41,6 @@ export class CreateReviewComponent {
   })
 
   onSubmitForm(){
-    console.log('onSubmitForm');
-    console.log(this.reviewForm.value);
     this.http.post('api/reviews', dataToForm(this.reviewForm.value))
       .subscribe({
         next: _ => this.router.navigate(['/']),

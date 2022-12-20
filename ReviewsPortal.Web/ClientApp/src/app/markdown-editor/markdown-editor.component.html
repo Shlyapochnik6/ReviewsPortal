@@ -34,9 +34,9 @@
       <button type="button" class="btn btn-outline-primary">Ref</button>
     </md-ref>
   </markdown-toolbar>
-  <textarea id="area_id" [formControl]="control" (focus)="focus()"
-    (blur)="blur()">
-  </textarea>
+  <textarea class="form-control" id="area_id" rows="3" [formControl]="control"
+            (focus)="focus()"
+            (blur)="blur()"></textarea>
   <div>
     <markdown [data]='control.value'></markdown>
   </div>

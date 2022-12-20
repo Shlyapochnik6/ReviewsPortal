@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using ReviewsPortal.Application.Interfaces;
@@ -18,8 +19,8 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, IEn
     
     public async Task<IEnumerable<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var categories = await _dbContext.Categories.Select(c => c).ToListAsync(cancellationToken);
-        var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
-        return categoriesDto;
+        var categories = await _dbContext.Categories.
+            ProjectTo<CategoryDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+        return categories;
     }
 }
