@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxDropzoneModule} from "ngx-dropzone";
 import {MarkdownEditorModule} from "../markdown-editor/markdown-editor.module";
 import {MarkdownModule} from "ngx-markdown";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import {MarkdownModule} from "ngx-markdown";
     NgIf,
     NgxDropzoneModule,
     MarkdownEditorModule,
-    MarkdownModule
+    MarkdownModule,
+    TranslateModule
   ],
   exports: [ReviewFormComponent],
   declarations: [

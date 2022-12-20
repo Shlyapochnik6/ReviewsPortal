@@ -1,46 +1,46 @@
 <div class="flex-container">
   <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
-      <h2 style="margin-bottom: 15px">Create Review</h2>
-      <h6>Title</h6>
+      <h2 style="margin-bottom: 15px">{{ 'ReviewForm.CreateReview' | translate }}</h2>
+      <h6>{{ 'ReviewForm.Title' | translate }}</h6>
       <div class="error-mes" *ngIf="reviewForm.controls.title.errors?.required &&
                                       reviewForm.controls['title'].touched">
-        Title required
+        {{ 'Validation.Required' | translate }}
       </div>
       <div class="error-mes" *ngIf="reviewForm.controls.title.hasError('maxlength') &&
         reviewForm.controls['title'].touched">
-        Maximum value exceeded
+        {{ 'Validation.MaxLength' | translate }}
       </div>
       <input formControlName="title" type="text" class="form-control" id="exampleInputTitle" aria-describedby="emailHelp">
     </div>
     <div class="mb-3">
-      <h6>Art name</h6>
+      <h6>{{ 'ReviewForm.ArtName' | translate }}</h6>
       <div class="error-mes" *ngIf="reviewForm.controls.artName.errors?.required &&
                                       reviewForm.controls['artName'].touched">
-        Art name required
+        {{ 'Validation.Required' | translate }}
       </div>
       <div class="error-mes" *ngIf="reviewForm.controls.artName.hasError('maxlength') &&
         reviewForm.controls['artName'].touched">
-        Maximum value exceeded
+        {{ 'Validation.MaxLength' | translate }}
       </div>
       <input formControlName="artName" type="text" class="form-control" id="exampleInputArt">
     </div>
     <div class="mb-3">
-      <h6>Description</h6>
+      <h6>{{ 'ReviewForm.Description' | translate }}</h6>
       <div>
         <div>
           <div class="error-mes" *ngIf="reviewForm.controls.description.errors?.required &&
-                                      reviewForm.controls['description'].touched">Description required</div>
-          <div class="error-mes" *ngIf="reviewForm.controls.description!.value!.length > 15000">Count letters limit exceeded</div>
+                                      reviewForm.controls['description'].touched">{{ 'Validation.Required' | translate }}</div>
+          <div class="error-mes" *ngIf="reviewForm.controls.description!.value!.length > 15000">{{ 'Validation.MaxLength' | translate }}</div>
         </div>
         <app-markdown-editor [control]="reviewForm.controls.description"></app-markdown-editor>
       </div>
     </div>
     <div class="mb-3">
-      <h6>Image Url</h6>
+      <h6>{{ 'ReviewForm.ImageUrl' | translate }}</h6>
       <div class="error-mes" *ngIf="reviewForm.controls.imageUrl.errors?.required &&
                                       reviewForm.controls['imageUrl'].touched">
-        Image url required
+        {{ 'Validation.Required' | translate }}
       </div>
       <ngx-dropzone accept="image/png, image/jpeg" class="justify-content-center" (change)="onSelectImage($event)">
         <ngx-dropzone-preview [removable]="true" (removed)="onRemoveImage(file)">
@@ -52,10 +52,10 @@
       </ngx-dropzone>
     </div>
     <div>
-      <h6>Category</h6>
+      <h6>{{ 'ReviewForm.Category' | translate }}</h6>
       <div class="error-mes" *ngIf="reviewForm.controls.categoryName.errors?.required &&
             reviewForm.controls['categoryName'].touched">
-        Category name required
+        {{ 'Validation.Required' | translate }}
       </div>
       <select formControlName="categoryName" class="form-select">
         <option *ngFor="let category of categories" value="{{category}}">
@@ -65,15 +65,15 @@
       </select>
     </div>
     <div class="mb-3">
-      <h6>Grade</h6>
+      <h6>{{ 'ReviewForm.Grade' | translate }}</h6>
       <ngb-rating formControlName="grade" (rateChange)="onGradeChange($event)"
                   style="font-size: 30px" [max]="10" [(rate)]="grade" [readonly]="false"></ngb-rating>
     </div>
     <div>
-      <h6>Tags</h6>
+      <h6>{{ 'ReviewForm.Tags' | translate }}</h6>
       <div class="error-mes" *ngIf="reviewForm.controls.tags.errors?.required &&
             reviewForm.controls['tags'].touched">
-        Tags required
+        {{ 'Validation.TagsRequired' | translate }}
       </div>
       <tag-input [ngModel]="tags" [maxItems]='40' (onAdd)="onAddTag($event)"
                  (onRemove)="onRemoveTag($event)" [onlyFromAutocomplete]="false" [ngModelOptions]="{standalone: true}">
@@ -81,6 +81,6 @@
         </tag-input-dropdown>
       </tag-input>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary flex-item">{{ 'ReviewForm.Submit' | translate }}</button>
   </form>
 </div>

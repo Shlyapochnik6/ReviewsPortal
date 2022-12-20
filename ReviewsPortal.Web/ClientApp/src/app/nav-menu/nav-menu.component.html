@@ -1,6 +1,6 @@
 <header>
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+    class="navbar navbar-expand-lg navbar-toggleable-lg navbar-light border-bottom box-shadow mb-3"
   >
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">ReviewsPortal.Web</a>
@@ -25,7 +25,7 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/registration']">Registration</a>
+            <a class="nav-link text-dark" [routerLink]="['/registration']">{{ 'Header.Registration' | translate }}</a>
           </li>
         </ul>
         <ul class="navbar-nav flex-grow">
@@ -34,12 +34,17 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/login']">Login</a>
+            <a class="nav-link text-dark" [routerLink]="['/login']">{{ 'Header.Login' | translate }}</a>
           </li>
         </ul>
         <ul class="navbar-nav flex-grow">
           <li>
             <app-theme-toggle></app-theme-toggle>
+          </li>
+        </ul>
+        <ul class="navbar-nav flex-grow">
+          <li>
+            <app-language-dropdown></app-language-dropdown>
           </li>
         </ul>
       </div>
