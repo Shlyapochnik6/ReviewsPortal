@@ -6,6 +6,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {TagInputModule} from 'ngx-chips';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxDropzoneModule} from "ngx-dropzone";
+import {MarkdownEditorModule} from "../markdown-editor/markdown-editor.module";
+import {MarkdownModule} from "ngx-markdown";
 
 @NgModule({
   imports: [
@@ -16,7 +18,9 @@ import {NgxDropzoneModule} from "ngx-dropzone";
     NgbModule,
     NgForOf,
     NgIf,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    MarkdownEditorModule,
+    MarkdownModule
   ],
   exports: [ReviewFormComponent],
   declarations: [

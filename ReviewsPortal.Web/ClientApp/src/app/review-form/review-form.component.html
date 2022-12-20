@@ -11,7 +11,14 @@
     </div>
     <div class="mb-3">
       <h6>Description</h6>
-      <input formControlName="description" type="text" class="form-control" id="exampleInputDesc">
+      <div>
+        <div>
+          <div class="" *ngIf="reviewForm.controls.description.errors?.required &&
+                                      reviewForm.controls['description'].touched">Description required</div>
+          <div class="" *ngIf="reviewForm.controls.description!.value!.length > 15000">Count letters limit exceeded</div>
+        </div>
+        <app-markdown-editor [control]="reviewForm.controls.description"></app-markdown-editor>
+      </div>
     </div>
     <div class="mb-3">
       <h6>Image Url</h6>

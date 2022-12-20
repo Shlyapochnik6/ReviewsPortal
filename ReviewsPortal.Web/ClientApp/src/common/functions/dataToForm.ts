@@ -5,6 +5,5 @@
     const value = formValue[key];
     formData.append(key, value);
   }
-
   return formData;
 }

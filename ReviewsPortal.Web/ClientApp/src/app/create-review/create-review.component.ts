@@ -28,7 +28,8 @@ export class CreateReviewComponent {
       Validators.required
     ]),
     description : new FormControl('', [
-      Validators.required
+      Validators.required,
+      Validators.maxLength(15000)
     ]),
     categoryName : new FormControl('', [
       Validators.required
@@ -41,6 +42,7 @@ export class CreateReviewComponent {
 
   onSubmitForm(){
     console.log('onSubmitForm');
+    console.log(this.reviewForm.value);
     this.http.post('api/reviews', dataToForm(this.reviewForm.value))
       .subscribe({
         next: _ => this.router.navigate(['/']),

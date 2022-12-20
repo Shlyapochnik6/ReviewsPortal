@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, SecurityContext} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
@@ -18,6 +18,9 @@ import {ThemeToggleComponent} from './theme-toggle/theme-toggle.component';
 import {CreateReviewComponent} from "./create-review/create-review.component";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgxDropzoneModule} from 'ngx-dropzone';
+import {TagInputModule} from "ngx-chips";
+import {MarkdownModule, MarkedOptions} from 'ngx-markdown';
+import {MarkdownEditorModule} from "./markdown-editor/markdown-editor.module";
 
 @NgModule({
   declarations: [
@@ -49,7 +52,22 @@ import {NgxDropzoneModule} from 'ngx-dropzone';
     ]),
     ReactiveFormsModule,
     ReviewFormModule,
-    NgbModule
+    NgbModule,
+    TagInputModule,
+    MarkdownEditorModule,
+    MarkdownModule.forRoot(({
+      markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+          gfm: true,
+          breaks: true,
+          pedantic: false,
+          smartLists: true,
+          smartypants: true,
+        },
+      },
+      sanitize: SecurityContext.NONE
+    }))
   ],
   providers: [],
   bootstrap: [AppComponent]

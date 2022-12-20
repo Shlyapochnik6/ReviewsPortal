@@ -1,0 +1,43 @@
+﻿<div>
+  <markdown-toolbar for="area_id" class="toolbar">
+    <md-bold title="Bold" aria-label="Bold">
+      <button type="button" class="btn btn-outline-primary">Bold</button>
+    </md-bold>
+    <md-header title="Header" aria-label="Header">
+      <button type="button" class="btn btn-outline-primary">Header</button>
+    </md-header>
+    <md-italic title="Italic" aria-label="Italic">
+      <button type="button" class="btn btn-outline-primary">Italic</button>
+    </md-italic>
+    <md-quote title="Quote" aria-label="Quote">
+      <button type="button" class="btn btn-outline-primary">Quote</button>
+    </md-quote>
+    <md-code title="Code" aria-label="Code">
+      <button type="button" class="btn btn-outline-primary">Code</button>
+    </md-code>
+    <md-link title="Link" aria-label="Link">
+      <button type="button" class="btn btn-outline-primary">Link</button>
+    </md-link>
+    <md-unordered-list title="Unordered List" aria-label="Unordered List">
+      <button type="button" class="btn btn-outline-primary">Unordered List</button>
+    </md-unordered-list>
+    <md-ordered-list title="Ordered List" aria-label="Ordered List">
+      <button type="button" class="btn btn-outline-primary">Ordered List</button>
+    </md-ordered-list>
+    <md-task-list title="Task List" aria-label="Task List">
+      <button type="button" class="btn btn-outline-primary">Task List</button>
+    </md-task-list>
+    <md-metion title="Mention" aria-label="Mention">
+      <button type="button" class="btn btn-outline-primary">Mention</button>
+    </md-metion>
+    <md-ref title="Ref" aria-label="Ref">
+      <button type="button" class="btn btn-outline-primary">Ref</button>
+    </md-ref>
+  </markdown-toolbar>
+  <textarea id="area_id" [formControl]="control" (focus)="focus()"
+    (blur)="blur()">
+  </textarea>
+  <div>
+    <markdown [data]='control.value'></markdown>
+  </div>
+</div>

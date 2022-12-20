@@ -31,9 +31,7 @@ public class MegaCloud : IMegaCloud
     {
         var folder = await _client.CreateFolderAsync(name, node);
         if (folder == null)
-        {
             throw new NullReferenceException("Failed to create folder");
-        }
         return folder;
     }
 
