@@ -16,3 +16,11 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+:host-context(.bootstrap) nav {
+  background: white;
+}
+
+:host-context(.bootstrap-dark) nav {
+  background: #191d21;
+}

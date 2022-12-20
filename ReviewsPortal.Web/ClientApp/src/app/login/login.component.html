@@ -3,11 +3,11 @@
     <div class="flex-container">
       <div class="error-mes" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.errors && (loginForm.get('email')?.dirty ||
       loginForm.get('email')?.touched)">
-        Incorrect Email
+        {{ 'Validation.InvalidEmailFormat' | translate }}
       </div>
       <div class="error-mes" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.errors && (loginForm.get('password')?.dirty ||
       loginForm.get('password')?.touched)">
-        Incorrect password
+        {{ 'Validation.InvalidPassword' | translate }}
       </div>
       <div class="error-mes">
         {{ error }}
@@ -15,24 +15,24 @@
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-email">Email</span>
+        <span class="input-group-text" id="inputGroup-sizing-email">{{ 'Forms.Titles.Email' | translate }}</span>
       </div>
       <input formControlName="email" type="text" id="email" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-email" required>
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-password">Password</span>
+        <span class="input-group-text" id="inputGroup-sizing-password">{{ 'Forms.Titles.Password' | translate }}</span>
       </div>
       <input formControlName="password" type="password" id="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-password" required>
     </div>
     <div class="form-check remember-item">
       <input formControlName="rememberMe" class="form-check-input" type="checkbox" value="false" id="flexRemember" checked>
       <label class="form-check-label" for="flexRemember">
-        Remember me
+        {{ 'Forms.Titles.RememberMe' | translate }}
       </label>
     </div>
     <div>
-      <button [disabled]="loginForm.invalid" type="submit" class="btn btn-outline-primary">Sign in</button>
+      <button [disabled]="loginForm.invalid" type="submit" class="btn btn-outline-primary">{{ 'Forms.Titles.SignIn' | translate }}</button>
     </div>
     <app-external-login></app-external-login>
   </form>

@@ -4,9 +4,30 @@
   width: 100%;
 }
 
+.flex-item {
+  display: flex;
+  margin-top: 15px;
+}
+
 .error-mes {
   padding-left: 5px;
   color:red;
   font-family: "Lucida Console", "Courier New", monospace;
   font-size: 14px;
+}
+
+::ng-deep :host-context(.bootstrap-dark) ngx-dropzone{
+  background: #101010;
+}
+
+::ng-deep :host-context(.bootstrap-dark) select{
+  background: #101010;
+}
+
+::ng-deep :host-context(.bootstrap-dark) tag-input{
+  background: #101010;
+}
+
+::ng-deep :host-context(.bootstrap-dark) tag-input-dropdown{
+  background: #101010;
 }

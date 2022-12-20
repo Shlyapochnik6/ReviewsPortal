@@ -26,6 +26,8 @@
     "@forevolve/bootstrap-dark": "^3.0.0",
     "@github/markdown-toolbar-element": "^2.1.1",
     "@ng-bootstrap/ng-bootstrap": "^13.0.0",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "@popperjs/core": "^2.11.6",
     "@types/marked": "^4.0.7",
     "bootstrap": "^5.2.3",

@@ -1,0 +1,58 @@
+﻿{
+  "Forms": {
+    "Titles": {
+      "Registration": "Registration",
+      "Login": "Login",
+      "Email": "Email",
+      "Name": "Name",
+      "Password": "Password",
+      "Confirmation": "Confirm",
+      "RememberMe": "Remember me",
+      "SignIn": "Sign in",
+      "SignUp": "Sign up"
+    }
+  },
+  "Header": {
+    "Login": "Login",
+    "Registration": "Registration",
+    "Logout": "Logout",
+    "Language": "Language"
+  },
+  "ReviewForm": {
+    "CreateReview": "Create review",
+    "Title": "Title",
+    "ArtName": "Art name",
+    "AddImage": "Add image",
+    "Description": "Description",
+    "ImageUrl": "Image Url",
+    "Category": "Category",
+    "Grade": "Grade",
+    "Tags": "Tags",
+    "Submit": "Submit"
+  },
+  "ReviewPage": {
+    "Author": "Author",
+    "CreationDate": "Creation date",
+    "Rating": "Rate",
+    "DragNDrop": "Drag or select",
+    "AverageRating": "Average rating",
+    "ArtName": "Art name is",
+    "Category": "Category",
+    "Grade": "Author grade",
+    "Tags": "Tags",
+    "Description": "Description",
+    "Submit": "Submit"
+  },
+  "Validation": {
+    "InvalidEmailFormat": "Incorrect Email format",
+    "UserExists": "This name or email has already been created",
+    "InvalidPassword": "Incorrect password",
+    "EnterPassword": "Enter password",
+    "ConfirmPassword": "Confirm password",
+    "MinLength": "Minimum length is not approached",
+    "MaxLength": "Maximum value is exceeded",
+    "PasswordsDoNotMatch": "Mismatched passwords",
+    "Required": "The field is required",
+    "TagsRequired": "Tags are required"
+  }
+}

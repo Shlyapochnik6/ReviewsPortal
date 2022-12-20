@@ -1,0 +1,58 @@
+﻿{
+  "Forms": {
+    "Titles": {
+      "Registration": "Регистрация",
+      "Login": "Вход",
+      "Email": "Почта",
+      "Name": "Имя",
+      "Password": "Пароль",
+      "Confirmation": "Подтвердить",
+      "RememberMe": "Запомнить меня",
+      "SignIn": "Войти",
+      "SignUp": "Зарегистрироваться"
+    }
+  },
+  "Header": {
+    "Login": "Вход",
+    "Registration": "Регистрация",
+    "Logout": "Выйти",
+    "Language": "Язык"
+  },
+  "ReviewForm": {
+    "CreateReview": "Создать обзор",
+    "Title": "Заголовок",
+    "ArtName": "Название объекта",
+    "Add image": "Добавить изображение",
+    "Description": "Описание",
+    "ImageUrl": "Адрес картинки",
+    "Category": "Категория",
+    "Grade": "Оценка",
+    "Tags": "Теги",
+    "Submit": "Отправить"
+  },
+  "ReviewPage": {
+    "Author": "Автор",
+    "CreationDate": "Дата создания",
+    "Rating": "Рейтинг",
+    "DragNDrop": "Перетащите или выберите",
+    "AverageRating": "Средняя оценка",
+    "ArtName": "Название объекта",
+    "Category": "Категория",
+    "Grade": "Оценка автора",
+    "Tags": "Теги",
+    "Description": "Описание",
+    "Submit": "Отправить"
+  },
+  "Validation": {
+    "InvalidEmailFormat": "Неправильный формат почты",
+    "UserExists": "Такое имя или адрес уже были созданы",
+    "InvalidPassword": "Неправильный пароль",
+    "EnterPassword": "Введите пароль",
+    "ConfirmPassword": "Подтвердите пароль",
+    "MinLength": "Минимальное значение не достигнуто",
+    "MaxLength": "Максимальное значение превышено",
+    "PasswordsDoNotMatch": "Несоответствующие пароли",
+    "Required": "Поле обязательно",
+    "TagsRequired": "Теги обязательны"
+  }
+}

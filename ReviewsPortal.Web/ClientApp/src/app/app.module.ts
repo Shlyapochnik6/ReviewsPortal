@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, SecurityContext} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {ReviewFormModule} from "./review-form/review-form.module";
 
@@ -21,6 +21,10 @@ import {NgxDropzoneModule} from 'ngx-dropzone';
 import {TagInputModule} from "ngx-chips";
 import {MarkdownModule, MarkedOptions} from 'ngx-markdown';
 import {MarkdownEditorModule} from "./markdown-editor/markdown-editor.module";
+import {TranslateModule, TranslateLoader} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {HttpLoaderFactory} from "../common/functions/httpLoaderFactory";
+import {LanguageDropdownComponent} from "./language-dropdown/language-dropdown.component";
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import {MarkdownEditorModule} from "./markdown-editor/markdown-editor.module";
     CreateReviewComponent,
     CounterComponent,
     FetchDataComponent,
-    ThemeToggleComponent
+    ThemeToggleComponent,
+    LanguageDropdownComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -67,7 +72,15 @@ import {MarkdownEditorModule} from "./markdown-editor/markdown-editor.module";
         },
       },
       sanitize: SecurityContext.NONE
-    }))
+    })),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      },
+      useDefaultLang: false
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

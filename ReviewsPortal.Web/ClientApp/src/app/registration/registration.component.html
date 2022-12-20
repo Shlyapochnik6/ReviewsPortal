@@ -2,60 +2,60 @@
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <div class="flex-container">
       <div class="error-mes">
-        {{error}}
+        {{ error }}
       </div>
       <div class="error-mes" *ngIf="registrationForm.controls.email.errors?.email && (registrationForm.get('email')?.dirty ||
       registrationForm.get('email')?.touched)">
-        Incorrect Email
+        {{ 'Validation.InvalidEmailFormat' | translate }}
       </div>
       <div class="error-mes" *ngIf="registrationForm.controls.password.errors?.minlength && (registrationForm.get('password')?.dirty ||
       registrationForm.get('password')?.touched)">
-        Incorrect password
+        {{ 'Validation.InvalidPassword' | translate }}
       </div>
       <div class="error-mes" *ngIf="registrationForm.controls.password.errors?.required && (
       registrationForm.get('password')?.touched)">
-        Enter password
+        {{ 'Validation.EnterPassword' | translate }}
       </div>
       <div class="error-mes" *ngIf="registrationForm.controls['confirm'].errors?.required && (registrationForm.get('confirm')?.dirty ||
       registrationForm.get('password')?.touched)">
-        Confirm password
+        {{ 'Validation.ConfirmPassword' | translate }}
       </div>
       <div class="error-mes" *ngIf="registrationForm.hasError('notSame')">
-        Mismatched passwords
+        {{ 'Validation.PasswordsDoNotMatch' | translate }}
       </div>
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-email">Email</span>
+        <span class="input-group-text" id="inputGroup-sizing-email">{{ 'Forms.Titles.Email' | translate }}</span>
       </div>
       <input formControlName="email" type="text" id="email" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-email" required>
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-name">Name</span>
+        <span class="input-group-text" id="inputGroup-sizing-name">{{ 'Forms.Titles.Name' | translate }}</span>
       </div>
       <input formControlName="userName" type="text" id="name" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-name" required>
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-password">Password</span>
+        <span class="input-group-text" id="inputGroup-sizing-password">{{ 'Forms.Titles.Password' | translate }}</span>
       </div>
       <input formControlName="password" type="password" id="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-password" required>
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-confirm">Confirm</span>
+        <span class="input-group-text" id="inputGroup-sizing-confirm">{{ 'Forms.Titles.Confirmation' | translate }}</span>
       </div>
       <input formControlName="confirm" type="password" id="confirm" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-confirm" required>
     </div>
     <div class="form-check remember-item">
       <input formControlName="rememberMe" class="form-check-input" type="checkbox" value="false" id="flexRemember" checked>
       <label class="form-check-label" for="flexRemember">
-        Remember me
+        {{ 'Forms.Titles.RememberMe' | translate }}
       </label>
     </div>
     <div>
-      <button [disabled]="registrationForm.invalid" type="submit" class="btn btn-outline-primary">Sign up</button>
+      <button [disabled]="registrationForm.invalid" type="submit" class="btn btn-outline-primary">{{ 'Forms.Titles.SignUp' | translate }}</button>
     </div>
     <app-external-login></app-external-login>
   </form>
