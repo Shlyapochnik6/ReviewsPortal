@@ -31,7 +31,17 @@ builder.Services.AddAutoMapper(config =>
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddPersistence();
 
-builder.Services.AddIdentity<User, IdentityRole>(options =>
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowAnyOrigin();
+    });
+});
+
+builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
 {
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = false;
@@ -66,6 +76,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 app.UseStaticFiles();
 app.UseRouting();
 

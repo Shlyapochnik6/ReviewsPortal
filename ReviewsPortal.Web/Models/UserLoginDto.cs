@@ -8,9 +8,9 @@ public class UserLoginDto : IMapWith<UserLoginQuery>
 {
     public string Email { get; set; }
     
-    public string Password { set; get; }
+    public string Password { get; set; }
     
-    public bool RememberMe { set; get; }
+    public bool RememberMe { get; set; }
     
     public void Mapping(Profile profile)
     {
