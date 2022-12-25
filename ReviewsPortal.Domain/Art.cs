@@ -6,6 +6,8 @@ public class Art
     
     public string ArtName { get; set; }
 
+    public double AverageRating { get; set; }
+
     public Guid ReviewId { get; set; }
 
     public Review Review { get; set; }

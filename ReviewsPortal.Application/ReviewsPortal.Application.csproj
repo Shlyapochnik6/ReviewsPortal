@@ -26,4 +26,8 @@
     <ProjectReference Include="..\ReviewsPortal.Domain\ReviewsPortal.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Hubs" />
+  </ItemGroup>
+
 </Project>

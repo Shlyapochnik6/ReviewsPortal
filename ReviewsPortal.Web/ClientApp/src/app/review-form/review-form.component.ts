@@ -6,6 +6,7 @@ import { TagService } from "../../common/services/tag/tag.service";
 import { ReviewFormModel } from "../../common/models/review-form-model";
 import { TagModel } from "ngx-chips/core/tag-model";
 import { map, Observable } from "rxjs";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-review-form',
@@ -38,7 +39,6 @@ export class ReviewFormComponent {
         console.log(err)
       }
     });
-    console.log(this.categories)
   }
 
   onAddTag(tag: TagModel) {
@@ -66,7 +66,6 @@ export class ReviewFormComponent {
     this.reviewForm.patchValue({
       imageUrl: <any>this.file
     })
-    console.log(this.file)
   }
 
   onRemoveImage(pic: any){
