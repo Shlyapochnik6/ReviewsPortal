@@ -31,17 +31,25 @@
     "Submit": "Отправить"
   },
   "ReviewPage": {
+    "Title": "Заголовок",
     "Author": "Автор",
+    "Count": "Количество записей",
     "CreationDate": "Дата создания",
     "Rating": "Рейтинг",
     "DragNDrop": "Перетащите или выберите",
+    "Date": "Дата",
+    "Search": "Поиск",
+    "TagSearch": "Название тега",
     "AverageRating": "Средняя оценка",
     "ArtName": "Название объекта",
     "Category": "Категория",
+    "LikesCount": "Количество лайков",
     "Grade": "Оценка автора",
     "Tags": "Теги",
     "Description": "Описание",
-    "Submit": "Отправить"
+    "Submit": "Отправить",
+    "ByRating": "По рейтингу",
+    "ByRecent": "Недавние"
   },
   "Validation": {
     "InvalidEmailFormat": "Неправильный формат почты",

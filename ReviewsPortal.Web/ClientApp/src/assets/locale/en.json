@@ -31,17 +31,25 @@
     "Submit": "Submit"
   },
   "ReviewPage": {
+    "Title": "Title",
     "Author": "Author",
+    "Count": "Number of records",
     "CreationDate": "Creation date",
     "Rating": "Rate",
     "DragNDrop": "Drag or select",
+    "Date": "Date",
+    "Search": "Search",
+    "TagSearch": "Tag's name",
     "AverageRating": "Average rating",
-    "ArtName": "Art name is",
+    "ArtName": "Art name",
     "Category": "Category",
+    "LikesCount": "Likes count",
     "Grade": "Author grade",
     "Tags": "Tags",
     "Description": "Description",
-    "Submit": "Submit"
+    "Submit": "Submit",
+    "ByRating": "By rating",
+    "ByRecent": "Recent"
   },
   "Validation": {
     "InvalidEmailFormat": "Incorrect Email format",

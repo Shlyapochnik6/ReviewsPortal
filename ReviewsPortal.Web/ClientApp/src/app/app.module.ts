@@ -47,7 +47,7 @@ import {LanguageDropdownComponent} from "./language-dropdown/language-dropdown.c
     NgxDropzoneModule,
     FormsModule,
     RouterModule.forRoot([
-      {path: '', component: CreateReviewComponent, pathMatch: 'full'},
+      {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'counter', component: CounterComponent},
       {path: 'fetch-data', component: FetchDataComponent},
       {path: 'registration', component: RegistrationComponent},

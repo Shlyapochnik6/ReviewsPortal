@@ -4,6 +4,10 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReviewsPortal.Application.CommandsQueries.Review.Commands.Create;
+using ReviewsPortal.Application.CommandsQueries.Review.Queries;
+using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetAllByUserId;
+using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetMostRated;
+using ReviewsPortal.Application.CommandsQueries.Review.Queries.SortSelection;
 using ReviewsPortal.Web.Models;
 
 namespace ReviewsPortal.Web.Controllers;
@@ -22,6 +26,31 @@ public class ReviewController : Controller
         _mediator = mediator;
     }
 
+    [HttpGet("get-by-user")]
+    public async Task<ActionResult<IEnumerable<GetAllUserReviewsDto>>> GetByCurrentUser()
+    {
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var query = new GetAllReviewsByUserIdQuery()
+        {
+            UserId = userId
+        };
+        var userReviews = await _mediator.Send(query);
+        return Ok(userReviews);
+    }
+    
+    [AllowAnonymous]
+    [HttpGet("get-all")]
+    public async Task<ActionResult<IEnumerable<GetAllReviewsDto>>> GetByRating(string? sorting, string? tag)
+    {
+        var query = new SortSelectionQuery()
+        {
+            Sorting = sorting,
+            Tag = tag
+        };
+        var reviews = await _mediator.Send(query);
+        return Ok(reviews);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Create([FromForm] CreateReviewDto dto)
     {
@@ -30,4 +59,5 @@ public class ReviewController : Controller
         var reviewId = await _mediator.Send(command);
         return Created("api/reviews", reviewId);
     }
+    
 }

@@ -31,7 +31,9 @@
         <div>
           <div class="error-mes" *ngIf="reviewForm.controls.description.errors?.required &&
                                       reviewForm.controls['description'].touched">{{ 'Validation.Required' | translate }}</div>
-          <div class="error-mes" *ngIf="reviewForm.controls.description!.value!.length > 15000">{{ 'Validation.MaxLength' | translate }}</div>
+          <div class="error-mes" *ngIf="reviewForm.controls.description!.value!.length > 15000">
+            {{ 'Validation.MaxLength' | translate }}
+          </div>
         </div>
         <app-markdown-editor [control]="reviewForm.controls.description"></app-markdown-editor>
       </div>
@@ -81,6 +83,9 @@
         </tag-input-dropdown>
       </tag-input>
     </div>
-    <button type="submit" class="btn btn-primary flex-item">{{ 'ReviewForm.Submit' | translate }}</button>
+    <button [disabled]="!this.reviewForm.valid" type="submit"
+            class="btn btn-primary flex-item">
+      {{ 'ReviewForm.Submit' | translate }}
+    </button>
   </form>
 </div>
