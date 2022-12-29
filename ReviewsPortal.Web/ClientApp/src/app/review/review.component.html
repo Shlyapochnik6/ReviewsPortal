@@ -1,0 +1,55 @@
+<div>
+  <div>
+    <p class="h4 review-title">{{review.title}}</p>
+    <p class="h6 review-elem">{{'ReviewPage.ArtName' | translate}}: {{review.artName}}</p>
+    <p class="h6 review-elem">{{'ReviewPage.Author' | translate}}  {{review.authorName}}</p>
+    <p class="h6 review-elem">{{'ReviewPage.Date' | translate}}: {{review.creationDate | date:'d.M.yy, HH:MM'}}</p>
+    <p class="h6 review-elem">{{'ReviewPage.Category' | translate}}: {{review.category}}</p>
+    <div class="d-flex justify-content-center">
+      <img class="review-image" width="200" height="300" alt="" src="https://akns-images.eonline.com/eol_images/Entire_Site/2019914/rs_685x1024-191014113838-634-fight-club-poster.cl.101419.jpg?fit=around%7C685:1024&output-quality=90&crop=685:1024;center,top">
+    </div>
+    <div>
+      <p class="h6 review-elem">{{'ReviewPage.Description' | translate}}: </p>
+      <markdown [data]="review.description"></markdown>
+    </div>
+    <p class="h6 review-elem">{{'ReviewPage.Grade' | translate}}: {{review.authorGrade}}</p>
+    <div>
+      <p class="h6 review-elem">{{'ReviewPage.RateArt' | translate}}:
+        <ngb-rating style="font-size: 30px" (rateChange)="onChangeRating($event)" [(rate)]="grade" [max]="5" [readonly]="false"></ngb-rating></p>
+    </div>
+    <div>
+      <p class="h6 review-elem">{{'ReviewPage.AverageRating' | translate}}: {{review.averageRating}}</p>
+      <p class="h6 review-elem">{{'ReviewPage.Tags' | translate}}: {{review.tags}}</p>
+    </div>
+    <div>
+      <div>
+        <div>
+          <p class="h6 review-elem">{{'ReviewPage.CreateComment' | translate}}: </p>
+          <textarea class="form-control" id="commentInput" rows="3"></textarea>
+          <button type="button" class="btn btn-primary" (click)="sendComment()">{{'ReviewPage.Submit' | translate}}</button>
+        </div>
+        <p class="h6 review-elem">{{'ReviewPage.Comments' | translate}}:</p>
+        <div *ngFor="let comment of this.commentService.comments">
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col" style="width: 24%;">{{ 'ReviewPage.Author' | translate }}</th>
+              <th scope="col" style="width: 24%;">{{ 'ReviewPage.Text' | translate }}</th>
+              <th scope="col" style="width: 24%;">{{ 'ReviewPage.Date' | translate }}</th>
+              <th scope="col" style="width: 24%;">{{ 'ReviewPage.LikesCount' | translate }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td style="width: 24%;">{{comment.authorName}}</td>
+              <td style="width: 24%;">{{comment.text}}</td>
+              <td style="width: 24%;">{{comment.creationDate | date:'d.M.yy, HH:MM'}}</td>
+              <td style="width: 24%;">{{comment.likesCount}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

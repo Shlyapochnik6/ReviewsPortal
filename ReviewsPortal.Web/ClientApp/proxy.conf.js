@@ -12,12 +12,16 @@ const PROXY_CONFIG = [
       "/google-callback",
       "/api/reviews",
       "/api/categories",
+      "/api/comments",
       "/api/tags",
       "/api/user",
-      "/api/home"
+      "/api/home",
+      "/api/ratings",
+      "/hub-comment"
    ],
     target: target,
     secure: false,
+    ws: true,
     headers: {
       Connection: 'Keep-Alive'
     }

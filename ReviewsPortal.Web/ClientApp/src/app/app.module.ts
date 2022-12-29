@@ -1,13 +1,14 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, SecurityContext} from '@angular/core';
+import {APP_INITIALIZER, NgModule, SecurityContext} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {ReviewFormModule} from "./review-form/review-form.module";
 
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from './nav-menu/nav-menu.component';
 import {HomeComponent} from './home/home.component';
+import {ReviewComponent} from "./review/review.component";
 import {RegistrationComponent} from "./registration/registration.component";
 import {LoginComponent} from "./login/login.component";
 import {CounterComponent} from './counter/counter.component';
@@ -31,6 +32,7 @@ import {LanguageDropdownComponent} from "./language-dropdown/language-dropdown.c
     AppComponent,
     NavMenuComponent,
     HomeComponent,
+    ReviewComponent,
     RegistrationComponent,
     LoginComponent,
     LoginCallbackComponent,
@@ -53,7 +55,8 @@ import {LanguageDropdownComponent} from "./language-dropdown/language-dropdown.c
       {path: 'registration', component: RegistrationComponent},
       {path: 'login', component: LoginComponent},
       {path: 'create-review', component: CreateReviewComponent},
-      {path: 'external-login-callback', component: LoginCallbackComponent}
+      {path: 'external-login-callback', component: LoginCallbackComponent},
+      {path: 'review/:id', component: ReviewComponent}
     ]),
     ReactiveFormsModule,
     ReviewFormModule,

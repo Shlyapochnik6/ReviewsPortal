@@ -2,10 +2,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ReviewsPortal.Application.Common.Clouds.Mega;
 using ReviewsPortal.Application.Common.DbConnectionManagers;
+using ReviewsPortal.Application.Common.UserIdProviders;
 
 namespace ReviewsPortal.Application;
 

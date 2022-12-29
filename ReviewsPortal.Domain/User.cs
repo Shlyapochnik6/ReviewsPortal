@@ -6,6 +6,8 @@ public class User : IdentityUser<Guid>
 {
     public override Guid Id { get; set; }
 
+    public int LikesCount { get; set; }
+
     public List<Like> Likes { get; set; } = new();
 
     public List<Rating> Ratings { get; set; } = new();

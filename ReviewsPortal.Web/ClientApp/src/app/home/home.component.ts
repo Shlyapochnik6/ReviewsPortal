@@ -34,6 +34,10 @@ export class HomeComponent implements OnInit {
     this.reviewsService.getAllReviews();
   }
 
+  reviewForm = new FormGroup({
+    'id': new FormControl(0)
+  })
+
   filterTags(tags: any[], searchTag?: string) {
     return tags.filter((tag) => tag.name.includes(searchTag));
   }

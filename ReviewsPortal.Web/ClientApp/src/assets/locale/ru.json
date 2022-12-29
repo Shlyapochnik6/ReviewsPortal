@@ -21,7 +21,7 @@
   "ReviewForm": {
     "CreateReview": "Создать обзор",
     "Title": "Заголовок",
-    "ArtName": "Название объекта",
+    "ArtName": "Название произведения",
     "Add image": "Добавить изображение",
     "Description": "Описание",
     "ImageUrl": "Адрес картинки",
@@ -41,7 +41,7 @@
     "Search": "Поиск",
     "TagSearch": "Название тега",
     "AverageRating": "Средняя оценка",
-    "ArtName": "Название объекта",
+    "ArtName": "Название произведения",
     "Category": "Категория",
     "LikesCount": "Количество лайков",
     "Grade": "Оценка автора",
@@ -49,7 +49,12 @@
     "Description": "Описание",
     "Submit": "Отправить",
     "ByRating": "По рейтингу",
-    "ByRecent": "Недавние"
+    "ByRecent": "Недавние",
+    "Show": "Показать",
+    "RateArt": "Оценить произведение",
+    "Comments": "Комментарии",
+    "CreateComment": "Создать комментарий",
+    "Text": "Текст"
   },
   "Validation": {
     "InvalidEmailFormat": "Неправильный формат почты",

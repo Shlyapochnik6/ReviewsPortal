@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ReviewsPortal.Application.CommandsQueries.Review.Commands.Create;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetAllByUserId;
+using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetDto;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetMostRated;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries.SortSelection;
 using ReviewsPortal.Web.Models;
@@ -25,15 +26,24 @@ public class ReviewController : Controller
         _mapper = mapper;
         _mediator = mediator;
     }
+    
+    [HttpGet]
+    public async Task<ActionResult<GetReviewDto>> Get(Guid reviewId)
+    {
+        var query = new GetReviewDtoQuery()
+        {
+            ReviewId = reviewId,
+            UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!)
+        };
+        var reviewDto = await _mediator.Send(query);
+        return Ok(reviewDto);
+    }
 
     [HttpGet("get-by-user")]
     public async Task<ActionResult<IEnumerable<GetAllUserReviewsDto>>> GetByCurrentUser()
     {
         var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        var query = new GetAllReviewsByUserIdQuery()
-        {
-            UserId = userId
-        };
+        var query = new GetAllReviewsByUserIdQuery() { UserId = userId };
         var userReviews = await _mediator.Send(query);
         return Ok(userReviews);
     }
