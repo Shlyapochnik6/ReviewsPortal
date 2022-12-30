@@ -29,10 +29,12 @@ export class ReviewComponent implements OnInit {
   async ngOnInit(){
     await this.commentService.startConnection(this.reviewId.toString());
     await this.commentService.getComment();
+    console.log(this.review.likesCount)
   }
 
   onChangeRating(rate: number) {
     this.grade = rate;
+    console.log(this.grade)
     this.http.post('api/ratings', {reviewId: this.reviewId, value: this.grade})
       .subscribe({
         error: err => {
@@ -75,5 +77,15 @@ export class ReviewComponent implements OnInit {
           this.grade = this.review.userRating
         }
       })
+  }
+
+  onSetLike() {
+    this.review.likeStatus = !this.review.likeStatus;
+    if (this.review.likeStatus){
+      this.review.likesCount += 1;
+    } else {
+      this.review.likesCount -= 1;
+    }
+    this.http.post('api/likes', {reviewId: this.reviewId, status: this.review.likeStatus}).subscribe()
   }
 }

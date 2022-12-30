@@ -25,7 +25,7 @@ public class GetReviewDto : IMapWith<Domain.Review>
     
     public int LikesCount { get; set; }
     
-    public bool IsLike { get; set; }
+    public bool LikeStatus { get; set; }
     
     public int AuthorGrade { get; set; }
 

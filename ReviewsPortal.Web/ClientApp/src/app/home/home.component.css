@@ -20,3 +20,7 @@ table {
   border: 1px solid gray;
   padding: 8px;
 }
+
+.btn-sort {
+  margin: 10px;
+}

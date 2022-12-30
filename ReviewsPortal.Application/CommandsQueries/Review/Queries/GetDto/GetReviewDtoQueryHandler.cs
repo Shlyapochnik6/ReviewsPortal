@@ -25,7 +25,7 @@ public class GetReviewDtoQueryHandler : IRequestHandler<GetReviewDtoQuery, GetRe
     {
         var review = await GetReview(request.ReviewId, cancellationToken);
         var reviewDto = _mapper.Map<GetReviewDto>(review);
-        reviewDto.IsLike = await GetLikeStatus(request.ReviewId, request.ReviewId, cancellationToken);
+        reviewDto.LikeStatus = await GetLikeStatus(request.ReviewId, request.UserId, cancellationToken);
         reviewDto.UserRating = await GetUserRating(review.Art.Id, request.UserId, cancellationToken);
         return reviewDto;
     }

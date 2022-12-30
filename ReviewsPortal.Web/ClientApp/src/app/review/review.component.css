@@ -14,3 +14,15 @@
 table {
   min-height: 30px;
 }
+
+.d-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-send {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}

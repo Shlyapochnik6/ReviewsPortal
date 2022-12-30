@@ -6,8 +6,8 @@
     </select>
   </div>
   <div class="flex-item">
-    <button class="btn btn-primary" (click)="getSortedByUploadTime()">{{ 'ReviewPage.ByRecent' | translate }}</button>
-    <button class="btn btn-primary" (click)="getSortedByRating()">{{ 'ReviewPage.ByRating' | translate }}</button>
+    <button class="btn btn-primary btn-sort" (click)="getSortedByUploadTime()">{{ 'ReviewPage.ByRecent' | translate }}</button>
+    <button class="btn btn-primary btn-sort" (click)="getSortedByRating()">{{ 'ReviewPage.ByRating' | translate }}</button>
   </div>
   <div>
     <div *ngFor="let review of reviewsService.reviews">

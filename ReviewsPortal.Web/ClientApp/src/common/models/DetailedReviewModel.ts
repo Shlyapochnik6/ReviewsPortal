@@ -9,7 +9,7 @@
   userRating: number;
   averageRating: number;
   likesCount: number;
-  isLike: boolean;
+  likeStatus: boolean;
   authorGrade: number;
   creationDate: Date;
 }
