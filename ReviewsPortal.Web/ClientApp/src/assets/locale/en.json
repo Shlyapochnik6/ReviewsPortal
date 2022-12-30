@@ -49,7 +49,12 @@
     "Description": "Description",
     "Submit": "Submit",
     "ByRating": "By rating",
-    "ByRecent": "Recent"
+    "ByRecent": "Recent",
+    "Show": "Show",
+    "RateArt": "Evaluate the art",
+    "Comments": "Comments",
+    "CreateComment": "Create comment",
+    "Text": "Text"
   },
   "Validation": {
     "InvalidEmailFormat": "Incorrect Email format",

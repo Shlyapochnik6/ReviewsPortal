@@ -1,0 +1,28 @@
+.review-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+}
+
+.review-elem {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+table {
+  min-height: 30px;
+}
+
+.d-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-send {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}

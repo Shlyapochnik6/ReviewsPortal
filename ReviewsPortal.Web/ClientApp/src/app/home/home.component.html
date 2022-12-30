@@ -6,14 +6,15 @@
     </select>
   </div>
   <div class="flex-item">
-    <button class="btn btn-primary" (click)="getSortedByUploadTime()">{{ 'ReviewPage.ByRecent' | translate }}</button>
-    <button class="btn btn-primary" (click)="getSortedByRating()">{{ 'ReviewPage.ByRating' | translate }}</button>
+    <button class="btn btn-primary btn-sort" (click)="getSortedByUploadTime()">{{ 'ReviewPage.ByRecent' | translate }}</button>
+    <button class="btn btn-primary btn-sort" (click)="getSortedByRating()">{{ 'ReviewPage.ByRating' | translate }}</button>
   </div>
   <div>
     <div *ngFor="let review of reviewsService.reviews">
       <table class="table">
         <thead>
         <tr>
+          <th scope="col" style="width: 20%;">{{ 'ReviewPage.Show' | translate }}</th>
           <th scope="col" style="width: 20%;">{{ 'ReviewPage.Title' | translate }}</th>
           <th scope="col" style="width: 20%;">{{ 'ReviewPage.ArtName' | translate }}</th>
           <th scope="col" style="width: 20%;">{{ 'ReviewPage.Date' | translate }}</th>
@@ -23,6 +24,14 @@
         </thead>
         <tbody>
         <tr>
+          <td style="width: 20%;">
+            <form [formGroup]="reviewForm">
+              <div>
+                <input formControlName="id" type="hidden" value="{{review.reviewId}}">
+                <a [routerLink]="['/review', review.reviewId]" class="btn btn-primary">{{ 'ReviewPage.Show' | translate }}</a>
+              </div>
+            </form>
+          </td>
           <td style="width: 20%;">{{review.title}}</td>
           <td style="width: 20%;">{{review.artName}}</td>
           <td style="width: 20%;">{{review.creationDate | date:'d.M.yy, HH:MM'}}</td>

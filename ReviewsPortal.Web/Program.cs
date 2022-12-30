@@ -1,7 +1,10 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using ReviewsPortal.Application;
+using ReviewsPortal.Application.Common.Hubs;
 using ReviewsPortal.Application.Common.Mappings;
+using ReviewsPortal.Application.Common.UserIdProviders;
 using ReviewsPortal.Application.Interfaces;
 using ReviewsPortal.Domain;
 using ReviewsPortal.Persistence;
@@ -13,6 +16,8 @@ var policy = new CookiePolicyOptions()
 {
     Secure = CookieSecurePolicy.Always
 };
+
+builder.Services.AddSignalR();
 
 builder.Configuration.AddEnvironmentVariables()
     .AddUserSecrets(Assembly.GetExecutingAssembly(), true);
@@ -30,6 +35,16 @@ builder.Services.AddAutoMapper(config =>
 
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddPersistence();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", corsPolicy =>
+    {
+        corsPolicy.AllowAnyHeader();
+        corsPolicy.AllowAnyMethod();
+        corsPolicy.AllowAnyOrigin();
+    });
+});
 
 builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
 {
@@ -65,7 +80,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 app.UseStaticFiles();
 app.UseRouting();
 
@@ -73,11 +91,11 @@ app.UseCookiePolicy(policy);
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
+
+app.MapHub<CommentHub>("/hub-comment");
 
 app.MapFallbackToFile("index.html");
 
