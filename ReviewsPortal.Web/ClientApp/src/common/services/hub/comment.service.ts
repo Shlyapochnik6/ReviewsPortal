@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import * as signalR from "@microsoft/signalr"
+import {HubConnection, HubConnectionState, HubConnectionBuilder} from "@microsoft/signalr";
 import {CommentModel} from "../../models/CommentModel";
 
 @Injectable({
@@ -8,13 +8,13 @@ import {CommentModel} from "../../models/CommentModel";
 
 export class CommentService {
 
+  hubConnection!: HubConnection;
   comments: CommentModel[] = [];
 
-  private hubConnection = new signalR.HubConnectionBuilder()
-    .withUrl('/hub-comment')
-    .build();
-
   async startConnection(reviewId: string) {
+    this.hubConnection = new HubConnectionBuilder()
+        .withUrl('/hub-comment')
+        .build();
     await this.hubConnection.start();
     await this.hubConnection.invoke("ConnectToGroup", reviewId);
   }
