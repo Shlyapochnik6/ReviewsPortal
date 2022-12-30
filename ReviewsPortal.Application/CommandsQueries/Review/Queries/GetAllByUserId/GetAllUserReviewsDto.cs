@@ -5,7 +5,7 @@ namespace ReviewsPortal.Application.CommandsQueries.Review.Queries.GetAllByUserI
 
 public class GetAllUserReviewsDto : IMapWith<Domain.Review>
 {
-    public Guid Id { get; set; }
+    public Guid ReviewId { get; set; }
     
     public string Title { get; set; }
 
@@ -22,13 +22,11 @@ public class GetAllUserReviewsDto : IMapWith<Domain.Review>
     public double AverageRating { get; set; }
 
     public string Category { get; set; }
-    
-    public List<string> Tags { get; set; }
 
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Domain.Review, GetAllUserReviewsDto>()
-            .ForMember(r => r.Id,
+            .ForMember(r => r.ReviewId,
                 opt => opt.MapFrom(r => r.Id))
             .ForMember(r => r.Title,
                 opt => opt.MapFrom(r => r.Title))
@@ -46,8 +44,6 @@ public class GetAllUserReviewsDto : IMapWith<Domain.Review>
                 opt => opt.MapFrom(r => r.Art.Ratings
                     .Select(a => a.Value).DefaultIfEmpty().Average()))
             .ForMember(r => r.Category,
-                opt => opt.MapFrom(r => r.Category))
-            .ForMember(r => r.Tags,
-                opt => opt.MapFrom(r => r.Tags.Select(t => t.TagName)));
+                opt => opt.MapFrom(r => r.Category));
     }
 }

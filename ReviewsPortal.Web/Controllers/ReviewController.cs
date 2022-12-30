@@ -4,10 +4,12 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReviewsPortal.Application.CommandsQueries.Review.Commands.Create;
+using ReviewsPortal.Application.CommandsQueries.Review.Commands.Update;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetAllByUserId;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetDto;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetMostRated;
+using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetUpdated;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries.SortSelection;
 using ReviewsPortal.Web.Models;
 
@@ -61,7 +63,23 @@ public class ReviewController : Controller
         return Ok(reviews);
     }
 
-    [HttpPost]
+    [HttpGet("get-updated/{reviewId:guid}")]
+    public async Task<ActionResult<GetUpdatedReviewDto>> GetUpdatedReview(Guid reviewId)
+    {
+        var query = new GetUpdatedReviewQuery() { ReviewId = reviewId };
+        var reviewDto = await _mediator.Send(query);
+        return Ok(reviewDto);
+    }
+
+    [HttpPut, DisableRequestSizeLimit]
+    public async Task<ActionResult> Update([FromForm] UpdateReviewDto dto)
+    {
+        var command = _mapper.Map<UpdateReviewCommand>(dto);
+        await _mediator.Send(command);
+        return Ok();
+    }
+
+    [HttpPost, DisableRequestSizeLimit]
     public async Task<IActionResult> Create([FromForm] CreateReviewDto dto)
     {
         var command = _mapper.Map<CreateReviewCommand>(dto);
@@ -69,5 +87,4 @@ public class ReviewController : Controller
         var reviewId = await _mediator.Send(command);
         return Created("api/reviews", reviewId);
     }
-    
 }
