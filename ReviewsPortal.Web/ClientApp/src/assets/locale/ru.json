@@ -16,7 +16,8 @@
     "Login": "Вход",
     "Registration": "Регистрация",
     "Logout": "Выйти",
-    "Language": "Язык"
+    "Language": "Язык",
+    "AddReview": "Создать обзор"
   },
   "ReviewForm": {
     "CreateReview": "Создать обзор",

@@ -16,7 +16,8 @@
     "Login": "Login",
     "Registration": "Registration",
     "Logout": "Logout",
-    "Language": "Language"
+    "Language": "Language",
+    "AddReview": "Add review"
   },
   "ReviewForm": {
     "CreateReview": "Create review",
