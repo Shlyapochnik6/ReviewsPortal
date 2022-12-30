@@ -10,7 +10,7 @@ public class Review
     
     public int Grade { get; set; }
 
-    public string ImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
 
     public DateTime CreationDate { get; set; }
 

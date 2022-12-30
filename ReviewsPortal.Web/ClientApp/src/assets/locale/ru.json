@@ -57,6 +57,13 @@
     "CreateComment": "Создать комментарий",
     "Text": "Текст"
   },
+  "UserPage": {
+    "Filter": "Фильтровать",
+    "TypeFiltration": "Выберите тип фильтрации",
+    "InputFilterValue": "Введите значение для фильтрации",
+    "Take": "Выбрать",
+    "UpdateButton": "Обновить"
+  },
   "Validation": {
     "InvalidEmailFormat": "Неправильный формат почты",
     "UserExists": "Такое имя или адрес уже были созданы",

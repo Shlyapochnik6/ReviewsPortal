@@ -57,6 +57,13 @@
     "CreateComment": "Create comment",
     "Text": "Text"
   },
+  "UserPage": {
+    "Filter": "Filtrate",
+    "TypeFiltration": "Select type of filtration",
+    "InputFilterValue": "Enter a value to filter",
+    "Take": "Take",
+    "UpdateButton": "Update"
+  },
   "Validation": {
     "InvalidEmailFormat": "Incorrect Email format",
     "UserExists": "This name or email has already been created",

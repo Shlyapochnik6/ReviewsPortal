@@ -44,6 +44,6 @@ public class GetAllUserReviewsDto : IMapWith<Domain.Review>
                 opt => opt.MapFrom(r => r.Art.Ratings
                     .Select(a => a.Value).DefaultIfEmpty().Average()))
             .ForMember(r => r.Category,
-                opt => opt.MapFrom(r => r.Category));
+                opt => opt.MapFrom(r => r.Category.CategoryName));
     }
 }

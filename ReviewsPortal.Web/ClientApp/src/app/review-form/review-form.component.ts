@@ -1,4 +1,4 @@
-﻿import {Component, Input, Output} from "@angular/core";
+﻿import {Component, EventEmitter, Input, Output} from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { CategoryService } from "../../common/services/category/category.service";
@@ -17,12 +17,13 @@ import {FormControl} from "@angular/forms";
 export class ReviewFormComponent {
 
   grade = 1;
-  tags: string[] = [];
+  @Input() @Output() tags!: string[];
   categories!: string[];
   file?: File;
 
+  @Output() onSubmitReview = new EventEmitter<boolean>();
   @Input() @Output() reviewForm!: ReviewFormModel;
-  @Input() onSubmitForm!: Function;
+  @Input() @Output() categoryName?: string;
 
   constructor(private http: HttpClient, private router: Router,
               private categoryService: CategoryService,
@@ -80,14 +81,14 @@ export class ReviewFormComponent {
     )
   }
 
+  onSubmit() {
+    this.onSubmitReview.emit();
+  }
+
   onGradeChange(e: number) {
     this.grade = e;
     this.reviewForm.patchValue({
       grade: this.grade
     });
-  }
-
-  onSubmit() {
-    this.onSubmitForm();
   }
 }

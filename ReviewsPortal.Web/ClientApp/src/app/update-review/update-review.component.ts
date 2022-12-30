@@ -24,7 +24,11 @@ export class UpdateReviewComponent implements OnInit{
   }
 
   async ngOnInit() {
-    this.reviewId = this.activatedRoute.snapshot.params['id']
+    this.reviewId = this.activatedRoute.snapshot.params['id'];
+    await this.getReviewForm();
+  }
+
+  async getReviewForm(){
     this.http.get<UpdatedReviewModel>(`api/reviews/get-updated/${this.reviewId}`)
       .subscribe({
         next: data => {

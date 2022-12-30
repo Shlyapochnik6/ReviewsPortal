@@ -1,0 +1,57 @@
+﻿<div>
+  <div>
+    <p class="h5 review-elem">{{'UserPage.Filter' | translate}}</p>
+    <form [formGroup]="filtrationForm" (ngSubmit)="onFilter()">
+      <div class="flex-item">
+        <select id="typeFiltration" class="form-select" aria-label="Default select example" formControlName="filtrationField">
+          <option selected value="">{{'UserPage.TypeFiltration' | translate}}</option>
+          <option value="title">{{ 'ReviewPage.Title' | translate }}</option>
+          <option value="artName">{{ 'ReviewPage.ArtName' | translate }}</option>
+          <option value="creationDate">{{ 'ReviewPage.CreationDate' | translate }}</option>
+          <option value="category">{{ 'ReviewPage.Category' | translate }}</option>
+          <option value="averageRating">{{ 'ReviewPage.AverageRating' | translate }}</option>
+          <option value="likeCount">{{ 'ReviewPage.LikesCount' | translate }}</option>
+        </select>
+      </div>
+      <div class="flex-item">
+        <input formControlName="filtrationValue" placeholder="{{'UserPage.InputFilterValue' | translate}}"
+               type="text" class="form-control" value="" id="exampleInputArt">
+      </div>
+      <div class="flex-item">
+        <button class="btn btn-primary" type="submit">{{'UserPage.Filter' | translate}}</button>
+      </div>
+    </form>
+  </div>
+  <div>
+    <ngx-datatable [rowHeight]="50" [scrollbarH]="true" [columnMode]="ColumnMode.standard" [rows]="reviewsRecords">
+      <ngx-datatable-column [width]="150" name="{{ 'UserPage.Take' | translate }}">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button class="btn btn-primary" [routerLink]="['/update-review', row.reviewId]">
+            {{ 'UserPage.UpdateButton' | translate }}
+          </button>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [width]="310" name="{{ 'ReviewPage.Title' | translate }}">
+        <ng-template let-row="row" ngx-datatable-cell-template>{{row.title}}</ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [width]="210" name="{{ 'ReviewPage.ArtName' | translate }}">
+        <ng-template let-row="row" ngx-datatable-cell-template>{{row.artName}}</ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [width]="150" name="{{ 'ReviewPage.CreationDate' | translate }}">
+        <ng-template let-row="row" ngx-datatable-cell-template>{{row.creationDate | date:'d.M.yy, HH:MM'}}</ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [width]="150" name="{{ 'ReviewPage.Category' | translate }}">
+        <ng-template let-row="row" ngx-datatable-cell-template>{{row.category}}</ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [width]="150" name="{{ 'ReviewPage.AverageRating' | translate }}">
+        <ng-template let-row="row" ngx-datatable-cell-template>{{row.averageRating}}</ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [width]="150" name="{{ 'ReviewPage.LikesCount' | translate }}">
+        <ng-template let-row="row" ngx-datatable-cell-template>{{row.likeCount}}</ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+  <div>
+    <button class="btn btn-primary" type="button"></button>
+  </div>
+</div>
