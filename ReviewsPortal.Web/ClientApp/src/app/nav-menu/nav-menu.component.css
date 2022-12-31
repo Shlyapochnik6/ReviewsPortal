@@ -24,3 +24,5 @@ html {
 :host-context(.bootstrap-dark) nav {
   background: #191d21;
 }
+
+.pointer {cursor: pointer;}

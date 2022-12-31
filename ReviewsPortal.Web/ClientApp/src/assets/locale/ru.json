@@ -62,6 +62,9 @@
     "TypeFiltration": "Выберите тип фильтрации",
     "InputFilterValue": "Введите значение для фильтрации",
     "Take": "Выбрать",
+    "Create": "Создать",
+    "Delete": "Удалить",
+    "Show": "Показать",
     "UpdateButton": "Обновить"
   },
   "Validation": {

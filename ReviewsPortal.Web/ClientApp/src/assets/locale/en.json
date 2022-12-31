@@ -62,6 +62,9 @@
     "TypeFiltration": "Select type of filtration",
     "InputFilterValue": "Enter a value to filter",
     "Take": "Take",
+    "Create": "Create",
+    "Delete": "Delete",
+    "Show": "Show",
     "UpdateButton": "Update"
   },
   "Validation": {

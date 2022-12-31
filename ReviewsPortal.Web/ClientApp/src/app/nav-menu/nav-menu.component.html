@@ -25,15 +25,6 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/create-review']">{{ 'Header.AddReview' | translate }}</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav flex-grow">
-          <li
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
             <a class="nav-link text-dark" [routerLink]="['/registration']">{{ 'Header.Registration' | translate }}</a>
           </li>
         </ul>
@@ -48,11 +39,12 @@
         </ul>
         <ul class="navbar-nav flex-grow">
           <li
-            class="nav-item"
+            class="nav-item pointer"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+            <a class="nav-link text-dark"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                               fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16" [routerLink]="['/personal-page']">
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
             </svg></a>
           </li>

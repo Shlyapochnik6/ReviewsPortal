@@ -37,6 +37,13 @@ export class PersonalPageComponent implements OnInit {
       });
   }
 
+  onDeleteReviewRow(reviewId: number){
+    this.http.delete(`api/reviews/${reviewId}`)
+      .subscribe({
+        complete: () => this.getAllReviews()
+      })
+  }
+
   filtrationForm = new FormGroup({
     filtrationField: new FormControl(),
     filtrationValue: new FormControl()

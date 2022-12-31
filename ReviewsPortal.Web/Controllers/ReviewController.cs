@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReviewsPortal.Application.CommandsQueries.Review.Commands.Create;
+using ReviewsPortal.Application.CommandsQueries.Review.Commands.Delete;
 using ReviewsPortal.Application.CommandsQueries.Review.Commands.Update;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetAllByUserId;
@@ -71,14 +72,6 @@ public class ReviewController : Controller
         return Ok(reviewDto);
     }
 
-    [HttpPut, DisableRequestSizeLimit]
-    public async Task<ActionResult> Update([FromForm] UpdateReviewDto dto)
-    {
-        var command = _mapper.Map<UpdateReviewCommand>(dto);
-        await _mediator.Send(command);
-        return Ok();
-    }
-
     [HttpPost, DisableRequestSizeLimit]
     public async Task<IActionResult> Create([FromForm] CreateReviewDto dto)
     {
@@ -87,4 +80,21 @@ public class ReviewController : Controller
         var reviewId = await _mediator.Send(command);
         return Created("api/reviews", reviewId);
     }
+    
+    [HttpPut, DisableRequestSizeLimit]
+    public async Task<ActionResult> Update([FromForm] UpdateReviewDto dto)
+    {
+        var command = _mapper.Map<UpdateReviewCommand>(dto);
+        await _mediator.Send(command);
+        return Ok();
+    }
+
+    [HttpDelete("{reviewId:guid}")]
+    public async Task<ActionResult> Delete(Guid reviewId)
+    {
+        var command = new DeleteReviewCommand() { ReviewId = reviewId };
+        await _mediator.Send(command);
+        return Ok();
+    }
+
 }
