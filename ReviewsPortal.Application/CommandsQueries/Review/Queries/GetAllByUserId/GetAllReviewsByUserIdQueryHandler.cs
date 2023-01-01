@@ -8,7 +8,7 @@ namespace ReviewsPortal.Application.CommandsQueries.Review.Queries.GetAllByUserI
 
 public class GetAllReviewsByUserIdQueryHandler : IRequestHandler<GetAllReviewsByUserIdQuery, IEnumerable<GetAllUserReviewsDto>>
 {
-    private IMapper _mapper;
+    private readonly IMapper _mapper;
     private readonly IReviewsPortalDbContext _dbContext;
 
     public GetAllReviewsByUserIdQueryHandler(IReviewsPortalDbContext dbContext,
@@ -20,10 +20,11 @@ public class GetAllReviewsByUserIdQueryHandler : IRequestHandler<GetAllReviewsBy
     
     public async Task<IEnumerable<GetAllUserReviewsDto>> Handle(GetAllReviewsByUserIdQuery request, CancellationToken cancellationToken)
     {
-        var reviews = await _dbContext.Reviews.Include(r => r.Art.Ratings)
-            .Include(r => r.Likes).Include(r => r.User)
+        var reviewsDtos = await _dbContext.Reviews.Include(r => r.Art.Ratings)
+            .Include(r => r.Likes).Include(r => r.Art)
+            .Include(r => r.Category)
             .Where(r => r.User.Id == request.UserId)
             .ProjectTo<GetAllUserReviewsDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
-        return reviews;
+        return reviewsDtos;
     }
 }

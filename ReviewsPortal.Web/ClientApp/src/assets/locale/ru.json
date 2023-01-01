@@ -16,7 +16,8 @@
     "Login": "Вход",
     "Registration": "Регистрация",
     "Logout": "Выйти",
-    "Language": "Язык"
+    "Language": "Язык",
+    "AddReview": "Создать обзор"
   },
   "ReviewForm": {
     "CreateReview": "Создать обзор",
@@ -55,6 +56,16 @@
     "Comments": "Комментарии",
     "CreateComment": "Создать комментарий",
     "Text": "Текст"
+  },
+  "UserPage": {
+    "Filter": "Фильтровать",
+    "TypeFiltration": "Выберите тип фильтрации",
+    "InputFilterValue": "Введите значение для фильтрации",
+    "Take": "Выбрать",
+    "Create": "Создать",
+    "Delete": "Удалить",
+    "Show": "Показать",
+    "UpdateButton": "Обновить"
   },
   "Validation": {
     "InvalidEmailFormat": "Неправильный формат почты",

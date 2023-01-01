@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {BriefReviewModel} from "../../models/BriefReviewModel";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {AllUserReviewsModel} from "../../models/AllUserReviewsModel";
 
 @Injectable({
   providedIn: 'root'

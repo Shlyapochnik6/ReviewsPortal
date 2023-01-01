@@ -26,6 +26,9 @@ import {TranslateModule, TranslateLoader} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {HttpLoaderFactory} from "../common/functions/httpLoaderFactory";
 import {LanguageDropdownComponent} from "./language-dropdown/language-dropdown.component";
+import {UpdateReviewComponent} from "./update-review/update-review.component";
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import {PersonalPageComponent} from "./personal-page/personal-page.component";
 
 @NgModule({
   declarations: [
@@ -38,6 +41,8 @@ import {LanguageDropdownComponent} from "./language-dropdown/language-dropdown.c
     LoginCallbackComponent,
     ExternalLoginComponent,
     CreateReviewComponent,
+    UpdateReviewComponent,
+    PersonalPageComponent,
     CounterComponent,
     FetchDataComponent,
     ThemeToggleComponent,
@@ -56,12 +61,15 @@ import {LanguageDropdownComponent} from "./language-dropdown/language-dropdown.c
       {path: 'login', component: LoginComponent},
       {path: 'create-review', component: CreateReviewComponent},
       {path: 'external-login-callback', component: LoginCallbackComponent},
-      {path: 'review/:id', component: ReviewComponent}
+      {path: 'review/:id', component: ReviewComponent},
+      {path: 'personal-page', component: PersonalPageComponent},
+      {path: 'update-review/:id', component: UpdateReviewComponent}
     ]),
     ReactiveFormsModule,
     ReviewFormModule,
     NgbModule,
     TagInputModule,
+    NgxDatatableModule,
     MarkdownEditorModule,
     MarkdownModule.forRoot(({
       markedOptions: {

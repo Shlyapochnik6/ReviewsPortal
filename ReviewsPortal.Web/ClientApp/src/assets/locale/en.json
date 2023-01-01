@@ -16,7 +16,8 @@
     "Login": "Login",
     "Registration": "Registration",
     "Logout": "Logout",
-    "Language": "Language"
+    "Language": "Language",
+    "AddReview": "Add review"
   },
   "ReviewForm": {
     "CreateReview": "Create review",
@@ -55,6 +56,16 @@
     "Comments": "Comments",
     "CreateComment": "Create comment",
     "Text": "Text"
+  },
+  "UserPage": {
+    "Filter": "Filtrate",
+    "TypeFiltration": "Select type of filtration",
+    "InputFilterValue": "Enter a value to filter",
+    "Take": "Take",
+    "Create": "Create",
+    "Delete": "Delete",
+    "Show": "Show",
+    "UpdateButton": "Update"
   },
   "Validation": {
     "InvalidEmailFormat": "Incorrect Email format",

@@ -10,7 +10,7 @@
     <button class="btn btn-primary btn-sort" (click)="getSortedByRating()">{{ 'ReviewPage.ByRating' | translate }}</button>
   </div>
   <div>
-    <div *ngFor="let review of reviewsService.reviews">
+    <div *ngFor="let review of reviewsService.reviews" class="table-responsive">
       <table class="table">
         <thead>
         <tr>
