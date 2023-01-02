@@ -21,7 +21,9 @@ public class GetUpdatedReviewQueryHandler : IRequestHandler<GetUpdatedReviewQuer
     {
         var review = await _dbContext.Reviews
             .Include(r => r.Tags)
-            .Include(r => r.Art).Include(r => r.Category)
+            .Include(r => r.Art)
+            .Include(r => r.Category)
+            .Include(r => r.Images!)
             .FirstOrDefaultAsync(r => r.Id == request.ReviewId, cancellationToken);
         if (review == null)
             throw new NullReferenceException($"The review with id: {request.ReviewId} was not found");

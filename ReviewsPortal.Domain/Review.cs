@@ -10,8 +10,6 @@ public class Review
     
     public int Grade { get; set; }
 
-    public string? ImageUrl { get; set; }
-
     public DateTime CreationDate { get; set; }
 
     public User User { get; set; }
@@ -25,4 +23,6 @@ public class Review
     public List<Like> Likes { get; set; } = new();
 
     public List<Comment> Comments { get; set; } = new();
+
+    public List<Image> Images { get; set; } = new();
 }

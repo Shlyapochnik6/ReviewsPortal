@@ -11,6 +11,7 @@ public sealed class ReviewsPortalDbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Review> Reviews { get; set; }
+    public DbSet<Image> Images { get; set; }
     public DbSet<Art> Arts { get; set; }
     public DbSet<Tag> Tags { get; set; }
     public DbSet<Category> Categories { get; set; }

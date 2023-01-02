@@ -15,7 +15,7 @@ public class UpdateReviewCommand : IRequest, IMapWith<Domain.Review>
 
     public string Description { get; set; }
 
-    public IFormFile? ImageUrl { get; set; }
+    public IFormFile[] Images { get; set; }
 
     public string CategoryName { get; set; }
 

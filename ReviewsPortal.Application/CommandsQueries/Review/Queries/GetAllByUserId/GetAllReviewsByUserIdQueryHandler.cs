@@ -20,9 +20,12 @@ public class GetAllReviewsByUserIdQueryHandler : IRequestHandler<GetAllReviewsBy
     
     public async Task<IEnumerable<GetAllUserReviewsDto>> Handle(GetAllReviewsByUserIdQuery request, CancellationToken cancellationToken)
     {
-        var reviewsDtos = await _dbContext.Reviews.Include(r => r.Art.Ratings)
-            .Include(r => r.Likes).Include(r => r.Art)
+        var reviewsDtos = await _dbContext.Reviews
+            .Include(r => r.Art.Ratings)
+            .Include(r => r.Likes)
+            .Include(r => r.Art)
             .Include(r => r.Category)
+            .Include(r => r.Images!)
             .Where(r => r.User.Id == request.UserId)
             .ProjectTo<GetAllUserReviewsDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
         return reviewsDtos;
