@@ -25,6 +25,7 @@ public class GetAllReviewsQueryHandler : IRequestHandler<GetAllReviewsQuery, IEn
             .Include(r => r.Art)
             .Include(r => r.Art.Ratings)
             .Include(r => r.Tags)
+            .Include(r => r.Images!)
             .ProjectTo<GetAllReviewsDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
         return reviews;

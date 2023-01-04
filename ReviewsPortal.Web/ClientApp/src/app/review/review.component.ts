@@ -73,6 +73,7 @@ export class ReviewComponent implements OnInit {
         },
         complete: () => {
           this.grade = this.review.userRating
+          console.log(this.review.imagesUrl)
         }
       })
   }

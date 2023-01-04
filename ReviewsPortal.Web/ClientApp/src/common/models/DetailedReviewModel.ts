@@ -4,7 +4,7 @@
   category: string;
   description: string;
   tags: string[];
-  imageUrl: string;
+  imagesUrl?: string[];
   authorName: string;
   userRating: number;
   averageRating: number;

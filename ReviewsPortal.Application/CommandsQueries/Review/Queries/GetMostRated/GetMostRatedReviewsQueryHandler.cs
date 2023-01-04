@@ -22,8 +22,11 @@ public class GetMostRatedReviewsQueryHandler : IRequestHandler<GetMostRatedRevie
     public async Task<IEnumerable<GetAllReviewsDto>> Handle(GetMostRatedReviewsQuery request, CancellationToken cancellationToken)
     {
         var reviews = await _dbContext.Reviews
-            .Include(r => r.Likes).Include(r => r.Art)
-            .Include(r => r.Art.Ratings).Include(r => r.Tags)
+            .Include(r => r.Likes)
+            .Include(r => r.Art)
+            .Include(r => r.Art.Ratings)
+            .Include(r => r.Tags)
+            .Include(r => r.Images!)
             .OrderByDescending(r => r.Art.AverageRating)
             .ProjectTo<GetAllReviewsDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
         return reviews;

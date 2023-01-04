@@ -7,4 +7,5 @@
   averageRating: number;
   likesCount: number;
   tags: string[];
+  imageUrl?: string;
 }

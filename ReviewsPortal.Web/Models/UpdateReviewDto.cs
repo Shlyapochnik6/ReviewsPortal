@@ -14,13 +14,13 @@ public class UpdateReviewDto : IMapWith<UpdateReviewCommand>
 
     public string Description { get; set; }
 
-    public IFormFile? ImageUrl { get; set; }
+    public IFormFile[]? Images { get; set; }
 
     public string CategoryName { get; set; }
 
     public int Grade { get; set; }
 
-    public string Tags { get; set; }
+    public string[] Tags { get; set; }
 
     public void Mapping(Profile profile)
     {
@@ -38,8 +38,8 @@ public class UpdateReviewDto : IMapWith<UpdateReviewCommand>
             .ForMember(r => r.Grade,
                 c => c.MapFrom(r => r.Grade))
             .ForMember(r => r.Tags,
-                c => c.MapFrom(r => r.Tags.Split(new[] { ',' })))
-            .ForMember(r => r.ImageUrl,
-                opt => opt.MapFrom(r => r.ImageUrl));
+                c => c.MapFrom(r => r.Tags))
+            .ForMember(r => r.Images,
+                opt => opt.MapFrom(r => r.Images));
     }
 }

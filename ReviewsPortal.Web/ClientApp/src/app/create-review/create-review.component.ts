@@ -24,9 +24,7 @@ export class CreateReviewComponent {
       Validators.required,
       Validators.maxLength(100)
     ]),
-    imageUrl : new FormControl('', [
-      Validators.required
-    ]),
+    images : new FormControl<File[]>(new Array<File>(), []),
     description : new FormControl('', [
       Validators.required,
       Validators.maxLength(15000)
@@ -41,7 +39,7 @@ export class CreateReviewComponent {
   })
 
   onSubmitForm(){
-    this.http.post('api/reviews', dataToForm(this.reviewForm.value))
+    this.http.post('api/reviews', dataToForm(this.reviewForm))
       .subscribe({
         next: _ => this.router.navigate(['/personal-page']),
         error: err => {

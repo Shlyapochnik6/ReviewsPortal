@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ReviewsPortal.Application.Common.Clouds.Mega;
+using ReviewsPortal.Application.Common.Clouds;
 using ReviewsPortal.Application.Common.DbConnectionManagers;
 using ReviewsPortal.Application.Common.UserIdProviders;
 
@@ -19,7 +19,7 @@ public static class DependencyInjection
         services.AddMediatR(Assembly.GetExecutingAssembly());
         services.AddConnectionManager();
         services.AddExternalLoginConfiguration(configuration);
-        services.AddMegaCloudConfiguration(configuration);
+        services.AddFirebaseCloud(configuration);
         return services;
     }
 
@@ -27,16 +27,6 @@ public static class DependencyInjection
     {
         services.AddScoped<IDbConnectionSelection, DbConnectionSelection>(_ =>
             new DbConnectionSelection());
-    }
-
-    private static void AddMegaCloudConfiguration(this IServiceCollection services,
-        IConfiguration configuration)
-    {
-        var email = configuration["MegaCloud:Email"];
-        var password = configuration["MegaCloud:Password"];
-        if (email == null || password == null)
-            throw new NullReferenceException("No information about MegaCloud user");
-        services.AddScoped<IMegaCloud, MegaCloud>(_ => new MegaCloud(email, password));
     }
     
     private static IServiceCollection AddExternalLoginConfiguration(this IServiceCollection services,

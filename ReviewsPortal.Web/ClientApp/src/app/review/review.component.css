@@ -26,3 +26,12 @@ table {
   margin-top: 10px;
   margin-bottom: 15px;
 }
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 25%;
+  padding: 5px;
+}

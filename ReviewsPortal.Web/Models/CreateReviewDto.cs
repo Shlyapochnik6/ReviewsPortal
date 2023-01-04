@@ -12,7 +12,7 @@ public class CreateReviewDto : IMapWith<CreateReviewCommand>
 
     public string Description { get; set; }
 
-    public IFormFile ImageUrl { get; set; }
+    public IFormFile[]? Images { get; set; }
 
     public string CategoryName { get; set; }
 
@@ -35,8 +35,8 @@ public class CreateReviewDto : IMapWith<CreateReviewCommand>
                 c => c.MapFrom(r => r.Grade))
             .ForMember(r => r.Tags,
                 c => c.MapFrom(r => r.Tags.Split(new[] { ',' })))
-            .ForMember(r => r.ImageUrl,
-                opt => opt.MapFrom(r => r.ImageUrl));
+            .ForMember(r => r.Images,
+                opt => opt.MapFrom(r => r.Images));
 
     }
 }

@@ -16,6 +16,7 @@ export class UpdateReviewComponent implements OnInit{
 
   reviewForm!: ReviewFormModel;
   review!: UpdatedReviewModel;
+  tags: string[] = [];
   reviewId: number = 0;
   promise!: Promise<boolean>;
 
@@ -32,7 +33,9 @@ export class UpdateReviewComponent implements OnInit{
     this.http.get<UpdatedReviewModel>(`api/reviews/get-updated/${this.reviewId}`)
       .subscribe({
         next: data => {
-          this.review = data
+          this.tags = data.tags;
+          console.log(this.tags)
+          this.review = data;
           this.reviewForm = new FormGroup({
             reviewId: new FormControl(this.reviewId),
             title: new FormControl(data.title, [
@@ -54,7 +57,7 @@ export class UpdateReviewComponent implements OnInit{
               Validators.maxLength(15000)
             ]),
             grade: new FormControl(data.grade),
-            imageUrl: new FormControl(new File([], ''))
+            images: new FormControl<File[]>(new Array<File>(), [])
           })
           this.promise = Promise.resolve(true)
         }
@@ -62,7 +65,7 @@ export class UpdateReviewComponent implements OnInit{
   }
 
   onSubmit() {
-    this.http.put('api/reviews', dataToForm(this.reviewForm.value))
+    this.http.put('api/reviews', dataToForm(this.reviewForm))
       .subscribe({
         next: _ => this.router.navigate(['/']),
         error: err => {

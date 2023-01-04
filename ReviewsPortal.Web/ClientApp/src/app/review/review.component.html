@@ -5,8 +5,12 @@
     <p class="h6 review-elem">{{'ReviewPage.Author' | translate}}  {{review.authorName}}</p>
     <p class="h6 review-elem">{{'ReviewPage.Date' | translate}}: {{review.creationDate | date:'d.M.yy, HH:MM'}}</p>
     <p class="h6 review-elem">{{'ReviewPage.Category' | translate}}: {{review.category}}</p>
-    <div class="d-image">
-      <img class="review-image" width="200" height="300" alt="" src="https://akns-images.eonline.com/eol_images/Entire_Site/2019914/rs_685x1024-191014113838-634-fight-club-poster.cl.101419.jpg?fit=around%7C685:1024&output-quality=90&crop=685:1024;center,top">
+    <div>
+      <div class="row">
+        <div class="column" *ngFor="let image of review.imagesUrl;">
+          <img src="{{image}}" alt="Not images" style="height: 300px">
+        </div>
+      </div>
     </div>
     <div>
       <p class="h6 review-elem">{{'ReviewPage.Description' | translate}}: </p>

@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using ReviewsPortal.Application.CommandsQueries.Art.Queries;
 using ReviewsPortal.Application.CommandsQueries.Category.Queries.Get;
 using ReviewsPortal.Application.CommandsQueries.Tag.Commands.Create;
 using ReviewsPortal.Application.CommandsQueries.Tag.Queries.GetList;
 using ReviewsPortal.Application.CommandsQueries.User.Queries.Get;
-using ReviewsPortal.Application.Common.Clouds.Mega;
+using ReviewsPortal.Application.Common.Clouds.Firebase;
 using ReviewsPortal.Application.Interfaces;
 
 namespace ReviewsPortal.Application.CommandsQueries.Review.Commands.Create;
@@ -15,15 +16,15 @@ public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand, G
     private readonly IReviewsPortalDbContext _dbContext;
     private readonly IMapper _mapper;
     private readonly IMediator _mediator;
-    private readonly IMegaCloud _megaCloud;
+    private readonly FirebaseCloud _firebase;
 
     public CreateReviewCommandHandler(IReviewsPortalDbContext dbContext,
-        IMapper mapper, IMediator mediator, IMegaCloud megaCloud)
+        IMapper mapper, IMediator mediator, FirebaseCloud firebase)
     {
         _dbContext = dbContext;
         _mediator = mediator;
         _mapper = mapper;
-        _megaCloud = megaCloud;
+        _firebase = firebase;
     }
     
     public async Task<Guid> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
@@ -60,6 +61,13 @@ public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand, G
         return reviewTags.ToList();
     }
 
+    private async Task<List<Domain.Image>> UploadImages(IEnumerable<IFormFile> files)
+    {
+        var imagesData = await _firebase
+            .UploadFiles(files, Guid.NewGuid().ToString());
+        return _mapper.Map<IEnumerable<ImageData>, List<Domain.Image>>(imagesData);
+    }
+
     private async Task<Guid> CreateReview(CreateReviewCommand request,
         CancellationToken cancellationToken)
     {
@@ -69,7 +77,8 @@ public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand, G
         review.Category = await GetCategory(request.Category);
         review.CreationDate = DateTime.UtcNow;
         review.Tags = await GetTags(request.Tags);
-        review.ImageUrl = await _megaCloud.UploadFile(request.ImageUrl);
+        if (request.Images != null)
+            review.Images = await UploadImages(request.Images);
         await _dbContext.Reviews.AddAsync(review, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
         return review.Id;

@@ -21,8 +21,11 @@ public class GetRecentlyAddedQueryHandler : IRequestHandler<GetRecentlyAddedQuer
     public async Task<IEnumerable<GetAllReviewsDto>> Handle(GetRecentlyAddedQuery request, CancellationToken cancellationToken)
     {
         var reviews = await _dbContext.Reviews
-            .Include(r => r.Likes).Include(r => r.Art)
-            .Include(r => r.Art.Ratings).Include(r => r.Tags)
+            .Include(r => r.Likes)
+            .Include(r => r.Art)
+            .Include(r => r.Art.Ratings)
+            .Include(r => r.Tags)
+            .Include(r => r.Images!)
             .OrderByDescending(r => r.CreationDate)
             .ProjectTo<GetAllReviewsDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
         return reviews;

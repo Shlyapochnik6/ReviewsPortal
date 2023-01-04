@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using ReviewsPortal.Application.CommandsQueries.Category.Queries.Get;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries.Get;
 using ReviewsPortal.Application.CommandsQueries.Tag.Commands.Create;
 using ReviewsPortal.Application.CommandsQueries.Tag.Queries.GetList;
+using ReviewsPortal.Application.Common.Clouds.Firebase;
 using ReviewsPortal.Application.Interfaces;
 
 namespace ReviewsPortal.Application.CommandsQueries.Review.Commands.Update;
@@ -12,13 +14,15 @@ public class UpdateReviewCommandHandler : IRequestHandler<UpdateReviewCommand, U
 {
     private readonly IMapper _mapper;
     private readonly IMediator _mediator;
+    private readonly FirebaseCloud _firebase;
     private readonly IReviewsPortalDbContext _dbContext;
 
-    public UpdateReviewCommandHandler(IMapper mapper, IMediator mediator,
+    public UpdateReviewCommandHandler(IMapper mapper, IMediator mediator, FirebaseCloud firebase,
         IReviewsPortalDbContext dbContext)
     {
         _mapper = mapper;
         _mediator = mediator;
+        _firebase = firebase;
         _dbContext = dbContext;
     }
     
@@ -56,6 +60,13 @@ public class UpdateReviewCommandHandler : IRequestHandler<UpdateReviewCommand, U
         await _mediator.Send(command, cancellationToken);
     }
 
+    private async Task<List<Domain.Image>> UpdateImages(IEnumerable<IFormFile> files,
+        string folderName)
+    {
+        var imageData = await _firebase.UpdateFiles(files, folderName);
+        return _mapper.Map<IEnumerable<ImageData>, List<Domain.Image>>(imageData);
+    }
+
     private async Task<Domain.Review> GetUpdatedReview(UpdateReviewCommand request, 
         CancellationToken cancellationToken)
     {
@@ -64,6 +75,8 @@ public class UpdateReviewCommandHandler : IRequestHandler<UpdateReviewCommand, U
         updatedReview.Tags = await GetTags(request.Tags, cancellationToken);
         updatedReview.Category = await GetCategory(request.CategoryName, cancellationToken);
         updatedReview.Art.ArtName = request.ArtName;
+        updatedReview.Images = await UpdateImages(request.Images, 
+            review.Images?.FirstOrDefault()?.FolderName ?? Guid.NewGuid().ToString());
         return updatedReview;
     }
 }

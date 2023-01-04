@@ -39,18 +39,15 @@
       </div>
     </div>
     <div class="mb-3">
-      <h6>{{ 'ReviewForm.ImageUrl' | translate }}</h6>
-      <div class="error-mes" *ngIf="reviewForm.controls.imageUrl.errors?.required &&
-                                      reviewForm.controls['imageUrl'].touched">
+      <h6>{{ 'ReviewForm.Images' | translate }}</h6>
+      <div class="error-mes" *ngIf="reviewForm.controls.images.errors?.required &&
+                                      reviewForm.controls['images'].touched">
         {{ 'Validation.Required' | translate }}
       </div>
-      <ngx-dropzone accept="image/png, image/jpeg" class="justify-content-center" (change)="onSelectImage($event)">
-        <ngx-dropzone-preview [removable]="true" (removed)="onRemoveImage(file)">
-          <ngx-dropzone-label *ngIf="file != undefined" class="w-100">
-            {{ file!.name! }} {{ file!.type! }}
-          </ngx-dropzone-label>
-          <ngx-dropzone-label *ngIf="file == undefined" class="w-100">Add image</ngx-dropzone-label>
-        </ngx-dropzone-preview>
+      <ngx-dropzone [multiple]="true" [maxFileSize]="500000" accept="image/png, image/jpeg, image/jpg" (change)="onSelectImage($event)">
+        <ngx-dropzone-image-preview [removable]="true" *ngFor="let f of files" [file]="f" (removed)="onRemoveImage(f)">
+        </ngx-dropzone-image-preview>
+        <ngx-dropzone-label *ngIf="files!.length == 0">{{ 'ReviewForm.Images' | translate }}</ngx-dropzone-label>
       </ngx-dropzone>
     </div>
     <div>

@@ -15,6 +15,8 @@ public class GetAllReviewsDto : IMapWith<Domain.Review>
 
     public int LikesCount { get; set; }
 
+    public string? ImageUrl { get; set; }
+
     public DateTime CreationDate { get; set; }
 
     public double AverageRating { get; set; }
@@ -32,6 +34,9 @@ public class GetAllReviewsDto : IMapWith<Domain.Review>
                 opt => opt.MapFrom(r => r.Art.ArtName))
             .ForMember(r => r.AuthorGrade,
                 opt => opt.MapFrom(r => r.Grade))
+            .ForMember(r => r.ImageUrl,
+                opt => opt.MapFrom(r => r.Images != null && r.Images.Count > 0 ? 
+                    r.Images[0].Url : null))
             .ForMember(r => r.LikesCount,
                 opt => opt.MapFrom(r => r.Likes.Count(l => l.Status == true)))
             .ForMember(r => r.CreationDate,

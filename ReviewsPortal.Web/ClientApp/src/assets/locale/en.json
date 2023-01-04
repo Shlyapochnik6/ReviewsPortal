@@ -25,7 +25,7 @@
     "ArtName": "Art name",
     "AddImage": "Add image",
     "Description": "Description",
-    "ImageUrl": "Image Url",
+    "Images": "Drop images",
     "Category": "Category",
     "Grade": "Grade",
     "Tags": "Tags",
@@ -55,6 +55,7 @@
     "RateArt": "Evaluate the art",
     "Comments": "Comments",
     "CreateComment": "Create comment",
+    "ShowImage": "Image",
     "Text": "Text"
   },
   "UserPage": {

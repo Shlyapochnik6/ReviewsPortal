@@ -4,7 +4,7 @@
   categoryName: string
   description: string
   tags: string[]
-  imageUrl: string
+  images?: ImageData[]
   authorName: string
   grade: number
 }
