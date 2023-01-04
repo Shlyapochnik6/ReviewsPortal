@@ -15,7 +15,7 @@ public class GetReviewDto : IMapWith<Domain.Review>
     
     public string[] Tags { get; set; }
     
-    public string[]? Images { get; set; }
+    public string[]? ImagesUrl { get; set; }
     
     public string AuthorName { get; set; }
 
@@ -46,9 +46,9 @@ public class GetReviewDto : IMapWith<Domain.Review>
                 opt => opt.MapFrom(r => r.Description))
             .ForMember(r => r.Tags,
                 opt => opt.MapFrom(r => r.Tags.Select(t => t.TagName)))
-            .ForMember(r => r.Images,
+            .ForMember(r => r.ImagesUrl,
                 opt => opt.MapFrom(r => r.Images != null && r.Images.Count > 0 ?
-                    r.Images.Select(i => i.Url).ToList() : null))
+                    r.Images.Select(i => i.Url) : null))
             .ForMember(r => r.AverageRating,
                 opt => opt.MapFrom(r => r.Art.AverageRating))
             .ForMember(r => r.LikesCount,

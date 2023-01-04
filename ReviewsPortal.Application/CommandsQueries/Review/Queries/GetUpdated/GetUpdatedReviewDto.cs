@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using ReviewsPortal.Application.Common.Clouds.Firebase;
 using ReviewsPortal.Application.Common.Mappings;
 
 namespace ReviewsPortal.Application.CommandsQueries.Review.Queries.GetUpdated;
@@ -16,7 +17,7 @@ public class GetUpdatedReviewDto : IMapWith<Domain.Review>
     
     public string Description { get; set; }
     
-    public IFormFile[]? Images { get; set; }
+    public ImageData[]? ImagesData { get; set; }
 
     public int Grade { get; set; }
 
@@ -33,10 +34,9 @@ public class GetUpdatedReviewDto : IMapWith<Domain.Review>
                 opt => opt.MapFrom(r => r.Description))
             .ForMember(r => r.Tags,
                 opt => opt.MapFrom(r => r.Tags.Select(t => t.TagName)))
-            .ForMember(r => r.Images,
-                opt => opt.MapFrom(r => r.Images
-                    .Select(i => i.Url)))
             .ForMember(r => r.Grade,
-                opt => opt.MapFrom(r => r.Grade));
+                opt => opt.MapFrom(r => r.Grade))
+            .ForMember(r => r.ImagesData,
+                opt => opt.Ignore());
     }
 }

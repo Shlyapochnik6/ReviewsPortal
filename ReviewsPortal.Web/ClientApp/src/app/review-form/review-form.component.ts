@@ -19,7 +19,7 @@ export class ReviewFormComponent {
   grade = 1;
   @Input() @Output() tags!: string[];
   categories!: string[];
-  file?: File;
+  @Input() @Output() files?: File[] = [];
 
   @Output() onSubmitReview = new EventEmitter<boolean>();
   @Input() @Output() reviewForm!: ReviewFormModel;
@@ -59,18 +59,17 @@ export class ReviewFormComponent {
     });
   }
 
-  onSelectImage(pic: any){
-    if (pic.addedFiles[0] === undefined){
-      return;
-    }
-    this.file = <File>pic.addedFiles[0];
+  onSelectImage(event: any) {
+    if (event.addedFiles[0] === undefined) return;
+    this.files!.push(<File>event.addedFiles[0]);
     this.reviewForm.patchValue({
-      imageUrl: <any>this.file
+      images: <any>this.files
     })
   }
 
-  onRemoveImage(pic: any){
-    this.file = undefined;
+  onRemoveImage(event: any){
+    let fileIndex = this.files!.indexOf(event);
+    this.files!.splice(fileIndex, 1);
   }
 
   requestAutocompleteTags = (text: any): Observable<any> => {

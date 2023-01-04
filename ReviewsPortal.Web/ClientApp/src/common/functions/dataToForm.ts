@@ -3,7 +3,14 @@
 
   for (const key of Object.keys(formValue)) {
     const value = formValue[key];
-    formData.append(key, value);
+    if (value instanceof Array){
+      for (const elem of value){
+        formData.append(key, elem);
+      }
+    }
+    else {
+      formData.append(key, value);
+    }
   }
   return formData;
 }

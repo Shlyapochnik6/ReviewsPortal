@@ -32,6 +32,8 @@ public class UpdateReviewCommand : IRequest, IMapWith<Domain.Review>
                 opt => opt.MapFrom(r => r.Description))
             .ForMember(r => r.Grade,
                 opt => opt.MapFrom(r => r.Grade))
+            .ForMember(r => r.Images,
+                opt => opt.Ignore())
             .ForMember(r => r.Tags,
                 opt => opt.Ignore());
     }

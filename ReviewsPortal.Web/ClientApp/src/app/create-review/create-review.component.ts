@@ -24,9 +24,7 @@ export class CreateReviewComponent {
       Validators.required,
       Validators.maxLength(100)
     ]),
-    imageUrl : new FormControl('', [
-      Validators.required
-    ]),
+    images : new FormControl<File[]>(new Array<File>(), []),
     description : new FormControl('', [
       Validators.required,
       Validators.maxLength(15000)

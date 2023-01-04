@@ -4,7 +4,7 @@ using ReviewsPortal.Domain;
 
 namespace ReviewsPortal.Application.Common.Clouds.Firebase;
 
-public class ImageData : IMapWith<Image>
+public class ImageData : IMapWith<Domain.Image>
 {
     public string Url { get; set; }
     
@@ -23,6 +23,7 @@ public class ImageData : IMapWith<Image>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<ImageData, Image>();
+        profile.CreateMap<ImageData, Domain.Image>();
+        profile.CreateMap<Domain.Image, ImageData>();
     }
 }

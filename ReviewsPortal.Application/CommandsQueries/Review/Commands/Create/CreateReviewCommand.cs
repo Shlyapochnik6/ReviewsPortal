@@ -15,7 +15,7 @@ public class CreateReviewCommand : IRequest<Guid>, IMapWith<Domain.Review>
 
     public string Description { get; set; }
 
-    public IFormFile[]? Images { get; set; }
+    public IFormFile[] Images { get; set; }
 
     public string Category { get; set; }
 
@@ -36,6 +36,8 @@ public class CreateReviewCommand : IRequest<Guid>, IMapWith<Domain.Review>
                 opt => opt.MapFrom(u => u.Grade))
             .ForMember(u => u.Tags,
                 opt => opt.Ignore())
+            .ForMember(u => u.Images,
+                o => o.Ignore())
             .ForMember(u => u.Category,
                 opt => opt.Ignore());
     }
