@@ -31,13 +31,13 @@ public class CreateLikeCommandHandler : IRequestHandler<CreateLikeCommand, Domai
     
     private async Task<Domain.User> GetUser(Guid? userId, CancellationToken cancellationToken)
     {
-        var query = new GetUserQuery() { UserId = userId };
+        var query = new GetUserQuery(userId);
         return await _mediator.Send(query, cancellationToken);
     }
     
     private async Task<Domain.Review> GetReview(Guid reviewId, CancellationToken cancellationToken)
     {
-        var query = new GetReviewQuery() { ReviewId = reviewId };
+        var query = new GetReviewQuery(reviewId);
         return await _mediator.Send(query, cancellationToken);
     }
 }

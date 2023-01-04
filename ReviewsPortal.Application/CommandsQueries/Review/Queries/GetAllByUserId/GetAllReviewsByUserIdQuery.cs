@@ -5,4 +5,9 @@ namespace ReviewsPortal.Application.CommandsQueries.Review.Queries.GetAllByUserI
 public class GetAllReviewsByUserIdQuery : IRequest<IEnumerable<GetAllUserReviewsDto>>
 {
     public Guid UserId { get; set; }
+
+    public GetAllReviewsByUserIdQuery(Guid userId)
+    {
+        UserId = userId;
+    }
 }

@@ -27,11 +27,8 @@ public class ReviewController : BaseController
     [HttpGet]
     public async Task<ActionResult<GetReviewDto>> Get(Guid reviewId)
     {
-        var query = new GetReviewDtoQuery()
-        {
-            ReviewId = reviewId,
-            UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!)
-        };
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var query = new GetReviewDtoQuery(reviewId, userId);
         var reviewDto = await _mediator.Send(query);
         return Ok(reviewDto);
     }
@@ -40,7 +37,7 @@ public class ReviewController : BaseController
     public async Task<ActionResult<IEnumerable<GetAllUserReviewsDto>>> GetByCurrentUser()
     {
         var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        var query = new GetAllReviewsByUserIdQuery() { UserId = userId };
+        var query = new GetAllReviewsByUserIdQuery(userId);
         var userReviews = await _mediator.Send(query);
         return Ok(userReviews);
     }
@@ -49,11 +46,7 @@ public class ReviewController : BaseController
     [HttpGet("get-all")]
     public async Task<ActionResult<IEnumerable<GetAllReviewsDto>>> GetByRating(string? sorting, string? tag)
     {
-        var query = new SortSelectionQuery()
-        {
-            Sorting = sorting,
-            Tag = tag
-        };
+        var query = new SortSelectionQuery(sorting, tag);
         var reviews = await _mediator.Send(query);
         return Ok(reviews);
     }
@@ -61,7 +54,7 @@ public class ReviewController : BaseController
     [HttpGet("get-updated/{reviewId:guid}")]
     public async Task<ActionResult<GetUpdatedReviewDto>> GetUpdatedReview(Guid reviewId)
     {
-        var query = new GetUpdatedReviewQuery() { ReviewId = reviewId };
+        var query = new GetUpdatedReviewQuery(reviewId);
         var reviewDto = await _mediator.Send(query);
         return Ok(reviewDto);
     }
@@ -86,7 +79,7 @@ public class ReviewController : BaseController
     [HttpDelete("{reviewId:guid}")]
     public async Task<ActionResult> Delete(Guid reviewId)
     {
-        var command = new DeleteReviewCommand() { ReviewId = reviewId };
+        var command = new DeleteReviewCommand(reviewId);
         await _mediator.Send(command);
         return Ok();
     }

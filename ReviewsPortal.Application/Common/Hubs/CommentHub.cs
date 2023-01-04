@@ -21,7 +21,7 @@ public class CommentHub : Hub
 
     public async Task SendComment(Guid reviewId, Guid commentId)
     {
-        var query = new GetCommentQuery() { CommentId = commentId };
+        var query = new GetCommentQuery(commentId);
         var comment = await _mediator.Send(query);
         await Clients.Group(reviewId.ToString()).SendAsync("GetComment", comment);
     }

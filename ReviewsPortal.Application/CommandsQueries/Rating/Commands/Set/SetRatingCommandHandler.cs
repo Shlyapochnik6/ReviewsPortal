@@ -29,7 +29,7 @@ public class SetRatingCommandHandler : IRequestHandler<SetRatingCommand, Unit>
     
     private async Task<Guid> GetArtId(Guid reviewId, CancellationToken cancellationToken)
     {
-        var query = new GetReviewQuery() { ReviewId = reviewId };
+        var query = new GetReviewQuery(reviewId);
         var review = await _mediator.Send(query, cancellationToken);
         var artId = review.Art.Id;
         return artId;
@@ -38,11 +38,7 @@ public class SetRatingCommandHandler : IRequestHandler<SetRatingCommand, Unit>
     private async Task<Domain.Rating> GetUserRating(SetRatingCommand request, Guid artId,
         CancellationToken cancellationToken)
     {
-        var query = new GetUserRatingQuery()
-        {
-            ArtId = artId,
-            UserId = request.UserId
-        };
+        var query = new GetUserRatingQuery(artId, request.UserId);
         var userRating = await _mediator.Send(query, cancellationToken) 
                          ?? await CreateRating(request, artId, cancellationToken);
         userRating.Value = request.Value;
@@ -51,19 +47,14 @@ public class SetRatingCommandHandler : IRequestHandler<SetRatingCommand, Unit>
     
     private async Task UpdateAverageRating(Guid artId, CancellationToken cancellationToken)
     {
-        var command = new UpdateAverageRatingCommand() { ArtId = artId };
+        var command = new UpdateAverageRatingCommand(artId);
         await _mediator.Send(command, cancellationToken);
     }
 
     private async Task<Domain.Rating> CreateRating(SetRatingCommand request, Guid artId,
         CancellationToken cancellationToken)
     {
-        var command = new CreateRatingCommand()
-        {
-            ArtId = artId,
-            UserId = request.UserId,
-            Value = request.Value
-        };
+        var command = new CreateRatingCommand(request.Value, request.UserId, artId);
         var rating = await _mediator.Send(command, cancellationToken);
         return rating;
     }

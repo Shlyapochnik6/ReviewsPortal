@@ -27,7 +27,7 @@ public class SetUserLikesCountCommandHandler : IRequestHandler<SetUserLikesCount
 
     private async Task<Domain.User> GetUser(Guid? userId, CancellationToken cancellationToken)
     {
-        var query = new GetUserQuery() { UserId = userId };
+        var query = new GetUserQuery(userId);
         return await _mediator.Send(query, cancellationToken);
     }
 

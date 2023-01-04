@@ -9,4 +9,12 @@ public class CreateLikeCommand : IRequest<Domain.Like>
     public Guid? UserId { get; set; }
     
     public bool Status { get; set; }
+
+    public CreateLikeCommand(Guid reviewId, Guid? userId,
+        bool status)
+    {
+        ReviewId = reviewId;
+        UserId = userId;
+        Status = status;
+    }
 }

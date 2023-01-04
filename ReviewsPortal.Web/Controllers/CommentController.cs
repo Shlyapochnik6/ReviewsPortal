@@ -21,7 +21,7 @@ public class CommentController : BaseController
     [HttpGet("{reviewId:guid}")]
     public async Task<ActionResult<IEnumerable<GetAllCommentsDto>>> GetAll(Guid reviewId)
     {
-        var query = new GetAllCommentsQuery() { ReviewId = reviewId };
+        var query = new GetAllCommentsQuery(reviewId);
         var comments = await _mediator.Send(query);
         return Ok(comments);
     }

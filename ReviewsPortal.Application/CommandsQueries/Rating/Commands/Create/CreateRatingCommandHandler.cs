@@ -33,14 +33,14 @@ public class CreateRatingCommandHandler : IRequestHandler<CreateRatingCommand, D
 
     private async Task<Domain.User> GetUser(Guid? userId, CancellationToken cancellationToken)
     {
-        var query = new GetUserQuery() { UserId = userId };
+        var query = new GetUserQuery(userId);
         var user = await _mediator.Send(query, cancellationToken);
         return user;
     }
 
     private async Task<Domain.Art> GetArt(Guid artId, CancellationToken cancellationToken)
     {
-        var query = new GetArtQuery() { ArtId = artId };
+        var query = new GetArtQuery(artId);
         var art = await _mediator.Send(query, cancellationToken);
         return art;
     }

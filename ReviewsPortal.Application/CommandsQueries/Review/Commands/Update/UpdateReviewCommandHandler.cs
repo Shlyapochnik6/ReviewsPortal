@@ -37,14 +37,14 @@ public class UpdateReviewCommandHandler : IRequestHandler<UpdateReviewCommand, U
 
     private async Task<Domain.Review> GetReview(Guid reviewId, CancellationToken cancellationToken)
     {
-        var query = new GetReviewQuery() { ReviewId = reviewId };
+        var query = new GetReviewQuery(reviewId);
         return await _mediator.Send(query, cancellationToken);
     }
 
     private async Task<Domain.Category> GetCategory(string categoryName,
         CancellationToken cancellationToken)
     {
-        var query = new GetCategoryQuery() { CategoryName = categoryName };
+        var query = new GetCategoryQuery(categoryName);
         return await _mediator.Send(query, cancellationToken);
     }
     
@@ -56,7 +56,7 @@ public class UpdateReviewCommandHandler : IRequestHandler<UpdateReviewCommand, U
 
     private async Task CreateTags(string[] tags, CancellationToken cancellationToken)
     {
-        var command = new CreateTagCommand() { Tags = tags };
+        var command = new CreateTagCommand(tags);
         await _mediator.Send(command, cancellationToken);
     }
 

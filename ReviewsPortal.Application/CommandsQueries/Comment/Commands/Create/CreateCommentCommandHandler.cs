@@ -32,19 +32,13 @@ public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand,
 
     private async Task<Domain.User> GetUser(Guid? userId)
     {
-        var query = new GetUserQuery()
-        {
-            UserId = userId
-        };
+        var query = new GetUserQuery(userId);
         return await _mediator.Send(query);
     }
 
     private async Task<Domain.Review> GetReview(Guid reviewId)
     {
-        var query = new GetReviewQuery()
-        {
-            ReviewId = reviewId
-        };
+        var query = new GetReviewQuery(reviewId);
         return await _mediator.Send(query);
     }
 }

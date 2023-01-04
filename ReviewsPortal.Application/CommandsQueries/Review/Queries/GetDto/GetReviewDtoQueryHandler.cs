@@ -32,7 +32,7 @@ public class GetReviewDtoQueryHandler : IRequestHandler<GetReviewDtoQuery, GetRe
 
     private async Task<Domain.Review> GetReview(Guid reviewId, CancellationToken cancellationToken)
     {
-        var query = new GetReviewQuery() { ReviewId = reviewId };
+        var query = new GetReviewQuery(reviewId);
         var review = await _mediator.Send(query, cancellationToken);
         return review;
     }
@@ -40,11 +40,7 @@ public class GetReviewDtoQueryHandler : IRequestHandler<GetReviewDtoQuery, GetRe
     private async Task<bool> GetLikeStatus(Guid reviewId, Guid? userId,
         CancellationToken cancellationToken)
     {
-        var query = new GetLikeQuery()
-        {
-            ReviewId = reviewId,
-            UserId = userId
-        };
+        var query = new GetLikeQuery(reviewId, userId);
         var like = await _mediator.Send(query, cancellationToken);
         return like?.Status ?? false;
     }
@@ -52,11 +48,7 @@ public class GetReviewDtoQueryHandler : IRequestHandler<GetReviewDtoQuery, GetRe
     private async Task<int> GetUserRating(Guid artId, Guid? userId,
         CancellationToken cancellationToken)
     {
-        var query = new GetUserRatingQuery()
-        {
-            ArtId = artId,
-            UserId = userId
-        };
+        var query = new GetUserRatingQuery(artId, userId);
         var userRating = await _mediator.Send(query, cancellationToken);
         return userRating == null ? 1 : userRating.Value;
     }

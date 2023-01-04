@@ -5,4 +5,9 @@ namespace ReviewsPortal.Application.CommandsQueries.Art.Queries;
 public class GetArtQuery : IRequest<Domain.Art>
 {
     public Guid? ArtId { get; set; }
+
+    public GetArtQuery(Guid? artId)
+    {
+        ArtId = artId;
+    }
 }
