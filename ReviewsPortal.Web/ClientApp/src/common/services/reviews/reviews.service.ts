@@ -29,7 +29,6 @@ export class ReviewsService {
     this.http.get<BriefReviewModel>(url)
       .subscribe({
         next: data => {
-          console.log(data)
           this.reviews = data;
           this.promise = Promise.resolve(true);
         }

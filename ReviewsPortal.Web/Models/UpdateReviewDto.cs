@@ -20,7 +20,7 @@ public class UpdateReviewDto : IMapWith<UpdateReviewCommand>
 
     public int Grade { get; set; }
 
-    public string Tags { get; set; }
+    public string[] Tags { get; set; }
 
     public void Mapping(Profile profile)
     {
@@ -38,7 +38,7 @@ public class UpdateReviewDto : IMapWith<UpdateReviewCommand>
             .ForMember(r => r.Grade,
                 c => c.MapFrom(r => r.Grade))
             .ForMember(r => r.Tags,
-                c => c.MapFrom(r => r.Tags.Split(new[] { ',' })))
+                c => c.MapFrom(r => r.Tags))
             .ForMember(r => r.Images,
                 opt => opt.MapFrom(r => r.Images));
     }
