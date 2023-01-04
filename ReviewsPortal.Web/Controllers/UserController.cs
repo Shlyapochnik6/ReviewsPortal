@@ -14,17 +14,13 @@ namespace ReviewsPortal.Web.Controllers;
 
 [ApiController]
 [Route("api/user")]
-public class UserController : Controller
+public class UserController : BaseController
 {
-    private readonly IMapper _mapper;
-    private readonly IMediator _mediator;
     private readonly SignInManager<Domain.User> _signInManager;
 
-    public UserController(IMapper mapper, IMediator mediator, 
-        SignInManager<User> signInManager)
+    public UserController(IMapper mapper, IMediator mediator,
+        SignInManager<User> signInManager) : base(mapper, mediator)
     {
-        _mapper = mapper;
-        _mediator = mediator;
         _signInManager = signInManager;
     }
 

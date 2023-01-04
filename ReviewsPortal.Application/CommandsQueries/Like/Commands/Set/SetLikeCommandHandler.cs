@@ -29,18 +29,14 @@ public class SetLikeCommandHandler : IRequestHandler<SetLikeCommand, Guid>
     private async Task<Domain.Review> GetReview(Guid reviewId, 
         CancellationToken cancellationToken)
     {
-        var query = new GetReviewQuery() { ReviewId = reviewId };
+        var query = new GetReviewQuery(reviewId);
         return await _mediator.Send(query, cancellationToken);
     }
 
     private async Task<Domain.Like> GetLike(SetLikeCommand request, 
         CancellationToken cancellationToken)
     {
-        var query = new GetLikeQuery()
-        {
-            UserId = request.UserId,
-            ReviewId = request.ReviewId
-        };
+        var query = new GetLikeQuery(request.ReviewId, request.UserId);
         return await _mediator.Send(query, cancellationToken) ??
                await CreateLike(request, cancellationToken);
     }
@@ -58,19 +54,15 @@ public class SetLikeCommandHandler : IRequestHandler<SetLikeCommand, Guid>
     private async Task<Domain.Like> CreateLike(SetLikeCommand request, 
         CancellationToken cancellationToken)
     {
-        var command = new CreateLikeCommand()
-        {
-            UserId = request.UserId,
-            ReviewId = request.ReviewId,
-            Status = request.Status
-        };
+        var command = new CreateLikeCommand(request.ReviewId, request.UserId,
+            request.Status);
         return await _mediator.Send(command, cancellationToken);
     }
 
     private async Task SetUserLikesCount(Guid userId,
         CancellationToken cancellationToken)
     {
-        var query = new SetUserLikesCountCommand() { UserId = userId };
+        var query = new SetUserLikesCountCommand(userId);
         await _mediator.Send(query, cancellationToken);
     }
 }

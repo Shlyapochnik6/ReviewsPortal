@@ -36,20 +36,20 @@ public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand, G
 
     private async Task CreateTags(string[] tags)
     {
-        var command = new CreateTagCommand() { Tags = tags };
+        var command = new CreateTagCommand(tags);
         await _mediator.Send(command);
     }
 
     private async Task<Domain.User> GetUser(Guid? userId)
     {
-        var query = new GetUserQuery() { UserId = userId };
+        var query = new GetUserQuery(userId);
         var user = await _mediator.Send(query);
         return user;
     }
 
     private async Task<Domain.Category> GetCategory(string categoryName)
     {
-        var query = new GetCategoryQuery() { CategoryName = categoryName };
+        var query = new GetCategoryQuery(categoryName);
         var category = await _mediator.Send(query);
         return category;
     }

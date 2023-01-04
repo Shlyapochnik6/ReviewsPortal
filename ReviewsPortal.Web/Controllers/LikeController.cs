@@ -11,22 +11,16 @@ namespace ReviewsPortal.Web.Controllers;
 [ApiController]
 [Authorize]
 [Route("api/likes")]
-public class LikeController : Controller
+public class LikeController : BaseController
 {
-    private readonly IMapper _mapper;
-    private readonly IMediator _mediator;
-
-    public LikeController(IMapper mapper, IMediator mediator)
-    {
-        _mapper = mapper;
-        _mediator = mediator;
-    }
+    public LikeController(IMapper mapper, IMediator mediator) 
+        : base(mapper, mediator) { }
 
     [HttpPost]
     public async Task<ActionResult> Set([FromBody] SetLikeDto dto)
     {
         var command = _mapper.Map<SetLikeCommand>(dto);
-        command.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        command.UserId = UserId;
         await _mediator.Send(command);
         return Ok();
     }

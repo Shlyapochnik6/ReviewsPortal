@@ -25,7 +25,7 @@ public class UpdateAverageRatingCommandHandler : IRequestHandler<UpdateAverageRa
 
     private async Task<Domain.Art> GetArt(Guid artId, CancellationToken cancellationToken)
     {
-        var query = new GetArtQuery() { ArtId = artId };
+        var query = new GetArtQuery(artId);
         var art = await _mediator.Send(query, cancellationToken);
         art.AverageRating = CalculateAverageRating(art);
         return art;

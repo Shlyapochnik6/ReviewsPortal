@@ -12,22 +12,16 @@ namespace ReviewsPortal.Web.Controllers;
 [ApiController]
 [Authorize]
 [Route("api/comments")]
-public class CommentController : Controller
+public class CommentController : BaseController
 {
-    private readonly IMapper _mapper;
-    private readonly IMediator _mediator;
-
-    public CommentController(IMapper mapper, IMediator mediator)
-    {
-        _mapper = mapper;
-        _mediator = mediator;
-    }
+    public CommentController(IMapper mapper, IMediator mediator) 
+        : base(mapper, mediator) { }
 
     [AllowAnonymous]
     [HttpGet("{reviewId:guid}")]
     public async Task<ActionResult<IEnumerable<GetAllCommentsDto>>> GetAll(Guid reviewId)
     {
-        var query = new GetAllCommentsQuery() { ReviewId = reviewId };
+        var query = new GetAllCommentsQuery(reviewId);
         var comments = await _mediator.Send(query);
         return Ok(comments);
     }
@@ -36,7 +30,7 @@ public class CommentController : Controller
     public async Task<ActionResult<Guid>> Create([FromBody] CreateCommentDto dto)
     {
         var query = _mapper.Map<CreateCommentCommand>(dto);
-        query.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        query.UserId = UserId;
         var commentId = await _mediator.Send(query);
         return Ok(commentId);
     }

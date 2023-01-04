@@ -33,13 +33,13 @@ public class DeleteReviewCommandHandler : IRequestHandler<DeleteReviewCommand, U
 
     private async Task ChangeUserLikesCount(Guid? userId, CancellationToken cancellationToken)
     {
-        var command = new SetUserLikesCountCommand() { UserId = userId };
+        var command = new SetUserLikesCountCommand(userId);
         await _mediator.Send(command, cancellationToken);
     }
     
     private async Task<Domain.Review> GetReview(Guid reviewId, CancellationToken cancellationToken)
     {
-        var query = new GetReviewQuery() { ReviewId = reviewId };
+        var query = new GetReviewQuery(reviewId);
         var review = await _mediator.Send(query, cancellationToken);
         return review;
     }

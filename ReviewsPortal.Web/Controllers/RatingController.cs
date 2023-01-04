@@ -12,22 +12,16 @@ namespace ReviewsPortal.Web.Controllers;
 [ApiController]
 [Authorize]
 [Route("api/ratings")]
-public class RatingController : Controller
+public class RatingController : BaseController
 {
-    private readonly IMapper _mapper;
-    private readonly IMediator _mediator;
-
-    public RatingController(IMapper mapper, IMediator mediator)
-    {
-        _mapper = mapper;
-        _mediator = mediator;
-    }
+    public RatingController(IMapper mapper, IMediator mediator) 
+        : base(mapper, mediator) { }
 
     [HttpPost]
     public async Task<ActionResult> Set([FromBody] SetRatingDto dto)
     {
         var command = _mapper.Map<SetRatingCommand>(dto);
-        command.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        command.UserId = UserId;
         await _mediator.Send(command);
         return Ok();
     }
