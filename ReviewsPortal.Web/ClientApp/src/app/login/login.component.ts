@@ -2,6 +2,7 @@
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {AuthService} from "../../common/services/user/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,8 @@ import {Router} from "@angular/router";
 export class LoginComponent {
   error?: string;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router,
+              private authService: AuthService) {
   }
 
   loginForm: FormGroup = new FormGroup({
@@ -23,14 +25,16 @@ export class LoginComponent {
     'password': new FormControl('', [
       Validators.required
     ]),
-    'rememberMe': new FormControl(true)
+    'rememberMe': new FormControl(false)
   });
 
   onSubmit(){
-    console.log(this.loginForm.value)
     this.http.post('api/user/login', this.loginForm.value)
       .subscribe({
-        next: _ => this.router.navigate(['/']),
+        next: () => {
+          this.authService.isAuthenticated = true;
+          this.router.navigate(['/personal-page']);
+        },
         error: err => {
           if (err.status === 401)
             this.error = 'The entered password is not consistent with the user password!'

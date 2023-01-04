@@ -46,20 +46,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
-{
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 5;
-    options.User.RequireUniqueEmail = true;
-    options.User.AllowedUserNameCharacters =
-        "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" +
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ";
-    options.SignIn.RequireConfirmedEmail = true;
-}).AddEntityFrameworkStores<ReviewsPortalDbContext>();
-
 var app = builder.Build();
 
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())

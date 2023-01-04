@@ -29,6 +29,8 @@ import {LanguageDropdownComponent} from "./language-dropdown/language-dropdown.c
 import {UpdateReviewComponent} from "./update-review/update-review.component";
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {PersonalPageComponent} from "./personal-page/personal-page.component";
+import {AuthGuard} from "../common/guards/auth.guard";
+import {AuthErrorsInterceptor} from "../common/interceptors/auth.errors.interceptor";
 
 @NgModule({
   declarations: [
@@ -59,11 +61,11 @@ import {PersonalPageComponent} from "./personal-page/personal-page.component";
       {path: 'fetch-data', component: FetchDataComponent},
       {path: 'registration', component: RegistrationComponent},
       {path: 'login', component: LoginComponent},
-      {path: 'create-review', component: CreateReviewComponent},
+      {path: 'create-review', component: CreateReviewComponent, canActivate: [AuthGuard]},
       {path: 'external-login-callback', component: LoginCallbackComponent},
       {path: 'review/:id', component: ReviewComponent},
-      {path: 'personal-page', component: PersonalPageComponent},
-      {path: 'update-review/:id', component: UpdateReviewComponent}
+      {path: 'personal-page', component: PersonalPageComponent, canActivate: [AuthGuard]},
+      {path: 'update-review/:id', component: UpdateReviewComponent, canActivate: [AuthGuard]}
     ]),
     ReactiveFormsModule,
     ReviewFormModule,
@@ -93,7 +95,11 @@ import {PersonalPageComponent} from "./personal-page/personal-page.component";
       useDefaultLang: false
     })
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthErrorsInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

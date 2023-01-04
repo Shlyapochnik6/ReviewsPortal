@@ -63,4 +63,11 @@ public class UserController : BaseController
         await _mediator.Send(query);
         return Ok();
     }
+
+    [AllowAnonymous]
+    [HttpGet("check-authentication")]
+    public ActionResult<bool> CheckAuthentication()
+    {
+        return Ok(User.Identity!.IsAuthenticated);
+    }
 }

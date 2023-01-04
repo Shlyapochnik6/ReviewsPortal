@@ -24,11 +24,11 @@ public class ReviewController : BaseController
     public ReviewController(IMapper mapper, IMediator mediator) 
         : base(mapper, mediator) { }
     
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<GetReviewDto>> Get(Guid reviewId)
     {
-        var userId = UserId;
-        var query = new GetReviewDtoQuery(reviewId, userId);
+        var query = new GetReviewDtoQuery(reviewId, UserId);
         var reviewDto = await _mediator.Send(query);
         return Ok(reviewDto);
     }
@@ -36,8 +36,7 @@ public class ReviewController : BaseController
     [HttpGet("get-by-user")]
     public async Task<ActionResult<IEnumerable<GetAllUserReviewsDto>>> GetByCurrentUser()
     {
-        var userId = UserId;
-        var query = new GetAllReviewsByUserIdQuery(userId);
+        var query = new GetAllReviewsByUserIdQuery(UserId);
         var userReviews = await _mediator.Send(query);
         return Ok(userReviews);
     }
