@@ -12,16 +12,10 @@ namespace ReviewsPortal.Web.Controllers;
 [ApiController]
 [Authorize]
 [Route("api/comments")]
-public class CommentController : Controller
+public class CommentController : BaseController
 {
-    private readonly IMapper _mapper;
-    private readonly IMediator _mediator;
-
-    public CommentController(IMapper mapper, IMediator mediator)
-    {
-        _mapper = mapper;
-        _mediator = mediator;
-    }
+    public CommentController(IMapper mapper, IMediator mediator) 
+        : base(mapper, mediator) { }
 
     [AllowAnonymous]
     [HttpGet("{reviewId:guid}")]

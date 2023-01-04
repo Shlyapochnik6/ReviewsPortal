@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ReviewsPortal.Application.CommandsQueries.Category.Queries.GetList;
 
@@ -6,15 +7,11 @@ namespace ReviewsPortal.Web.Controllers;
 
 [ApiController]
 [Route("api/categories")]
-public class CategoryController : Controller
+public class CategoryController : BaseController
 {
-    private readonly IMediator _mediator;
+    public CategoryController(IMapper mapper, IMediator mediator) 
+        : base(mapper, mediator) { }
 
-    public CategoryController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-    
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CategoryDto>>> GetAll()
     {

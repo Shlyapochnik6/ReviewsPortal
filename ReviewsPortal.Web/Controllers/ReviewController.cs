@@ -19,16 +19,10 @@ namespace ReviewsPortal.Web.Controllers;
 [ApiController]
 [Authorize]
 [Route("api/reviews")]
-public class ReviewController : Controller
+public class ReviewController : BaseController
 {
-    private readonly IMapper _mapper;
-    private readonly IMediator _mediator;
-
-    public ReviewController(IMapper mapper, IMediator mediator)
-    {
-        _mapper = mapper;
-        _mediator = mediator;
-    }
+    public ReviewController(IMapper mapper, IMediator mediator) 
+        : base(mapper, mediator) { }
     
     [HttpGet]
     public async Task<ActionResult<GetReviewDto>> Get(Guid reviewId)
