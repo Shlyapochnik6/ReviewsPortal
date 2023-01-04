@@ -21,7 +21,7 @@ public class RatingController : BaseController
     public async Task<ActionResult> Set([FromBody] SetRatingDto dto)
     {
         var command = _mapper.Map<SetRatingCommand>(dto);
-        command.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        command.UserId = UserId;
         await _mediator.Send(command);
         return Ok();
     }

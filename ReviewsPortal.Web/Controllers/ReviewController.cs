@@ -27,7 +27,7 @@ public class ReviewController : BaseController
     [HttpGet]
     public async Task<ActionResult<GetReviewDto>> Get(Guid reviewId)
     {
-        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var userId = UserId;
         var query = new GetReviewDtoQuery(reviewId, userId);
         var reviewDto = await _mediator.Send(query);
         return Ok(reviewDto);
@@ -36,7 +36,7 @@ public class ReviewController : BaseController
     [HttpGet("get-by-user")]
     public async Task<ActionResult<IEnumerable<GetAllUserReviewsDto>>> GetByCurrentUser()
     {
-        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var userId = UserId;
         var query = new GetAllReviewsByUserIdQuery(userId);
         var userReviews = await _mediator.Send(query);
         return Ok(userReviews);
@@ -44,7 +44,8 @@ public class ReviewController : BaseController
     
     [AllowAnonymous]
     [HttpGet("get-all")]
-    public async Task<ActionResult<IEnumerable<GetAllReviewsDto>>> GetByRating(string? sorting, string? tag)
+    public async Task<ActionResult<IEnumerable<GetAllReviewsDto>>> GetByRating(string? sorting,
+        string? tag)
     {
         var query = new SortSelectionQuery(sorting, tag);
         var reviews = await _mediator.Send(query);
@@ -63,7 +64,7 @@ public class ReviewController : BaseController
     public async Task<IActionResult> Create([FromForm] CreateReviewDto dto)
     {
         var command = _mapper.Map<CreateReviewCommand>(dto);
-        command.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        command.UserId = UserId;
         var reviewId = await _mediator.Send(command);
         return Created("api/reviews", reviewId);
     }

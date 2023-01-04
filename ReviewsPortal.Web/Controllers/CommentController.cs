@@ -30,7 +30,7 @@ public class CommentController : BaseController
     public async Task<ActionResult<Guid>> Create([FromBody] CreateCommentDto dto)
     {
         var query = _mapper.Map<CreateCommentCommand>(dto);
-        query.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        query.UserId = UserId;
         var commentId = await _mediator.Send(query);
         return Ok(commentId);
     }

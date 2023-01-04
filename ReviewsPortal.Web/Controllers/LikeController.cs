@@ -20,7 +20,7 @@ public class LikeController : BaseController
     public async Task<ActionResult> Set([FromBody] SetLikeDto dto)
     {
         var command = _mapper.Map<SetLikeCommand>(dto);
-        command.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        command.UserId = UserId;
         await _mediator.Send(command);
         return Ok();
     }
