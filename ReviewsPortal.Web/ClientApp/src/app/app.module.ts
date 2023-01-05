@@ -31,6 +31,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {PersonalPageComponent} from "./personal-page/personal-page.component";
 import {AuthGuard} from "../common/guards/auth.guard";
 import {AuthErrorsInterceptor} from "../common/interceptors/auth.errors.interceptor";
+import {AdminComponent} from "./admin/admin.component";
+import {RoleGuard} from "../common/guards/role.guard";
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import {AuthErrorsInterceptor} from "../common/interceptors/auth.errors.intercep
     CounterComponent,
     FetchDataComponent,
     ThemeToggleComponent,
-    LanguageDropdownComponent
+    LanguageDropdownComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -62,10 +65,13 @@ import {AuthErrorsInterceptor} from "../common/interceptors/auth.errors.intercep
       {path: 'registration', component: RegistrationComponent},
       {path: 'login', component: LoginComponent},
       {path: 'create-review', component: CreateReviewComponent, canActivate: [AuthGuard]},
+      {path: 'create-review/:userid', component: CreateReviewComponent, canActivate: [AuthGuard, RoleGuard]},
       {path: 'external-login-callback', component: LoginCallbackComponent},
       {path: 'review/:id', component: ReviewComponent},
       {path: 'personal-page', component: PersonalPageComponent, canActivate: [AuthGuard]},
-      {path: 'update-review/:id', component: UpdateReviewComponent, canActivate: [AuthGuard]}
+      {path: 'personal-page/:userid', component: PersonalPageComponent, canActivate: [AuthGuard, RoleGuard]},
+      {path: 'update-review/:id', component: UpdateReviewComponent, canActivate: [AuthGuard]},
+      {path: 'admin-profile', component: AdminComponent, canActivate: [AuthGuard, RoleGuard]}
     ]),
     ReactiveFormsModule,
     ReviewFormModule,

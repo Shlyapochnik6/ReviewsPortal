@@ -19,6 +19,13 @@
     "Language": "Язык",
     "AddReview": "Создать обзор"
   },
+  "AdminPage": {
+    "Admin": "Админ",
+    "Show": "Показать",
+    "UserId": "Идентификатор",
+    "UserName": "Имя пользователя",
+    "Email": "Почта"
+  },
   "ReviewForm": {
     "CreateReview": "Создать обзор",
     "Title": "Заголовок",

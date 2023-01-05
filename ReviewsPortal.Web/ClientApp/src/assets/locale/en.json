@@ -19,6 +19,13 @@
     "Language": "Language",
     "AddReview": "Add review"
   },
+  "AdminPage": {
+    "Admin": "Admin",
+    "Show": "Show",
+    "UserId": "Id",
+    "UserName": "User name",
+    "Email": "Email"
+  },
   "ReviewForm": {
     "CreateReview": "Create review",
     "Title": "Title",

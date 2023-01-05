@@ -5,6 +5,9 @@ import {BriefReviewModel} from "../../models/BriefReviewModel";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {AllUserReviewsModel} from "../../models/AllUserReviewsModel";
+import * as http from "http";
+import {FormControl, FormGroup} from "@angular/forms";
+import {dataToForm} from "../../functions/dataToForm";
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +36,22 @@ export class ReviewsService {
           this.promise = Promise.resolve(true);
         }
       });
+  }
+
+  getReviewsByUserId(userId?: number | null): Observable<AllUserReviewsModel[]> {
+    let url = `api/reviews/get-by-user`;
+    if (userId !== undefined) {
+      url = `${url}/${userId}`;
+    }
+    return this.http.get<AllUserReviewsModel[]>(url);
+  }
+
+  createReviewByUserId(form: FormGroup, userId?: number | null): Observable<any> {
+    let url = `api/reviews`;
+    if (userId !== undefined) {
+      url = `${url}/${userId}`;
+    }
+    return this.http.post(url, dataToForm(form));
   }
 
   getParameters() {

@@ -1,9 +1,11 @@
-﻿import { Component } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import {dataToForm} from "src/common/functions/dataToForm";
 import { ReviewFormModel } from "../../common/models/review-form-model";
+import { ReviewsService } from "../../common/services/reviews/reviews.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-create-review',
@@ -11,9 +13,22 @@ import { ReviewFormModel } from "../../common/models/review-form-model";
   styleUrls: ['create-review.component.css']
 })
 
-export class CreateReviewComponent {
+export class CreateReviewComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router) {}
+  userId: number | null = null;
+
+  constructor(private http: HttpClient, private router: Router,
+              private reviewsService: ReviewsService,
+              private route: ActivatedRoute) {
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe({
+      next: value => {
+        this.userId = value['userid'];
+      }
+    })
+  }
 
   reviewForm : ReviewFormModel = new FormGroup({
     title : new FormControl('', [
@@ -39,9 +54,9 @@ export class CreateReviewComponent {
   })
 
   onSubmitForm(){
-    this.http.post('api/reviews', dataToForm(this.reviewForm))
+    this.reviewsService.createReviewByUserId(this.reviewForm, this.userId)
       .subscribe({
-        next: _ => this.router.navigate(['/personal-page']),
+        next: _ => this.router.navigate(['/']),
         error: err => {
           console.error(err);
         }
