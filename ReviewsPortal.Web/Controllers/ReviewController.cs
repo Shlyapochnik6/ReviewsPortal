@@ -12,6 +12,7 @@ using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetDto;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetMostRated;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries.GetUpdated;
 using ReviewsPortal.Application.CommandsQueries.Review.Queries.SortSelection;
+using ReviewsPortal.Application.Common.Consts;
 using ReviewsPortal.Web.Models;
 
 namespace ReviewsPortal.Web.Controllers;
@@ -24,11 +25,11 @@ public class ReviewController : BaseController
     public ReviewController(IMapper mapper, IMediator mediator) 
         : base(mapper, mediator) { }
     
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<GetReviewDto>> Get(Guid reviewId)
     {
-        var userId = UserId;
-        var query = new GetReviewDtoQuery(reviewId, userId);
+        var query = new GetReviewDtoQuery(reviewId, UserId);
         var reviewDto = await _mediator.Send(query);
         return Ok(reviewDto);
     }
@@ -36,7 +37,15 @@ public class ReviewController : BaseController
     [HttpGet("get-by-user")]
     public async Task<ActionResult<IEnumerable<GetAllUserReviewsDto>>> GetByCurrentUser()
     {
-        var userId = UserId;
+        var query = new GetAllReviewsByUserIdQuery(UserId);
+        var userReviews = await _mediator.Send(query);
+        return Ok(userReviews);
+    }
+    
+    [Authorize(Roles = Roles.Admin)]
+    [HttpGet("get-by-user/{userId:guid}")]
+    public async Task<ActionResult<IEnumerable<GetAllUserReviewsDto>>> GetByCurrentUser(Guid userId)
+    {
         var query = new GetAllReviewsByUserIdQuery(userId);
         var userReviews = await _mediator.Send(query);
         return Ok(userReviews);
@@ -65,6 +74,16 @@ public class ReviewController : BaseController
     {
         var command = _mapper.Map<CreateReviewCommand>(dto);
         command.UserId = UserId;
+        var reviewId = await _mediator.Send(command);
+        return Created("api/reviews", reviewId);
+    }
+    
+    [Authorize(Roles = Roles.Admin)]
+    [HttpPost("{userId:guid}"), DisableRequestSizeLimit]
+    public async Task<IActionResult> Create(Guid userId, [FromForm] CreateReviewDto dto)
+    {
+        var command = _mapper.Map<CreateReviewCommand>(dto);
+        command.UserId = userId;
         var reviewId = await _mediator.Send(command);
         return Created("api/reviews", reviewId);
     }

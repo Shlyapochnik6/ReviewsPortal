@@ -1,0 +1,26 @@
+﻿<div>
+  <div *ngFor="let user of users" class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col" style="width: 20%;">{{ 'AdminPage.Show' | translate }}</th>
+        <th scope="col" style="width: 20%;">{{ 'AdminPage.UserId' | translate }}</th>
+        <th scope="col" style="width: 15%;">{{ 'AdminPage.UserName' | translate }}</th>
+        <th scope="col" style="width: 15%;">{{ 'AdminPage.Email' | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td style="width: 20%;">
+          <button [routerLink]="['/personal-page', user.id]" class="btn btn-primary">
+            {{'AdminPage.Show' | translate}}
+          </button>
+        </td>
+        <td style="width: 20%;">{{user.id}}</td>
+        <td style="width: 15%;">{{user.userName}}</td>
+        <td style="width: 15%;">{{user.email}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

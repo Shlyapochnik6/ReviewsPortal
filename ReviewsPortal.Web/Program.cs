@@ -34,7 +34,7 @@ builder.Services.AddAutoMapper(config =>
 });
 
 builder.Services.AddApplication(builder.Configuration);
-builder.Services.AddPersistence();
+await builder.Services.AddPersistence(builder.Configuration);
 
 builder.Services.AddCors(options =>
 {
@@ -45,20 +45,6 @@ builder.Services.AddCors(options =>
         corsPolicy.AllowAnyOrigin();
     });
 });
-
-builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
-{
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 5;
-    options.User.RequireUniqueEmail = true;
-    options.User.AllowedUserNameCharacters =
-        "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" +
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ";
-    options.SignIn.RequireConfirmedEmail = true;
-}).AddEntityFrameworkStores<ReviewsPortalDbContext>();
 
 var app = builder.Build();
 

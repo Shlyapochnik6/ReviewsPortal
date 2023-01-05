@@ -21,7 +21,8 @@
         <button class="btn btn-primary" type="submit">{{'UserPage.Filter' | translate}}</button>
       </div>
       <div>
-        <a class="btn btn-success" [routerLink]="['/create-review']">{{ 'UserPage.Create' | translate }}</a>
+        <a class="btn btn-danger" *ngIf="userId" [routerLink]="['/create-review', this.userId]">{{ 'UserPage.Create' | translate }}</a>
+        <a class="btn btn-success" *ngIf="!userId" [routerLink]="['/create-review']">{{ 'UserPage.Create' | translate }}</a>
       </div>
     </form>
   </div>

@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using ReviewsPortal.Application.CommandsQueries.ExternalLogin.Queries;
 using ReviewsPortal.Application.CommandsQueries.User.Commands.Registration;
 using ReviewsPortal.Application.CommandsQueries.User.Queries.ExternalLoginCallback;
+using ReviewsPortal.Application.CommandsQueries.User.Queries.GetAll;
 using ReviewsPortal.Application.CommandsQueries.User.Queries.Login;
+using ReviewsPortal.Application.Common.Consts;
 using ReviewsPortal.Domain;
 using ReviewsPortal.Web.Models;
 
@@ -62,5 +64,29 @@ public class UserController : BaseController
         var query = new ExternalLoginCallbackQuery();
         await _mediator.Send(query);
         return Ok();
+    }
+
+    [Authorize(Roles = Roles.Admin)]
+    [HttpGet("get-all")]
+    public async Task<ActionResult<IEnumerable<GetAllUsersDto>>> GetAll()
+    {
+        var query = new GetAllUsersQuery();
+        var users = await _mediator.Send(query);
+        return users.ToList();
+    }
+
+    [AllowAnonymous]
+    [HttpGet("check-authentication")]
+    public ActionResult<bool> CheckAuthentication()
+    {
+        return Ok(User.Identity!.IsAuthenticated);
+    }
+
+    [AllowAnonymous]
+    [HttpGet("get-role")]
+    public ActionResult<UserRoleDto> GetRole()
+    {
+        var role = new UserRoleDto(Role);
+        return Ok(role);
     }
 }

@@ -2,6 +2,7 @@
 import {AbstractControl, FormGroup, FormControl, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {AuthService} from "../../common/services/user/auth.service";
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +13,8 @@ import {Router} from "@angular/router";
 export class RegistrationComponent{
   error?: string;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router,
+              private authService: AuthService) {
   }
 
   checkPassword: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
@@ -42,7 +44,10 @@ export class RegistrationComponent{
 
   onSubmit() {
     this.http.post('api/user/registration', this.registrationForm.value).subscribe({
-      next: _ => this.router.navigate(['/']),
+      next: () => {
+        this.authService.isAuthenticated = true;
+        this.router.navigate(['/personal-page']);
+      },
       error: error => {
         if (error.status === 409) {
           this.error = "This name or email has already been created";

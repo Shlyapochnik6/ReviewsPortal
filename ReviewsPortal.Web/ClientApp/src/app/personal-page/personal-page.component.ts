@@ -6,6 +6,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {filterBy} from "@progress/kendo-data-query";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {ReviewsService} from "../../common/services/reviews/reviews.service";
 
 @Component({
   selector: 'app-personal-page',
@@ -18,17 +19,24 @@ export class PersonalPageComponent implements OnInit {
   reviewsRecords!: AllUserReviewsModel[];
   ColumnMode = ColumnMode;
   reviews!: AllUserReviewsModel[];
+  userId?: number | null = null
 
   constructor(private http: HttpClient,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private reviewsService: ReviewsService) {
   }
 
   ngOnInit() {
+    this.route.params.subscribe({
+      next: value => {
+        this.userId = value['userid'];
+      }
+    })
     this.getAllReviews();
   }
 
   getAllReviews() {
-    this.http.get<AllUserReviewsModel[]>(`api/reviews/get-by-user`)
+    this.reviewsService.getReviewsByUserId(this.userId)
       .subscribe({
         next: data => {
           this.reviews = data;
@@ -52,9 +60,7 @@ export class PersonalPageComponent implements OnInit {
   onFilter() {
     let sortReviews = this.reviews;
     let filtrationField: string = this.filtrationForm.get('filtrationField')?.value;
-    console.log(filtrationField)
     let filtrationValue: string = this.filtrationForm.get('filtrationValue')?.value;
-    console.log(filtrationValue)
     this.reviewsRecords = filterBy(sortReviews, {
       logic: 'and',
       filters: [
