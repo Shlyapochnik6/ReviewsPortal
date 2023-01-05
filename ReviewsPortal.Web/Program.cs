@@ -34,7 +34,7 @@ builder.Services.AddAutoMapper(config =>
 });
 
 builder.Services.AddApplication(builder.Configuration);
-builder.Services.AddPersistence();
+await builder.Services.AddPersistence(builder.Configuration);
 
 builder.Services.AddCors(options =>
 {
