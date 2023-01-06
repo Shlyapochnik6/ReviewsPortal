@@ -1,7 +1,12 @@
-﻿namespace ReviewsPortal.Domain;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ReviewsPortal.Domain;
 
 public class Review
 {
+    [NotMapped] 
+    public string ObjectID { get; set; }
+
     public Guid Id { get; set; }
 
     public string Title { get; set; }
