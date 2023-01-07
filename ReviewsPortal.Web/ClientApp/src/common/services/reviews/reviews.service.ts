@@ -80,4 +80,9 @@ export class ReviewsService {
       }
     })
   }
+
+  getReviewsBySearch(search: string | null): Observable<BriefReviewModel[]> {
+    console.log(search)
+    return this.http.get<BriefReviewModel[]>(`api/search?search=${search}`);
+  }
 }

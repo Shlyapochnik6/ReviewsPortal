@@ -20,10 +20,10 @@ public class AlgoliaClient
 
     public async Task<List<Guid>> SearchAsync(string query)
     {
-        var results = await _searchIndex.
-            SearchAsync<Review>(new Query(query));
-        var ids = results.Hits.Select(r => r.Id).ToList();
-        return ids;
+        var results = await _searchIndex
+            .SearchAsync<Review>(new Query(query));
+        var ids = results.Hits.Select(r => r.Id);
+        return ids.ToList();
     }
 
     public async Task AddOrUpdateEntity<T>(T entity) where T : class

@@ -33,6 +33,7 @@ import {AuthGuard} from "../common/guards/auth.guard";
 import {AuthErrorsInterceptor} from "../common/interceptors/auth.errors.interceptor";
 import {AdminComponent} from "./admin/admin.component";
 import {RoleGuard} from "../common/guards/role.guard";
+import {SearchComponent} from "./search/search.component";
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {RoleGuard} from "../common/guards/role.guard";
     CreateReviewComponent,
     UpdateReviewComponent,
     PersonalPageComponent,
+    SearchComponent,
     CounterComponent,
     FetchDataComponent,
     ThemeToggleComponent,
@@ -71,7 +73,8 @@ import {RoleGuard} from "../common/guards/role.guard";
       {path: 'personal-page', component: PersonalPageComponent, canActivate: [AuthGuard]},
       {path: 'personal-page/:userid', component: PersonalPageComponent, canActivate: [AuthGuard, RoleGuard]},
       {path: 'update-review/:id', component: UpdateReviewComponent, canActivate: [AuthGuard]},
-      {path: 'admin-profile', component: AdminComponent, canActivate: [AuthGuard, RoleGuard]}
+      {path: 'admin-profile', component: AdminComponent, canActivate: [AuthGuard, RoleGuard]},
+      {path: 'search', component: SearchComponent}
     ]),
     ReactiveFormsModule,
     ReviewFormModule,
