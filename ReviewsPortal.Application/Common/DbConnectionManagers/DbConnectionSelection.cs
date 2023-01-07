@@ -8,7 +8,7 @@ public class DbConnectionSelection : IDbConnectionSelection
     {
         var e = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
         var result = e == "Production" ? 
-            "Host=dpg-cegthr82i3mkhvq8277g-a;Port=5432;Database=reviews_db_7bay;Username=kinelak;Password=K2e8pekfVBkBxEgjJX7lmuPZdrzPfRIf" :
+            "Host=dpg-ceso85irrk0dan0pf4hg-a;Port=5432;Database=reviews_dmy5;Username=arseniy;Password=oxi8PQOI7rTRktnAL6ShRwwRaQ7s00MF" :
             "Host=localhost;Port=5432;Database=ReviewsPortal;Username=postgres;Password=sa";
         return result;
     }

@@ -18,6 +18,7 @@ const PROXY_CONFIG = [
       "/api/home",
       "/api/likes",
       "/api/ratings",
+      "/api/search",
       "/hub-comment"
    ],
     target: target,

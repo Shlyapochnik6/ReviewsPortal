@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using System.Reflection.Emit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,19 +11,37 @@ namespace ReviewsPortal.Persistence.TimeContextFactories;
 
 public class ReviewsPortalDbContextFactory : IDesignTimeDbContextFactory<ReviewsPortalDbContext>
 {
+    private readonly IServiceProvider _serviceProvider;
+    private const string CurrentDirectoryName = "ReviewsPortal.Persistence";
+    private const string MainDirectoryName = "ReviewsPortal.Web";
+    
+    public ReviewsPortalDbContextFactory() { }
+    
+    public ReviewsPortalDbContextFactory(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
     public ReviewsPortalDbContext CreateDbContext(string[] args)
     {
         var connection = GetConnectionString();
-        var builder = new DbContextOptionsBuilder<ReviewsPortalDbContext>();
-        builder.UseNpgsql(connection);
-        return new ReviewsPortalDbContext(builder.Options);
+        var optionsBuilder = new DbContextOptionsBuilder<ReviewsPortalDbContext>();
+        optionsBuilder.UseNpgsql(connection);
+        return new ReviewsPortalDbContext(optionsBuilder.Options, _serviceProvider);
     }
 
     private static string GetConnectionString()
     {
+        var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!
+            .Replace(CurrentDirectoryName, MainDirectoryName);
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(path)
+            .AddJsonFile("appsettings.json")
+            .AddEnvironmentVariables()
+            .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
+            .Build();
         var connectionString = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production"
-            ? "Host=dpg-ce751q14rebdt3d6cbf0-a;Port=5432;Database=reviews_db;Username=reviews_db_user;Password=n67kVQ1jBwP1c208G3DbmxgFg2QIWLE7"
-            : "Host=localhost;Port=5432;Database=ReviewsPortal;Username=postgres;Password=sa";
+            ? configuration["ProductionDbConnection"] : configuration["DbConnection"];
         return connectionString ?? throw new NullReferenceException("The connection string to database is empty");
     }
 }
