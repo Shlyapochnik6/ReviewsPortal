@@ -32,18 +32,16 @@ public class ReviewsPortalDbContextFactory : IDesignTimeDbContextFactory<Reviews
 
     private static string GetConnectionString()
     {
-        var directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!
+        var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!
             .Replace(CurrentDirectoryName, MainDirectoryName);
         var configuration = new ConfigurationBuilder()
-            .SetBasePath(directory)
+            .SetBasePath(path)
             .AddJsonFile("appsettings.json")
             .AddEnvironmentVariables()
             .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
-            .AddJsonFile("/etc/secrets/secrets.json", true)
             .Build();
         var connectionString = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production"
-            ? configuration["ProductionDbConnection"]
-            : configuration["DbConnection"];
+            ? configuration["ProductionDbConnection"] : configuration["DbConnection"];
         return connectionString ?? throw new NullReferenceException("The connection string to database is empty");
     }
 }
