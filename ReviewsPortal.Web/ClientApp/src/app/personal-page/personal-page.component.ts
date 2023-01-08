@@ -7,6 +7,7 @@ import {filterBy} from "@progress/kendo-data-query";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {ReviewsService} from "../../common/services/reviews/reviews.service";
+import {FiltrationService} from "../../common/services/filtration/filtration.service";
 
 @Component({
   selector: 'app-personal-page',
@@ -23,7 +24,8 @@ export class PersonalPageComponent implements OnInit {
 
   constructor(private http: HttpClient,
               private route: ActivatedRoute,
-              private reviewsService: ReviewsService) {
+              private reviewsService: ReviewsService,
+              private filtrationService: FiltrationService) {
   }
 
   ngOnInit() {
@@ -59,14 +61,8 @@ export class PersonalPageComponent implements OnInit {
 
   onFilter() {
     let sortReviews = this.reviews;
-    let filtrationField: string = this.filtrationForm.get('filtrationField')?.value;
-    let filtrationValue: string = this.filtrationForm.get('filtrationValue')?.value;
-    this.reviewsRecords = filterBy(sortReviews, {
-      logic: 'and',
-      filters: [
-        {field: filtrationField, value: filtrationValue,
-          operator: 'contains', ignoreCase: true}
-      ]
-    })
+    let filtrationField: string = this.filtrationForm.get('filtrationField')?.value!;
+    let filtrationValue: string = this.filtrationForm.get('filtrationValue')?.value!;
+    this.reviewsRecords = this.filtrationService.filterData(filtrationField, filtrationValue, this.reviews);
   }
 }

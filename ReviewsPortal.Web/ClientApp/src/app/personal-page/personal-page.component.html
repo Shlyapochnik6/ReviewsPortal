@@ -55,7 +55,7 @@
         <ng-template let-row="row" ngx-datatable-cell-template>{{row.artName}}</ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column [width]="150" name="{{ 'ReviewPage.CreationDate' | translate }}">
-        <ng-template let-row="row" ngx-datatable-cell-template>{{row.creationDate | date:'dd.MM.yyyy, HH:MM'}}</ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>{{row.creationDate | date:'dd.MM.YY, HH:mm':'UTC+3'}}</ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column [width]="150" name="{{ 'ReviewPage.Category' | translate }}">
         <ng-template let-row="row" ngx-datatable-cell-template>{{row.category}}</ng-template>

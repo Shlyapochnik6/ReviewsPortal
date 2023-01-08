@@ -18,7 +18,7 @@ export class UpdateReviewComponent implements OnInit{
   review!: UpdatedReviewModel;
   tags: string[] = [];
   reviewId: number = 0;
-  promise!: Promise<boolean>;
+  loader!: boolean;
 
   constructor(private http: HttpClient, private activatedRoute: ActivatedRoute,
               private router: Router) {
@@ -34,7 +34,6 @@ export class UpdateReviewComponent implements OnInit{
       .subscribe({
         next: data => {
           this.tags = data.tags;
-          console.log(this.tags)
           this.review = data;
           this.reviewForm = new FormGroup({
             reviewId: new FormControl(this.reviewId),
@@ -59,7 +58,7 @@ export class UpdateReviewComponent implements OnInit{
             grade: new FormControl(data.grade),
             images: new FormControl<File[]>(new Array<File>(), [])
           })
-          this.promise = Promise.resolve(true)
+          this.loader = true
         }
       })
   }

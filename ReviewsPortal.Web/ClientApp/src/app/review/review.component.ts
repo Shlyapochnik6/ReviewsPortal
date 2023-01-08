@@ -4,6 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { DetailedReviewModel } from "../../common/models/DetailedReviewModel";
 import { CommentModel } from "../../common/models/CommentModel";
 import { CommentService } from "../../common/services/hub/comment.service";
+import { firstValueFrom } from "rxjs";
+import {ReviewsService} from "../../common/services/reviews/reviews.service";
 
 @Component({
   selector: 'app-review',
@@ -14,19 +16,20 @@ import { CommentService } from "../../common/services/hub/comment.service";
 export class ReviewComponent implements OnInit {
 
   btnClass = "btn btn-secondary";
-  waiter!: Promise<boolean>;
   review!: DetailedReviewModel;
   reviewId: number = 0;
   grade: number = 0;
+  loader: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,
-              public commentService: CommentService) {
+              public commentService: CommentService,
+              private reviewsService: ReviewsService) {
     this.getReview()
     this.getAllComments()
   }
 
-  async ngOnInit(){
+  async ngOnInit(): Promise<void> {
     await this.commentService.startConnection(this.reviewId.toString());
     await this.commentService.getComment();
   }
@@ -63,19 +66,11 @@ export class ReviewComponent implements OnInit {
     comment.value = '';
   }
 
-  getReview() {
+  async getReview() {
     this.reviewId = this.activatedRoute.snapshot.params['id']
-    this.http.get<DetailedReviewModel>(`api/reviews?reviewId=${this.reviewId}`)
-      .subscribe({
-        next: data => {
-          this.review = data
-          this.waiter = Promise.resolve(true)
-        },
-        complete: () => {
-          this.grade = this.review.userRating
-          console.log(this.review.imagesUrl)
-        }
-      })
+    this.review = await firstValueFrom(this.reviewsService.getReviewById(this.reviewId));
+    this.grade = this.review.userRating;
+    this.loader = true;
   }
 
   onSetLike() {

@@ -11,11 +11,12 @@ export class CommentService {
   hubConnection!: HubConnection;
   comments: CommentModel[] = [];
 
-  async startConnection(reviewId: string) {
+  public async startConnection(reviewId: string): Promise<void> {
     this.hubConnection = new HubConnectionBuilder()
         .withUrl('/hub-comment')
         .build();
     await this.hubConnection.start();
+    this.hubConnection.serverTimeoutInMilliseconds = 600000;
     await this.hubConnection.invoke("ConnectToGroup", reviewId);
   }
 
