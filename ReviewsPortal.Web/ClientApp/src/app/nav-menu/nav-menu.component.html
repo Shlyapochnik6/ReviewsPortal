@@ -57,6 +57,15 @@
         </ul>
         <ul class="navbar-nav flex-grow">
           <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a class="nav-link text-dark" [routerLink]="['/logout']">{{ 'Header.Logout' | translate }}</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav flex-grow">
+          <li
             class="nav-item pointer"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"

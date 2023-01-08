@@ -53,4 +53,11 @@ export class AuthService {
         }
       }))
   }
+
+  logout() {
+    this.http.post(`api/user/logout`, {})
+      .subscribe({
+        next: () => this.router.navigate(['/login'])
+      })
+  }
 }
