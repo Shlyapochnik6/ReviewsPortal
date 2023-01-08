@@ -73,7 +73,8 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         var serviceProvider = services.BuildServiceProvider();
-        var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+        var userManager = serviceProvider
+            .GetRequiredService<UserManager<User>>();
         var roleManager = serviceProvider
             .GetRequiredService<RoleManager<IdentityRole<Guid>>>();
         await new RoleInitializer(roleManager).InitializeAsync();

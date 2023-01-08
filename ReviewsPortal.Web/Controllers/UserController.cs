@@ -55,11 +55,8 @@ public class UserController : BaseController
     [HttpGet("external-login")]
     public async Task<IActionResult> ExternalLogin(string provider)
     {
-        var query = new ExternalLoginQuery()
-        {
-            Provider = provider,
-            RedirectUrl = "/external-login-callback"
-        };
+        var query = new GetAuthenticationPropertiesQuery(provider,
+            "/external-login-callback");
         var properties = await Mediator.Send(query);
         return Challenge(properties, provider);
     }
