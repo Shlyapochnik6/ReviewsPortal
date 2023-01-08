@@ -20,7 +20,7 @@ export class RoleGuard implements CanActivate {
       .subscribe({
         next: value => {
           if (!value) {
-            this.router.navigate(['/']);
+            this.router.navigate(['/login']);
           }
         }
       })
