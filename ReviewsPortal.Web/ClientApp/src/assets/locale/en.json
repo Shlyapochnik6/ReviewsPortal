@@ -24,7 +24,10 @@
     "Show": "Show",
     "UserId": "Id",
     "UserName": "User name",
-    "Email": "Email"
+    "Email": "Email",
+    "DeleteUser": "Delete",
+    "BlockUser": "Block",
+    "UnblockUser": "Unblock"
   },
   "ReviewForm": {
     "CreateReview": "Create review",

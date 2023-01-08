@@ -2,6 +2,8 @@
 using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using ReviewsPortal.Application.Common.Consts;
+using ReviewsPortal.Application.Common.Exceptions;
 
 namespace ReviewsPortal.Application.CommandsQueries.User.Queries.ExternalLoginCallback;
 
@@ -27,6 +29,8 @@ public class ExternalLoginCallbackQueryHandler : IRequestHandler<ExternalLoginCa
         if (login.Succeeded)
             return Unit.Value;
         var user = await FindLocalUserByEmail(info) ?? await CreatLocalUser(info);
+        if (user.AccessLevel == UserAccessStatuses.Blocked)
+            throw new AccessDeniedException($"The user with id {user.Id} has been blocked!");
         await _userManager.AddLoginAsync(user, info);
         await _signInManager.SignInAsync(user, SaveCookies);
         return Unit.Value;

@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {map, Observable} from "rxjs";
 import {RoleModel} from "../../models/RoleModel";
 import {Roles} from "../../consts/Roles";
+import {UserModel} from "../../models/UserModel";
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,22 @@ export class AuthService {
           return true;
         }
       }))
+  }
+
+  getAllUsers(): Observable<UserModel[]> {
+    return this.http.get<UserModel[]>(`api/user/get-all`);
+  }
+
+  blockUser(userId: number): Observable<any> {
+    return this.http.post(`api/user/block/${userId}`, {});
+  }
+
+  unBlockUser(userId: number): Observable<any> {
+    return this.http.post(`api/user/unblock/${userId}`, {});
+  }
+
+  deleteUser(userId: number): Observable<any> {
+    return this.http.delete(`api/user/delete/${userId}`);
   }
 
   logout() {

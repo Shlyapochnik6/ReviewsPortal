@@ -77,6 +77,8 @@ public static class DependencyInjection
             .GetRequiredService<UserManager<User>>();
         var roleManager = serviceProvider
             .GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+        var reviewsPortalDbContext = serviceProvider
+            .GetRequiredService<IReviewsPortalDbContext>();
         await new RoleInitializer(roleManager).InitializeAsync();
         await new AdminInitializer(configuration, userManager).InitializeAsync();
     } 
