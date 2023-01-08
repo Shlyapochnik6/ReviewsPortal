@@ -20,6 +20,7 @@ public class AdminInitializer
     public async Task InitializeAsync()
     {
         var adminUser = CreateAdminUser(_configuration);
+        adminUser.AccessLevel = UserAccessStatuses.Unblocked;
         var admin = await _userManager.FindByEmailAsync(adminUser.Email!);
         if (admin == null)
         {

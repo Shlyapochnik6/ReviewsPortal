@@ -2,9 +2,11 @@
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ReviewsPortal.Web.Filters;
 
 namespace ReviewsPortal.Web.Controllers;
 
+[ServiceFilter(typeof(UserAccessLevelValidationFilter))]
 [ApiController]
 public class BaseController : ControllerBase
 {

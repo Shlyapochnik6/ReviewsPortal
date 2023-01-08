@@ -21,10 +21,14 @@
   },
   "AdminPage": {
     "Admin": "Админ",
+    "User": "Пользователь",
     "Show": "Показать",
     "UserId": "Идентификатор",
     "UserName": "Имя пользователя",
-    "Email": "Почта"
+    "Email": "Почта",
+    "DeleteUser": "Удалить",
+    "BlockUser": "Блокировать",
+    "UnblockUser": "Разблокировать"
   },
   "ReviewForm": {
     "CreateReview": "Создать обзор",

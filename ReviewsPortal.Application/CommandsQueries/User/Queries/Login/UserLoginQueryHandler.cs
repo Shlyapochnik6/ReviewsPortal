@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using ReviewsPortal.Application.Common.Consts;
 using ReviewsPortal.Application.Common.Exceptions;
 
 namespace ReviewsPortal.Application.CommandsQueries.User.Queries.Login;
@@ -18,8 +19,7 @@ public class UserLoginQueryHandler : IRequestHandler<UserLoginQuery, Unit>
     
     public async Task<Unit> Handle(UserLoginQuery request, CancellationToken cancellationToken)
     {
-        var user = await GetRegisteredUser(request);
-        await CheckEnteredPassword(request, user);
+        var user = await CheckUserAccessLevel(request);
         await _signInManager.SignInAsync(user, request.Remember);
         return Unit.Value;
     }
@@ -28,18 +28,23 @@ public class UserLoginQueryHandler : IRequestHandler<UserLoginQuery, Unit>
     {
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user == null)
-        {
             throw new UnfoundException(request.Email);
-        }
         return user;
     }
 
-    private async Task CheckEnteredPassword(UserLoginQuery request, Domain.User user)
+    private async Task<Domain.User> CheckUserAccessLevel(UserLoginQuery request)
     {
-        var password = await _userManager.CheckPasswordAsync(user, request.Password);
-        if (!password)
-        {
+        var user = await GetRegisteredUser(request);
+        await CheckEnteredPassword(user, request.Password);
+        if (user.AccessLevel == UserAccessStatuses.Blocked)
+            throw new AccessDeniedException($"The user with id {user.Id} has been blocked!");
+        return user;
+    }
+
+    private async Task CheckEnteredPassword(Domain.User user, string password)
+    {
+        var passwordCorrectness = await _userManager.CheckPasswordAsync(user, password);
+        if (!passwordCorrectness)
             throw new IncorrectPasswordException();
-        }
     }
 }

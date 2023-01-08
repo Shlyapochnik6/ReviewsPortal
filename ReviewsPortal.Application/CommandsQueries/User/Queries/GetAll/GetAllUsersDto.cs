@@ -6,6 +6,10 @@ namespace ReviewsPortal.Application.CommandsQueries.User.Queries.GetAll;
 public class GetAllUsersDto : IMapWith<Domain.User>
 {
     public Guid Id { get; set; }
+    
+    public string Role { get; set; }
+    
+    public string AccessLevels { get; set; }
 
     public string UserName { get; set; }
 
@@ -18,6 +22,8 @@ public class GetAllUsersDto : IMapWith<Domain.User>
                 o => o.MapFrom(u => u.Id))
             .ForMember(u => u.UserName,
                 o => o.MapFrom(u => u.UserName))
+            .ForMember(u => u.AccessLevels,
+                o => o.MapFrom(u => u.AccessLevel))
             .ForMember(u => u.Email,
                 o => o.MapFrom(u => u.Email));
     }

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AuthService} from "../../common/services/user/auth.service";
 import {UserModel} from "../../common/models/UserModel";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-admin',
@@ -13,6 +14,7 @@ import {UserModel} from "../../common/models/UserModel";
 export class AdminComponent implements OnInit {
 
   users!: UserModel[];
+  loader: boolean = false;
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -23,12 +25,40 @@ export class AdminComponent implements OnInit {
     this.getAllUsers();
   }
 
-  getAllUsers() {
-    this.http.get<UserModel[]>(`api/user/get-all`)
+  async getAllUsers() {
+    this.users = await firstValueFrom(this.userService.getAllUsers());
+    this.loader = true;
+  }
+
+  deleteUser(userId: number) {
+    this.http.delete(`api/user/${userId}`)
       .subscribe({
-        next: value => {
-          this.users = value;
-        }
+        complete: () => this.getAllUsers()
       })
+  }
+
+  async blockUser(userId: number) {
+    let user = this.users.find(user => user.id === userId);
+    if (user) {
+      user.accessLevels = 'Blocked';
+    }
+    await firstValueFrom(this.userService.blockUser(userId));
+    this.getAllUsers();
+  }
+
+  async unBlockUser(userId: number) {
+    let user = this.users.find(user => user.id === userId);
+    if (user) {
+      user.accessLevels = 'Unblocked';
+    }
+    await firstValueFrom(this.userService.unBlockUser(userId));
+    this.getAllUsers();
+  }
+
+  async setRole(userId: number, role: string) {
+    let user = this.users.find(user => user.id === userId)
+    if (user)
+      user.role = role
+    await firstValueFrom(this.userService.setUserRole(userId, role))
   }
 }

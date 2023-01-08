@@ -9,6 +9,7 @@ using ReviewsPortal.Application.Interfaces;
 using ReviewsPortal.Domain;
 using ReviewsPortal.Persistence;
 using ReviewsPortal.Persistence.Contexts;
+using ReviewsPortal.Web.Filters;
 using ReviewsPortal.Web.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,8 @@ builder.Services.AddAutoMapper(config =>
 
 builder.Services.AddApplication(builder.Configuration);
 await builder.Services.AddPersistence(builder.Configuration);
+
+builder.Services.AddScoped<UserAccessLevelValidationFilter>();
 
 builder.Services.AddCors(options =>
 {

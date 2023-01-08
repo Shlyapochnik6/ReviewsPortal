@@ -5,6 +5,8 @@ namespace ReviewsPortal.Persistence.Initializers;
 
 public class RoleInitializer
 {
+    private static readonly List<string> _roles = new() { Roles.Admin, Roles.User };
+    
     private readonly RoleManager<IdentityRole<Guid>> _roleManager;
 
     public RoleInitializer(RoleManager<IdentityRole<Guid>> roleManager)
@@ -14,8 +16,11 @@ public class RoleInitializer
 
     public async Task InitializeAsync()
     {
-        if (await _roleManager.RoleExistsAsync(Roles.Admin))
-            return;
-        await _roleManager.CreateAsync(new IdentityRole<Guid>(Roles.Admin));
+        foreach (var roleName in _roles)
+        {
+            var role = await _roleManager.FindByNameAsync(roleName);
+            if (role == null)
+                await _roleManager.CreateAsync(new IdentityRole<Guid>(roleName));
+        }
     }
 }

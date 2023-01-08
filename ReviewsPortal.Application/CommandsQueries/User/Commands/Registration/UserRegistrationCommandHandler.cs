@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ReviewsPortal.Application.Common.Consts;
 using ReviewsPortal.Application.Common.Exceptions;
 using ReviewsPortal.Application.Interfaces;
 
@@ -26,7 +27,8 @@ public class UserRegistrationCommandHandler : IRequestHandler<UserRegistrationCo
     public async Task<Unit> Handle(UserRegistrationCommand request, CancellationToken cancellationToken)
     {
         var existingUser = await GetExistingUser(request, cancellationToken);
-        if (existingUser) throw new ExistingUserException();
+        if (existingUser) 
+            throw new ExistingUserException();
         await RegisterUser(request);
         return Unit.Value;
     }
@@ -42,7 +44,9 @@ public class UserRegistrationCommandHandler : IRequestHandler<UserRegistrationCo
     private async Task RegisterUser(UserRegistrationCommand request)
     {
         var user = _mapper.Map<Domain.User>(request);
+        user.AccessLevel = UserAccessStatuses.Unblocked;
         await _userManager.CreateAsync(user, request.Password);
+        await _userManager.AddToRoleAsync(user, Roles.User);
         await _signInManager.SignInAsync(user, request.Remember);
     }
 }
