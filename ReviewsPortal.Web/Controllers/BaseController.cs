@@ -8,13 +8,13 @@ namespace ReviewsPortal.Web.Controllers;
 [ApiController]
 public class BaseController : ControllerBase
 {
-    protected readonly IMapper _mapper;
-    protected readonly IMediator _mediator;
+    protected readonly IMapper Mapper;
+    protected readonly IMediator Mediator;
 
     public BaseController(IMapper mapper, IMediator mediator)
     {
-        _mapper = mapper;
-        _mediator = mediator;
+        Mapper = mapper;
+        Mediator = mediator;
     }
 
     protected Guid UserId => User.Identity!.IsAuthenticated

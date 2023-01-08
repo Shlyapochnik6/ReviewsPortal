@@ -30,8 +30,8 @@ public class UserController : BaseController
     [HttpPost("registration")]
     public async Task<IActionResult> SigningOn([FromBody] UserRegistrationDto dto)
     {
-        var command = _mapper.Map<UserRegistrationCommand>(dto);
-        await _mediator.Send(command);
+        var command = Mapper.Map<UserRegistrationCommand>(dto);
+        await Mediator.Send(command);
         return Ok();
     }
 
@@ -39,8 +39,8 @@ public class UserController : BaseController
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] UserLoginDto dto)
     {
-        var query = _mapper.Map<UserLoginQuery>(dto);
-        await _mediator.Send(query);
+        var query = Mapper.Map<UserLoginQuery>(dto);
+        await Mediator.Send(query);
         return Ok();
     }
 
@@ -60,7 +60,7 @@ public class UserController : BaseController
             Provider = provider,
             RedirectUrl = "/external-login-callback"
         };
-        var properties = await _mediator.Send(query);
+        var properties = await Mediator.Send(query);
         return Challenge(properties, provider);
     }
 
@@ -69,7 +69,7 @@ public class UserController : BaseController
     public async Task<IActionResult> ExternalLoginCallback()
     {
         var query = new ExternalLoginCallbackQuery();
-        await _mediator.Send(query);
+        await Mediator.Send(query);
         return Ok();
     }
 
@@ -78,7 +78,7 @@ public class UserController : BaseController
     public async Task<ActionResult<IEnumerable<GetAllUsersDto>>> GetAll()
     {
         var query = new GetAllUsersQuery();
-        var users = await _mediator.Send(query);
+        var users = await Mediator.Send(query);
         return users.ToList();
     }
 
