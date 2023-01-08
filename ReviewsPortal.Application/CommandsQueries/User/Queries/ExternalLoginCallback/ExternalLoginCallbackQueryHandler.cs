@@ -53,6 +53,7 @@ public class ExternalLoginCallbackQueryHandler : IRequestHandler<ExternalLoginCa
             UserName = info.Principal.FindFirstValue(ClaimTypes.Name),
             Email = info.Principal.FindFirstValue(ClaimTypes.Email)
         };
+        user.AccessLevel = UserAccessStatuses.Unblocked;
         var result = await _userManager.CreateAsync(user);
         if (!result.Succeeded)
         {
