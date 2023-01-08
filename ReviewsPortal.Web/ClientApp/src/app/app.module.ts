@@ -34,6 +34,7 @@ import {AuthErrorsInterceptor} from "../common/interceptors/auth.errors.intercep
 import {AdminComponent} from "./admin/admin.component";
 import {RoleGuard} from "../common/guards/role.guard";
 import {SearchComponent} from "./search/search.component";
+import {LogoutComponent} from "./logout/logout.component";
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {SearchComponent} from "./search/search.component";
     RegistrationComponent,
     LoginComponent,
     LoginCallbackComponent,
+    LogoutComponent,
     ExternalLoginComponent,
     CreateReviewComponent,
     UpdateReviewComponent,
@@ -66,6 +68,7 @@ import {SearchComponent} from "./search/search.component";
       {path: 'fetch-data', component: FetchDataComponent},
       {path: 'registration', component: RegistrationComponent},
       {path: 'login', component: LoginComponent},
+      {path: 'logout', component: LogoutComponent},
       {path: 'create-review', component: CreateReviewComponent, canActivate: [AuthGuard]},
       {path: 'create-review/:userid', component: CreateReviewComponent, canActivate: [AuthGuard, RoleGuard]},
       {path: 'external-login-callback', component: LoginCallbackComponent},

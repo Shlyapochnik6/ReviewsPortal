@@ -44,6 +44,13 @@ public class UserController : BaseController
         return Ok();
     }
 
+    [HttpPost("logout")]
+    public async Task<ActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
+        return Ok();
+    }
+
     [AllowAnonymous]
     [HttpGet("external-login")]
     public async Task<IActionResult> ExternalLogin(string provider)
