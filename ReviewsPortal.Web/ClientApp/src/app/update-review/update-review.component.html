@@ -1,2 +1,2 @@
-﻿<app-review-form (onSubmitReview)="onSubmit()" [reviewForm]="reviewForm" [tags]="tags"
+﻿<app-review-form *ngIf="loader" (onSubmitReview)="onSubmit()" [reviewForm]="reviewForm" [tags]="tags"
   [categoryName]="reviewForm.get('categoryName')!.value"></app-review-form>

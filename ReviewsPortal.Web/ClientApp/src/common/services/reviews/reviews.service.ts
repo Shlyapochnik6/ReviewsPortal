@@ -8,6 +8,7 @@ import {AllUserReviewsModel} from "../../models/AllUserReviewsModel";
 import * as http from "http";
 import {FormControl, FormGroup} from "@angular/forms";
 import {dataToForm} from "../../functions/dataToForm";
+import {DetailedReviewModel} from "../../models/DetailedReviewModel";
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,10 @@ export class ReviewsService {
       this.sorting = 'recently-added';
       this.tag = undefined;
     }
+  }
+
+  getReviewById(reviewId: number): Observable<DetailedReviewModel> {
+    return this.http.get<DetailedReviewModel>(`api/reviews?reviewId=${reviewId}`);
   }
 
   async setParameters(sorting?: string | null, tag?: string | undefined) {
