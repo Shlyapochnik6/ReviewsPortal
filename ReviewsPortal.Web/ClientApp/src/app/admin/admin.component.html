@@ -12,18 +12,28 @@
       <tbody>
       <tr>
         <td style="width: 40%;">
-          <button [routerLink]="['/personal-page', user.id]" class="btn btn-primary">
-            {{'AdminPage.Show' | translate}}
-          </button>
-          <button (click)="deleteUser(user.id)" class="btn btn-danger">
-            {{'AdminPage.DeleteUser' | translate}}
-          </button>
-          <button (click)="blockUser(user.id)" class="btn btn-primary">
-            {{'AdminPage.BlockUser' | translate}}
-          </button>
-          <button (click)="unBlockUser(user.id)" class="btn btn-primary">
-            {{'AdminPage.UnblockUser' | translate}}
-          </button>
+          <div class="flex-item">
+            <button [routerLink]="['/personal-page', user.id]" class="btn btn-primary">
+              {{'AdminPage.Show' | translate}}
+            </button>
+            <button type="button" (click)="deleteUser(user.id)" class="btn btn-danger">
+              {{'AdminPage.DeleteUser' | translate}}
+            </button>
+            <button (click)="blockUser(user.id)" class="btn btn-primary">
+              {{'AdminPage.BlockUser' | translate}}
+            </button>
+            <button (click)="unBlockUser(user.id)" class="btn btn-primary">
+              {{'AdminPage.UnblockUser' | translate}}
+            </button>
+          </div>
+          <div class="flex-item">
+            <button (click)="setRole(user.id, 'admin')" type="button" class="btn btn-primary">
+              {{'AdminPage.Admin' | translate}}
+            </button>
+            <button (click)="setRole(user.id, 'user')" type="button" class="btn btn-primary">
+              {{'AdminPage.User' | translate}}
+            </button>
+          </div>
         </td>
         <td style="width: 20%;">{{user.id}}</td>
         <td style="width: 15%;">{{user.userName}}</td>

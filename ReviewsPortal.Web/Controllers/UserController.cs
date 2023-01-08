@@ -7,6 +7,7 @@ using ReviewsPortal.Application.CommandsQueries.ExternalLogin.Queries;
 using ReviewsPortal.Application.CommandsQueries.User.Commands.Block;
 using ReviewsPortal.Application.CommandsQueries.User.Commands.Delete;
 using ReviewsPortal.Application.CommandsQueries.User.Commands.Registration;
+using ReviewsPortal.Application.CommandsQueries.User.Commands.SetRole;
 using ReviewsPortal.Application.CommandsQueries.User.Commands.Unblock;
 using ReviewsPortal.Application.CommandsQueries.User.Queries.ExternalLoginCallback;
 using ReviewsPortal.Application.CommandsQueries.User.Queries.GetAll;
@@ -14,6 +15,7 @@ using ReviewsPortal.Application.CommandsQueries.User.Queries.Login;
 using ReviewsPortal.Application.Common.Consts;
 using ReviewsPortal.Domain;
 using ReviewsPortal.Web.Models;
+using ReviewsPortal.Web.Models.User;
 
 namespace ReviewsPortal.Web.Controllers;
 
@@ -116,10 +118,19 @@ public class UserController : BaseController
     }
     
     [Authorize(Roles = Roles.Admin)]
-    [HttpDelete("delete/{userId:guid}")]
+    [HttpDelete("{userId:guid}")]
     public async Task<ActionResult> Delete(Guid userId)
     {
         var command = new DeleteUserCommand(userId);
+        await Mediator.Send(command);
+        return Ok();
+    }
+
+    [Authorize(Roles = Roles.Admin)]
+    [HttpPost("set-role")]
+    public async Task<ActionResult> SetRole(SetRoleDto dto)
+    {
+        var command = Mapper.Map<SetUserRoleCommand>(dto);
         await Mediator.Send(command);
         return Ok();
     }

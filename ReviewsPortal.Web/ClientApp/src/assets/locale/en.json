@@ -21,6 +21,7 @@
   },
   "AdminPage": {
     "Admin": "Admin",
+    "User": "User",
     "Show": "Show",
     "UserId": "Id",
     "UserName": "User name",

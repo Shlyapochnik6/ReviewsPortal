@@ -71,6 +71,10 @@ export class AuthService {
     return this.http.delete(`api/user/delete/${userId}`);
   }
 
+  setUserRole(userId: number, role: string): Observable<any> {
+    return this.http.post(`api/user/set-role`, {userId, role})
+  }
+
   logout() {
     this.http.post(`api/user/logout`, {})
       .subscribe({

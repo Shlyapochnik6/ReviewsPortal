@@ -31,9 +31,10 @@ export class AdminComponent implements OnInit {
   }
 
   deleteUser(userId: number) {
-    this.userService.deleteUser(userId);
-    this.users = this.users.filter(user => user.id !== userId);
-    this.loader = true;
+    this.http.delete(`api/user/${userId}`)
+      .subscribe({
+        complete: () => this.getAllUsers()
+      })
   }
 
   async blockUser(userId: number) {
@@ -52,5 +53,12 @@ export class AdminComponent implements OnInit {
     }
     await firstValueFrom(this.userService.unBlockUser(userId));
     this.getAllUsers();
+  }
+
+  async setRole(userId: number, role: string) {
+    let user = this.users.find(user => user.id === userId)
+    if (user)
+      user.role = role
+    await firstValueFrom(this.userService.setUserRole(userId, role))
   }
 }
