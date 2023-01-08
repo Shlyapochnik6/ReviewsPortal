@@ -20,9 +20,9 @@ public class RatingController : BaseController
     [HttpPost]
     public async Task<ActionResult> Set([FromBody] SetRatingDto dto)
     {
-        var command = _mapper.Map<SetRatingCommand>(dto);
+        var command = Mapper.Map<SetRatingCommand>(dto);
         command.UserId = UserId;
-        await _mediator.Send(command);
+        await Mediator.Send(command);
         return Ok();
     }
 }

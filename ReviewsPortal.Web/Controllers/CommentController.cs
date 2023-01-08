@@ -22,16 +22,16 @@ public class CommentController : BaseController
     public async Task<ActionResult<IEnumerable<GetAllCommentsDto>>> GetAll(Guid reviewId)
     {
         var query = new GetAllCommentsQuery(reviewId);
-        var comments = await _mediator.Send(query);
+        var comments = await Mediator.Send(query);
         return Ok(comments);
     }
     
     [HttpPost]
     public async Task<ActionResult<Guid>> Create([FromBody] CreateCommentDto dto)
     {
-        var query = _mapper.Map<CreateCommentCommand>(dto);
+        var query = Mapper.Map<CreateCommentCommand>(dto);
         query.UserId = UserId;
-        var commentId = await _mediator.Send(query);
+        var commentId = await Mediator.Send(query);
         return Ok(commentId);
     }
 }

@@ -10,7 +10,7 @@ public class ExternalLoginCallbackQueryHandler : IRequestHandler<ExternalLoginCa
     private readonly SignInManager<Domain.User> _signInManager;
     private readonly UserManager<Domain.User> _userManager;
     
-    private const bool SaveCookies = false;
+    private const bool SaveCookies = true;
 
     public ExternalLoginCallbackQueryHandler(SignInManager<Domain.User> signInManager,
         UserManager<Domain.User> userManager)
@@ -23,7 +23,7 @@ public class ExternalLoginCallbackQueryHandler : IRequestHandler<ExternalLoginCa
     {
         var info = await _signInManager.GetExternalLoginInfoAsync();
         var login = await _signInManager.ExternalLoginSignInAsync(info!.LoginProvider, 
-            info.ProviderKey, isPersistent: true);
+            info.ProviderKey, SaveCookies, bypassTwoFactor: true);
         if (login.Succeeded)
             return Unit.Value;
         var user = await FindLocalUserByEmail(info) ?? await CreatLocalUser(info);

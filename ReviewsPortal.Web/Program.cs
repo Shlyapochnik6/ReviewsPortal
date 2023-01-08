@@ -48,19 +48,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-using (var scope = builder.Services.BuildServiceProvider().CreateScope())
-{
-    var provider = scope.ServiceProvider;
-    try
-    {
-        var context = provider.GetRequiredService<ReviewsPortalDbContext>();
-    }
-    catch (Exception e)
-    {
-        throw;
-    }
-}
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseHsts();

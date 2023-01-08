@@ -30,7 +30,7 @@ public class ReviewController : BaseController
     public async Task<ActionResult<GetReviewDto>> Get(Guid reviewId)
     {
         var query = new GetReviewDtoQuery(reviewId, UserId);
-        var reviewDto = await _mediator.Send(query);
+        var reviewDto = await Mediator.Send(query);
         return Ok(reviewDto);
     }
 
@@ -38,7 +38,7 @@ public class ReviewController : BaseController
     public async Task<ActionResult<IEnumerable<GetAllUserReviewsDto>>> GetByCurrentUser()
     {
         var query = new GetAllReviewsByUserIdQuery(UserId);
-        var userReviews = await _mediator.Send(query);
+        var userReviews = await Mediator.Send(query);
         return Ok(userReviews);
     }
     
@@ -47,7 +47,7 @@ public class ReviewController : BaseController
     public async Task<ActionResult<IEnumerable<GetAllUserReviewsDto>>> GetByCurrentUser(Guid userId)
     {
         var query = new GetAllReviewsByUserIdQuery(userId);
-        var userReviews = await _mediator.Send(query);
+        var userReviews = await Mediator.Send(query);
         return Ok(userReviews);
     }
     
@@ -57,7 +57,7 @@ public class ReviewController : BaseController
         string? tag)
     {
         var query = new SortSelectionQuery(sorting, tag);
-        var reviews = await _mediator.Send(query);
+        var reviews = await Mediator.Send(query);
         return Ok(reviews);
     }
 
@@ -65,16 +65,16 @@ public class ReviewController : BaseController
     public async Task<ActionResult<GetUpdatedReviewDto>> GetUpdatedReview(Guid reviewId)
     {
         var query = new GetUpdatedReviewQuery(reviewId);
-        var reviewDto = await _mediator.Send(query);
+        var reviewDto = await Mediator.Send(query);
         return Ok(reviewDto);
     }
 
     [HttpPost, DisableRequestSizeLimit]
     public async Task<IActionResult> Create([FromForm] CreateReviewDto dto)
     {
-        var command = _mapper.Map<CreateReviewCommand>(dto);
+        var command = Mapper.Map<CreateReviewCommand>(dto);
         command.UserId = UserId;
-        var reviewId = await _mediator.Send(command);
+        var reviewId = await Mediator.Send(command);
         return Created("api/reviews", reviewId);
     }
     
@@ -82,17 +82,17 @@ public class ReviewController : BaseController
     [HttpPost("{userId:guid}"), DisableRequestSizeLimit]
     public async Task<IActionResult> Create(Guid userId, [FromForm] CreateReviewDto dto)
     {
-        var command = _mapper.Map<CreateReviewCommand>(dto);
+        var command = Mapper.Map<CreateReviewCommand>(dto);
         command.UserId = userId;
-        var reviewId = await _mediator.Send(command);
+        var reviewId = await Mediator.Send(command);
         return Created("api/reviews", reviewId);
     }
     
     [HttpPut, DisableRequestSizeLimit]
     public async Task<ActionResult> Update([FromForm] UpdateReviewDto dto)
     {
-        var command = _mapper.Map<UpdateReviewCommand>(dto);
-        await _mediator.Send(command);
+        var command = Mapper.Map<UpdateReviewCommand>(dto);
+        await Mediator.Send(command);
         return Ok();
     }
 
@@ -100,7 +100,7 @@ public class ReviewController : BaseController
     public async Task<ActionResult> Delete(Guid reviewId)
     {
         var command = new DeleteReviewCommand(reviewId);
-        await _mediator.Send(command);
+        await Mediator.Send(command);
         return Ok();
     }
 

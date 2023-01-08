@@ -19,9 +19,9 @@ public class LikeController : BaseController
     [HttpPost]
     public async Task<ActionResult> Set([FromBody] SetLikeDto dto)
     {
-        var command = _mapper.Map<SetLikeCommand>(dto);
+        var command = Mapper.Map<SetLikeCommand>(dto);
         command.UserId = UserId;
-        await _mediator.Send(command);
+        await Mediator.Send(command);
         return Ok();
     }
 }

@@ -5,19 +5,19 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ReviewsPortal.Application.CommandsQueries.ExternalLogin.Queries;
 
-public class ExternalLoginQueryHandler : IRequestHandler<ExternalLoginQuery, AuthenticationProperties>
+public class GetAuthenticationPropertiesQueryHandler : IRequestHandler<GetAuthenticationPropertiesQuery, AuthenticationProperties>
 {
     private readonly SignInManager<Domain.User> _signInManager;
     private readonly UserManager<Domain.User> _userManager;
 
-    public ExternalLoginQueryHandler(SignInManager<Domain.User> signInManager,
+    public GetAuthenticationPropertiesQueryHandler(SignInManager<Domain.User> signInManager,
         UserManager<Domain.User> userManager)
     {
         _signInManager = signInManager;
         _userManager = userManager;
     }
 
-    public Task<AuthenticationProperties> Handle(ExternalLoginQuery request, CancellationToken cancellationToken)
+    public Task<AuthenticationProperties> Handle(GetAuthenticationPropertiesQuery request, CancellationToken cancellationToken)
     {
         var properties =
             _signInManager.ConfigureExternalAuthenticationProperties(request.Provider, request.RedirectUrl);

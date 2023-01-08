@@ -32,12 +32,8 @@ public static class DependencyInjection
         services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultSignOutScheme = IdentityConstants.ApplicationScheme;
-            })
-            .AddCookie(options =>
-            {
-                options.LoginPath = "/login";
             })
             .AddGoogleOAuthConfiguration(configuration)
             .AddMailRuOAuthConfiguration(configuration);

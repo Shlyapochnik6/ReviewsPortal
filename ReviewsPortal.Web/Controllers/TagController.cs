@@ -16,7 +16,7 @@ public class TagController : BaseController
     public async Task<ActionResult<IEnumerable<TagDto>>> GetAll()
     {
         var query = new GetAllTagsQuery();
-        var tags = await _mediator.Send(query);
+        var tags = await Mediator.Send(query);
         return Ok(tags);
     }
 }
